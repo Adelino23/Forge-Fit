@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: linear-gradient(90deg, #000, #111);
+    padding: 25px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #ff2d2d;
+    border-bottom: 2px solid #222;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #111;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 17px;
+    transition: 0.2s;
+}
+nav a:hover {
+    background: #ff2d2d;
+    border-color: #ff2d2d;
+}
+
+section {
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+h2 {
+    border-left: 4px solid #ff2d2d;
+    padding-left: 10px;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.exercice {
+    background: #111;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #222;
+    font-size: 16px;
+}
+
+button {
+    background: #ff2d2d;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background: #d82020;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: #111;
+    color: #555;
+    font-size: 14px;
+}
