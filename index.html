@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Forge & Fit – Atteins ta meilleure version</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <style>
     body {
         margin: 0;
@@ -11,143 +13,198 @@
         color: white;
         font-family: Arial, sans-serif;
     }
+
     header {
-        background: #000;
-        padding: 20px;
+        background: linear-gradient(90deg, #000, #111);
+        padding: 25px;
         text-align: center;
-        font-size: 28px;
+        font-size: 32px;
         font-weight: bold;
         letter-spacing: 2px;
+        color: #ff2d2d;
+        border-bottom: 2px solid #222;
     }
+
     nav {
         display: flex;
         justify-content: center;
         gap: 20px;
-        padding: 15px;
         background: #111;
+        padding: 15px;
+        flex-wrap: wrap;
     }
+
     nav a {
         color: white;
         text-decoration: none;
-        font-size: 18px;
-        padding: 8px 12px;
         border: 1px solid #333;
-        border-radius: 5px;
-        transition: 0.3s;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 17px;
+        transition: 0.2s;
     }
     nav a:hover {
-        background: #333;
+        background: #ff2d2d;
+        border-color: #ff2d2d;
     }
+
     section {
         padding: 30px;
+        max-width: 900px;
+        margin: auto;
     }
+
     h2 {
-        border-left: 4px solid red;
+        border-left: 4px solid #ff2d2d;
         padding-left: 10px;
+        font-size: 24px;
+        margin-bottom: 15px;
     }
+
     .exercice {
         background: #111;
         padding: 15px;
-        border-radius: 8px;
         margin-bottom: 10px;
+        border-radius: 8px;
         border: 1px solid #222;
+        font-size: 16px;
+    }
+
+    /* Bouton */
+    button {
+        background: #ff2d2d;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #d82020;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 20px;
+        background: #111;
+        color: #555;
+        font-size: 14px;
     }
 </style>
 </head>
+
 <body>
 
 <header>FORGE & FIT</header>
 
 <nav>
     <a href="#accueil">Accueil</a>
-    <a href="#prise-masse">Prise de Masse</a>
-    <a href="#perte-gras">Perte de Gras</a>
+    <a href="#prise-masse">Prise de masse</a>
+    <a href="#perte-gras">Perte de gras</a>
     <a href="#exercices">Exercices</a>
-    <a href="#plan">Plan Personnalisé</a>
+    <a href="#plan">Plan personnalisé</a>
 </nav>
 
 <section id="accueil">
     <h2>Atteins ta meilleure version</h2>
-    <p>Bienvenue sur Forge & Fit, ton nouveau guide ultime pour transformer ton corps et ton esprit. 
-    Que tu veuilles prendre du muscle, perdre du gras ou devenir un athlète complet : tout commence ici.</p>
+    <p>
+        Bienvenue sur <b>Forge & Fit</b>, l’endroit où ton évolution commence.  
+        Musculation, transformation physique, motivation : ici tu deviens la version la plus forte de toi-même.
+    </p>
 </section>
 
 <section id="prise-masse">
-    <h2>Prise de Masse</h2>
-    <p>Conseils, programmes et nutrition adaptés pour prendre du muscle proprement.</p>
+    <h2>Prise de masse</h2>
+    <p>
+        ➤ Programmes adaptés<br>
+        ➤ Astuces nutrition<br>
+        ➤ Entraînements optimisés pour progresser rapidement<br>
+    </p>
 </section>
 
 <section id="perte-gras">
-    <h2>Perte de Gras</h2>
-    <p>Stratégies efficaces pour brûler du gras sans perdre ta masse musculaire.</p>
+    <h2>Perte de gras</h2>
+    <p>
+        ➤ Brûle du gras sans perdre du muscle<br>
+        ➤ Conseils cardio & HIIT<br>
+        ➤ Nutrition ciblée<br>
+    </p>
 </section>
 
 <section id="exercices">
-    <h2>Exercices (première liste)</h2>
+    <h2>Exercices (10 sur 150)</h2>
 
-    <div class="exercice">Développé couché – Pectoraux</div>
-    <div class="exercice">Squat barre – Jambes</div>
-    <div class="exercice">Tractions – Dos</div>
-    <div class="exercice">Développé militaire – Épaules</div>
-    <div class="exercice">Soulevé de terre – Dos / Jambes</div>
-    <div class="exercice">Curl haltères – Biceps</div>
-    <div class="exercice">Barre au front – Triceps</div>
-    <div class="exercice">Fentes marchées – Jambes</div>
-    <div class="exercice">Rowing barre – Dos</div>
-    <div class="exercice">Élévations latérales – Épaules</div>
+    <div class="exercice">🏋️‍♂️ Développé couché – Pectoraux</div>
+    <div class="exercice">🏋️‍♂️ Squat barre – Jambes</div>
+    <div class="exercice">🏋️‍♂️ Tractions – Dos</div>
+    <div class="exercice">🏋️‍♂️ Développé militaire – Épaules</div>
+    <div class="exercice">🏋️‍♂️ Soulevé de terre – Dos / Jambes</div>
+    <div class="exercice">🏋️‍♂️ Curl haltères – Biceps</div>
+    <div class="exercice">🏋️‍♂️ Barre au front – Triceps</div>
+    <div class="exercice">🏋️‍♂️ Fentes marchées – Jambes</div>
+    <div class="exercice">🏋️‍♂️ Rowing barre – Dos</div>
+    <div class="exercice">🏋️‍♂️ Élévations latérales – Épaules</div>
 
-    <p>Je peux ajouter les 150+ exercices ensuite.</p>
+    <p style="opacity:0.6;font-size:14px;">(Je peux ajouter les 150 exercices dès que tu veux.)</p>
 </section>
 
 <section id="plan">
-    <h2>Générateur de Plan Personnalisé</h2>
-    <p>Réponds aux questions et ton plan apparaîtra ici !</p>
+    <h2>Générateur de plan personnalisé</h2>
+    <p>Remplis et Forge & Fit crée ton plan instantanément 🔥</p>
 
     <form onsubmit="event.preventDefault(); genererPlan();">
-        <label>Objectif :</label><br>
+        <label>Ton objectif :</label><br>
         <select id="objectif">
             <option value="prise">Prise de masse</option>
             <option value="perte">Perte de gras</option>
-        </select><br><br>
+        </select>
+        <br><br>
 
         <label>Niveau :</label><br>
         <select id="niveau">
             <option value="debutant">Débutant</option>
             <option value="intermediaire">Intermédiaire</option>
             <option value="avance">Avancé</option>
-        </select><br><br>
+        </select>
+        <br><br>
 
         <button type="submit">Générer mon plan</button>
     </form>
 
-    <h3>Ton plan :</h3>
-    <div id="resultat" style="background:#111;padding:15px;border-radius:8px;"></div>
-
+    <h3 style="margin-top:25px;">Ton plan :</h3>
+    <div id="resultat" style="background:#111;padding:15px;border-radius:8px;min-height:50px;"></div>
 </section>
 
 <script>
 function genererPlan() {
-    let obj = document.getElementById("objectif").value;
-    let niv = document.getElementById("niveau").value;
-    let txt = "";
+    const obj = document.getElementById("objectif").value;
+    const niv = document.getElementById("niveau").value;
+    let plan = "";
 
     if (obj === "prise") {
-        txt += "<b>Objectif : Prise de masse</b><br>";
-        if (niv === "debutant") txt += "→ Programme 3 jours : Full-body + charges progressives";
-        if (niv === "intermediaire") txt += "→ Programme 4 jours : Haut / Bas";
-        if (niv === "avance") txt += "→ Programme 5 jours : Split complet";
+        plan += "<b>Objectif : Prise de masse</b><br>";
+        if (niv === "debutant") plan += "→ Programme 3 jours : Full-body + charges progressives";
+        if (niv === "intermediaire") plan += "→ Programme 4 jours : Haut / Bas";
+        if (niv === "avance") plan += "→ Programme 5 jours : Split complet + surcharge progressive";
     }
 
     if (obj === "perte") {
-        txt += "<b>Objectif : Perte de gras</b><br>";
-        if (niv === "debutant") txt += "→ Programme 3 jours : Full-body + cardio léger";
-        if (niv === "intermediaire") txt += "→ Programme 4 jours : Force + HIIT";
-        if (niv === "avance") txt += "→ Programme 5 jours : Split + cardio quotidien";
+        plan += "<b>Objectif : Perte de gras</b><br>";
+        if (niv === "debutant") plan += "→ Programme 3 jours : Full-body + cardio léger";
+        if (niv === "intermediaire") plan += "→ Programme 4 jours : Force + HIIT";
+        if (niv === "avance") plan += "→ Programme 5 jours : Split + HIIT + cardio quotidien";
     }
 
-    document.getElementById("resultat").innerHTML = txt;
+    document.getElementById("resultat").innerHTML = plan;
 }
 </script>
+
+<footer>
+    Forge & Fit © 2025 — Transforme-toi. Deviendra le meilleur.
+</footer>
 
 </body>
 </html>
