@@ -6,52 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Quiz Forge & Fit : réponds aux questions et reçois un plan d'entraînement et de nutrition ultra complet, adapté à ton profil.">
   <link rel="stylesheet" href="style.css">
-  <!-- jsPDF pour télécharger le plan en PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <style>
-    .quiz-container {
-      max-width: 960px;
-      margin: auto;
-    }
-    .step {
-      display: none;
-    }
-    .step.active {
-      display: block;
-    }
-    .quiz-progress {
-      font-size: 13px;
-      opacity: 0.8;
-      margin-bottom: 8px;
-    }
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 14px;
-    }
-    .pill-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .pill {
-      border-radius: 999px;
-      padding: 8px 14px;
-      border: 1px solid #303040;
-      background: #101018;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .pill.selected {
-      background: #ff3131;
-      border-color: #ff3131;
-    }
-    #btn-pdf {
-      margin-top: 12px;
-    }
+    .step { display: none; }
+    .active { display: block; }
+    .pill { padding: 10px; margin: 5px; border: 1px solid #444; border-radius: 8px; cursor: pointer; display: inline-block; }
+    .pill.selected { background: red; color: white; border-color: red; }
+    .card { padding: 15px; margin-top: 15px; border: 1px solid #333; border-radius: 8px; }
   </style>
 </head>
+
 <body>
 
 <header>PLAN PERSONNALISÉ</header>
@@ -64,100 +28,140 @@
   <a href="plan.html">Plan personnalisé</a>
 </nav>
 
-<section class="quiz-container">
-  <h2>Quiz Forge & Fit – Plan ultra complet</h2>
-  <div class="card">
-    <p>Réponds à quelques questions, et Forge & Fit va générer un <b>plan d’entraînement + nutrition ultra complet</b>, adapté à ton profil.</p>
-    <p class="quiz-progress" id="progress">Étape 1 / 7</p>
-  </div>
+<section>
+  <h2>Quiz Forge & Fit</h2>
 
-  <!-- Étapes du quiz -->
-  <div class="card step active" data-step="1">
-    <h3>1. Quel est ton objectif principal ?</h3>
-    <div class="pill-options" id="objectif-pills">
-      <button type="button" class="pill" data-value="prise">💪 Prise de masse</button>
-      <button type="button" class="pill" data-value="perte">🔥 Perte de gras</button>
-      <button type="button" class="pill" data-value="recomp">⚡ Recomposition (perte de gras + un peu de muscle)</button>
+  <p id="progress">Étape 1 / 7</p>
+
+  <!-- ÉTAPE 1 -->
+  <div class="step active" data-step="1">
+    <h3>Quel est ton objectif ?</h3>
+    <div id="objectif-pills">
+      <span class="pill" data-value="prise">💪 Prise de masse</span>
+      <span class="pill" data-value="perte">🔥 Perte de gras</span>
+      <span class="pill" data-value="recomp">⚡ Recomposition</span>
     </div>
     <input type="hidden" id="objectif">
   </div>
 
-  <div class="card step" data-step="2">
-    <h3>2. Ton niveau actuel ?</h3>
-    <div class="pill-options" id="niveau-pills">
-      <button type="button" class="pill" data-value="debutant">🟢 Débutant</button>
-      <button type="button" class="pill" data-value="intermediaire">🟡 Intermédiaire</button>
-      <button type="button" class="pill" data-value="avance">🔴 Avancé</button>
+  <!-- ÉTAPE 2 -->
+  <div class="step" data-step="2">
+    <h3>Niveau actuel ?</h3>
+    <div id="niveau-pills">
+      <span class="pill" data-value="debutant">🟢 Débutant</span>
+      <span class="pill" data-value="intermediaire">🟡 Intermédiaire</span>
+      <span class="pill" data-value="avance">🔴 Avancé</span>
     </div>
     <input type="hidden" id="niveau">
   </div>
 
-  <div class="card step" data-step="3">
-    <h3>3. Combien de jours par semaine peux-tu t'entraîner ?</h3>
-    <div class="pill-options" id="jours-pills">
-      <button type="button" class="pill" data-value="3">3 jours</button>
-      <button type="button" class="pill" data-value="4">4 jours</button>
-      <button type="button" class="pill" data-value="5">5 jours</button>
-      <button type="button" class="pill" data-value="6">6 jours</button>
+  <!-- ÉTAPE 3 -->
+  <div class="step" data-step="3">
+    <h3>Combien de jours par semaine ?</h3>
+    <div id="jours-pills">
+      <span class="pill" data-value="3">3 jours</span>
+      <span class="pill" data-value="4">4 jours</span>
+      <span class="pill" data-value="5">5 jours</span>
+      <span class="pill" data-value="6">6 jours</span>
     </div>
     <input type="hidden" id="jours">
   </div>
 
-  <div class="card step" data-step="4">
-    <h3>4. Quel matériel as-tu à disposition ?</h3>
-    <p>(Tu peux choisir plusieurs options)</p>
-    <div class="pill-options" id="materiel-pills">
-      <button type="button" class="pill" data-value="salle">🏋️‍♂️ Salle de musculation</button>
-      <button type="button" class="pill" data-value="halteres">🏋️ Haltères</button>
-      <button type="button" class="pill" data-value="barre">🦾 Barre + poids</button>
-      <button type="button" class="pill" data-value="poids-corps">🤸‍♂️ Poids du corps</button>
-      <button type="button" class="pill" data-value="elastiques">🧵 Élastiques</button>
+  <!-- ÉTAPE 4 -->
+  <div class="step" data-step="4">
+    <h3>Quel matériel as-tu ?</h3>
+    <div id="materiel-pills">
+      <span class="pill" data-value="salle">🏋️ Salle</span>
+      <span class="pill" data-value="halteres">🏋️ Haltères</span>
+      <span class="pill" data-value="barre">🦾 Barre + poids</span>
+      <span class="pill" data-value="poids-corps">🤸 Poids du corps</span>
     </div>
   </div>
 
-  <div class="card step" data-step="5">
-    <h3>5. Ton âge (années) ?</h3>
-    <input type="number" id="age" min="13" max="80" placeholder="Ex : 18">
+  <!-- ÉTAPE 5 -->
+  <div class="step" data-step="5">
+    <h3>Ton âge ?</h3>
+    <input type="number" id="age" placeholder="Ex: 18">
   </div>
 
-  <div class="card step" data-step="6">
-    <h3>6. Ton poids (kg) ?</h3>
-    <input type="number" id="poids" min="30" max="250" placeholder="Ex : 70">
+  <!-- ÉTAPE 6 -->
+  <div class="step" data-step="6">
+    <h3>Ton poids (kg) ?</h3>
+    <input type="number" id="poids" placeholder="Ex: 70">
   </div>
 
-  <div class="card step" data-step="7">
-    <h3>7. Ta taille (cm) ?</h3>
-    <input type="number" id="taille" min="130" max="220" placeholder="Ex : 175">
+  <!-- ÉTAPE 7 -->
+  <div class="step" data-step="7">
+    <h3>Ta taille (cm) ?</h3>
+    <input type="number" id="taille" placeholder="Ex: 175">
   </div>
 
-  <div class="quiz-nav">
-    <button type="button" id="btn-prev" onclick="prevStep()" style="visibility:hidden;">Précédent</button>
-    <button type="button" id="btn-next" onclick="nextStep()">Suivant</button>
+  <!-- BOUTONS -->
+  <div style="margin-top: 20px;">
+    <button onclick="prevStep()" id="btn-prev" style="display:none;">⬅️ Précédent</button>
+    <button onclick="nextStep()" id="btn-next">Suivant ➡️</button>
   </div>
 
-  <h3 style="margin-top:24px;">Ton plan Forge & Fit :</h3>
-  <div id="resultat"></div>
-  <button type="button" id="btn-pdf" onclick="downloadPDF()" style="display:none;">Télécharger mon plan en PDF</button>
+  <br><br>
+
+  <div id="resultat" class="card"></div>
+
 </section>
 
-<footer>Forge & Fit © 2025 — Plan généré automatiquement, à adapter à ta santé réelle.</footer>
+<footer>Forge & Fit © 2025</footer>
 
 <script>
-  let currentStep = 1;
-  const totalSteps = 7;
+let currentStep = 1;
+const totalSteps = 7;
+let answers = {};
 
-  function updateProgress() {
-    document.getElementById('progress').textContent = 'Étape ' + currentStep + ' / ' + totalSteps;
-    document.getElementById('btn-prev').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
-    document.getElementById('btn-next').textContent = currentStep === totalSteps ? 'Générer mon plan' : 'Suivant';
+// --- REND LES PILLs CLIQUABLES ---
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const group = pill.parentElement;
+    group.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+    pill.classList.add('selected');
+
+    const input = group.nextElementSibling;
+    if (input) input.value = pill.dataset.value;
+  });
+});
+
+// --- AFFICHER ÉTAPE ---
+function showStep(step) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.step[data-step="' + step + '"]').classList.add('active');
+
+  document.getElementById("progress").textContent = "Étape " + step + " / " + totalSteps;
+  document.getElementById("btn-prev").style.display = step === 1 ? "none" : "inline-block";
+  document.getElementById("btn-next").textContent = step === totalSteps ? "Générer mon plan" : "Suivant ➡️";
+}
+
+// --- BOUTON SUIVANT ---
+function nextStep() {
+  if (currentStep < totalSteps) {
+    currentStep++;
+    showStep(currentStep);
+  } else {
+    genererPlan();
   }
+}
 
-  function showStep(step) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    const el = document.querySelector('.step[data-step="' + step + '"]');
-    if (el) el.classList.add('active');
-    updateProgress();
+// --- BOUTON PRÉCÉDENT ---
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
   }
+}
 
-  function nextStep() {
-    if (currentStep
+showStep(currentStep);
+
+// --- GÉNÈRE LE PLAN ---
+function genererPlan() {
+  document.getElementById("resultat").innerHTML = "<h3>Ton plan arrive ici 🔥</h3><p>Le système fonctionne !</p>";
+}
+</script>
+
+</body>
+</html>
