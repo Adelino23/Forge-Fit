@@ -2,8 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Plan personnalisé – Forge & Fit</title>
+<title>Forge & Fit – Plan personnalisé</title>
 <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -18,54 +19,63 @@
 </nav>
 
 <section>
-    <h2>Génère ton propre plan 🔥</h2>
+    <h2>Génère ton plan</h2>
 
-    <form onsubmit="event.preventDefault(); genererPlan();">
-        <label>Objectif :</label><br>
-        <select id="objectif">
-            <option value="prise">Prise de masse</option>
-            <option value="perte">Perte de gras</option>
-        </select><br><br>
+    <div class="card">
+        <form onsubmit="event.preventDefault(); genererPlan();">
+            <label>Ton objectif</label><br>
+            <select id="objectif">
+                <option value="prise">Prise de masse</option>
+                <option value="perte">Perte de gras</option>
+            </select><br>
 
-        <label>Niveau :</label><br>
-        <select id="niveau">
-            <option value="debutant">Débutant</option>
-            <option value="intermediaire">Intermédiaire</option>
-            <option value="avance">Avancé</option>
-        </select><br><br>
+            <label>Ton niveau</label><br>
+            <select id="niveau">
+                <option value="debutant">Débutant</option>
+                <option value="intermediaire">Intermédiaire</option>
+                <option value="avance">Avancé</option>
+            </select><br>
 
-        <button>Générer</button>
-    </form>
+            <label>Nombre de jours par semaine</label><br>
+            <input id="jours" type="number" min="2" max="6" value="3"><br>
 
-    <h3 style="margin-top:20px;">Ton plan :</h3>
-    <div id="resultat" style="background:#111;padding:15px;border-radius:8px;"></div>
+            <button>Générer mon plan</button>
+        </form>
+    </div>
+
+    <h3>Résultat :</h3>
+    <div id="resultat"></div>
 </section>
 
 <script>
 function genererPlan() {
-    let o = document.getElementById("objectif").value;
-    let n = document.getElementById("niveau").value;
+    const obj = document.getElementById('objectif').value;
+    const niv = document.getElementById('niveau').value;
+    const jours = Number(document.getElementById('jours').value || 3);
+
     let txt = "";
 
-    if (o === "prise") {
+    if (obj === "prise") {
         txt += "<b>Objectif : Prise de masse</b><br>";
-        if (n === "debutant") txt += "→ 3 jours : Full-body + progression";
-        if (n === "intermediaire") txt += "→ 4 jours : Haut/Bas";
-        if (n === "avance") txt += "→ 5 jours : Split complet";
+        if (niv === "debutant") txt += "→ Programme " + jours + " jours : Full-body avec charges progressives.<br>";
+        if (niv === "intermediaire") txt += "→ Programme " + jours + " jours : Split Haut / Bas.<br>";
+        if (niv === "avance") txt += "→ Programme " + jours + " jours : Split complet (Pecs/Dos/Jambes/Épaules/Bras).<br>";
+        txt += "<br>Nutrition : léger surplus calorique, protéines élevées, bons lipides.";
     }
 
-    if (o === "perte") {
+    if (obj === "perte") {
         txt += "<b>Objectif : Perte de gras</b><br>";
-        if (n === "debutant") txt += "→ Full-body + cardio léger";
-        if (n === "intermediaire") txt += "→ HIIT + Force";
-        if (n === "avance") txt += "→ Split + HIIT + cardio quotidien";
+        if (niv === "debutant") txt += "→ Programme " + jours + " jours : Full-body + cardio léger.<br>";
+        if (niv === "intermediaire") txt += "→ Programme " + jours + " jours : Musculation + HIIT.<br>";
+        if (niv === "avance") txt += "→ Programme " + jours + " jours : Split + HIIT + cardio quotidien.<br>";
+        txt += "<br>Nutrition : déficit calorique, beaucoup de protéines, légumes, eau.";
     }
 
     document.getElementById("resultat").innerHTML = txt;
 }
 </script>
 
-<footer>Forge & Fit © 2025</footer>
+<footer>Forge & Fit © 2025 — Plan auto-généré, à adapter à ton niveau réel.</footer>
 
 </body>
 </html>
