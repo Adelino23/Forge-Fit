@@ -1,85 +1,141 @@
+/* Style général */
 body {
     margin: 0;
     padding: 0;
-    background: #0a0a0a;
-    color: white;
-    font-family: Arial, sans-serif;
+    background: #050507;
+    color: #f5f5f5;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Header */
 header {
-    background: linear-gradient(90deg, #000, #111);
+    background: radial-gradient(circle at top, #ff3131, #050507 55%);
     padding: 25px;
     text-align: center;
     font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #ff2d2d;
-    border-bottom: 2px solid #222;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-transform: uppercase;
 }
 
+/* Nav */
 nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    background: #111;
-    padding: 15px;
+    gap: 12px;
+    background: #0a0a0f;
+    padding: 12px;
     flex-wrap: wrap;
+    border-bottom: 1px solid #191919;
 }
 
 nav a {
-    color: white;
+    color: #f5f5f5;
     text-decoration: none;
-    border: 1px solid #333;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 17px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 15px;
+    border: 1px solid #303030;
+    background: #111118;
     transition: 0.2s;
 }
+
 nav a:hover {
-    background: #ff2d2d;
-    border-color: #ff2d2d;
+    background: #ff3131;
+    border-color: #ff3131;
 }
 
+/* Contenu */
 section {
-    padding: 30px;
-    max-width: 900px;
+    padding: 26px 20px 40px;
+    max-width: 960px;
     margin: auto;
 }
 
-h2 {
-    border-left: 4px solid #ff2d2d;
-    padding-left: 10px;
-    font-size: 24px;
-    margin-bottom: 15px;
+h1, h2 {
+    margin: 0 0 15px;
 }
 
+h2 {
+    border-left: 4px solid #ff3131;
+    padding-left: 10px;
+    font-size: 22px;
+}
+
+/* Cartes d'infos */
+.card {
+    background: #101018;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid #222232;
+    margin-bottom: 14px;
+}
+
+/* Exercices */
 .exercice {
-    background: #111;
-    padding: 15px;
-    margin-bottom: 10px;
+    background: #101018;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #262636;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.exercice span {
+    display: inline-block;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Formulaire */
+label {
+    font-size: 14px;
+}
+
+select, input {
+    background: #101018;
+    border: 1px solid #303040;
+    color: #f5f5f5;
+    padding: 7px 10px;
     border-radius: 8px;
-    border: 1px solid #222;
-    font-size: 16px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 button {
-    background: #ff2d2d;
+    background: #ff3131;
     color: white;
-    padding: 12px 20px;
+    padding: 10px 18px;
+    border-radius: 999px;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
 }
+
 button:hover {
-    background: #d82020;
+    background: #e02626;
 }
 
+/* Résultat plan */
+#resultat {
+    background: #101018;
+    border-radius: 12px;
+    border: 1px solid #262636;
+    padding: 14px 16px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Footer */
 footer {
     text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background: #111;
-    color: #555;
-    font-size: 14px;
+    padding: 16px;
+    background: #050507;
+    border-top: 1px solid #191919;
+    color: #777;
+    font-size: 13px;
+    margin-top: 20px;
 }
