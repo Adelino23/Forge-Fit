@@ -1,81 +1,163 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Forge & Fit – Plan personnalisé</title>
-<link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Plan personnalisé</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz Forge & Fit : réponds aux questions et reçois un plan d'entraînement et de nutrition ultra complet, adapté à ton profil.">
+  <link rel="stylesheet" href="style.css">
+  <!-- jsPDF pour télécharger le plan en PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .quiz-container {
+      max-width: 960px;
+      margin: auto;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .quiz-progress {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .pill-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 8px 14px;
+      border: 1px solid #303040;
+      background: #101018;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .pill.selected {
+      background: #ff3131;
+      border-color: #ff3131;
+    }
+    #btn-pdf {
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body>
 
 <header>PLAN PERSONNALISÉ</header>
 
 <nav>
-    <a href="index.html">Accueil</a>
-    <a href="prise-masse.html">Prise de masse</a>
-    <a href="perte-gras.html">Perte de gras</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="plan.html">Plan personnalisé</a>
+  <a href="index.html">Accueil</a>
+  <a href="prise-masse.html">Prise de masse</a>
+  <a href="perte-gras.html">Perte de gras</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="plan.html">Plan personnalisé</a>
 </nav>
 
-<section>
-    <h2>Génère ton plan</h2>
+<section class="quiz-container">
+  <h2>Quiz Forge & Fit – Plan ultra complet</h2>
+  <div class="card">
+    <p>Réponds à quelques questions, et Forge & Fit va générer un <b>plan d’entraînement + nutrition ultra complet</b>, adapté à ton profil.</p>
+    <p class="quiz-progress" id="progress">Étape 1 / 7</p>
+  </div>
 
-    <div class="card">
-        <form onsubmit="event.preventDefault(); genererPlan();">
-            <label>Ton objectif</label><br>
-            <select id="objectif">
-                <option value="prise">Prise de masse</option>
-                <option value="perte">Perte de gras</option>
-            </select><br>
-
-            <label>Ton niveau</label><br>
-            <select id="niveau">
-                <option value="debutant">Débutant</option>
-                <option value="intermediaire">Intermédiaire</option>
-                <option value="avance">Avancé</option>
-            </select><br>
-
-            <label>Nombre de jours par semaine</label><br>
-            <input id="jours" type="number" min="2" max="6" value="3"><br>
-
-            <button>Générer mon plan</button>
-        </form>
+  <!-- Étapes du quiz -->
+  <div class="card step active" data-step="1">
+    <h3>1. Quel est ton objectif principal ?</h3>
+    <div class="pill-options" id="objectif-pills">
+      <button type="button" class="pill" data-value="prise">💪 Prise de masse</button>
+      <button type="button" class="pill" data-value="perte">🔥 Perte de gras</button>
+      <button type="button" class="pill" data-value="recomp">⚡ Recomposition (perte de gras + un peu de muscle)</button>
     </div>
+    <input type="hidden" id="objectif">
+  </div>
 
-    <h3>Résultat :</h3>
-    <div id="resultat"></div>
+  <div class="card step" data-step="2">
+    <h3>2. Ton niveau actuel ?</h3>
+    <div class="pill-options" id="niveau-pills">
+      <button type="button" class="pill" data-value="debutant">🟢 Débutant</button>
+      <button type="button" class="pill" data-value="intermediaire">🟡 Intermédiaire</button>
+      <button type="button" class="pill" data-value="avance">🔴 Avancé</button>
+    </div>
+    <input type="hidden" id="niveau">
+  </div>
+
+  <div class="card step" data-step="3">
+    <h3>3. Combien de jours par semaine peux-tu t'entraîner ?</h3>
+    <div class="pill-options" id="jours-pills">
+      <button type="button" class="pill" data-value="3">3 jours</button>
+      <button type="button" class="pill" data-value="4">4 jours</button>
+      <button type="button" class="pill" data-value="5">5 jours</button>
+      <button type="button" class="pill" data-value="6">6 jours</button>
+    </div>
+    <input type="hidden" id="jours">
+  </div>
+
+  <div class="card step" data-step="4">
+    <h3>4. Quel matériel as-tu à disposition ?</h3>
+    <p>(Tu peux choisir plusieurs options)</p>
+    <div class="pill-options" id="materiel-pills">
+      <button type="button" class="pill" data-value="salle">🏋️‍♂️ Salle de musculation</button>
+      <button type="button" class="pill" data-value="halteres">🏋️ Haltères</button>
+      <button type="button" class="pill" data-value="barre">🦾 Barre + poids</button>
+      <button type="button" class="pill" data-value="poids-corps">🤸‍♂️ Poids du corps</button>
+      <button type="button" class="pill" data-value="elastiques">🧵 Élastiques</button>
+    </div>
+  </div>
+
+  <div class="card step" data-step="5">
+    <h3>5. Ton âge (années) ?</h3>
+    <input type="number" id="age" min="13" max="80" placeholder="Ex : 18">
+  </div>
+
+  <div class="card step" data-step="6">
+    <h3>6. Ton poids (kg) ?</h3>
+    <input type="number" id="poids" min="30" max="250" placeholder="Ex : 70">
+  </div>
+
+  <div class="card step" data-step="7">
+    <h3>7. Ta taille (cm) ?</h3>
+    <input type="number" id="taille" min="130" max="220" placeholder="Ex : 175">
+  </div>
+
+  <div class="quiz-nav">
+    <button type="button" id="btn-prev" onclick="prevStep()" style="visibility:hidden;">Précédent</button>
+    <button type="button" id="btn-next" onclick="nextStep()">Suivant</button>
+  </div>
+
+  <h3 style="margin-top:24px;">Ton plan Forge & Fit :</h3>
+  <div id="resultat"></div>
+  <button type="button" id="btn-pdf" onclick="downloadPDF()" style="display:none;">Télécharger mon plan en PDF</button>
 </section>
 
+<footer>Forge & Fit © 2025 — Plan généré automatiquement, à adapter à ta santé réelle.</footer>
+
 <script>
-function genererPlan() {
-    const obj = document.getElementById('objectif').value;
-    const niv = document.getElementById('niveau').value;
-    const jours = Number(document.getElementById('jours').value || 3);
+  let currentStep = 1;
+  const totalSteps = 7;
 
-    let txt = "";
+  function updateProgress() {
+    document.getElementById('progress').textContent = 'Étape ' + currentStep + ' / ' + totalSteps;
+    document.getElementById('btn-prev').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+    document.getElementById('btn-next').textContent = currentStep === totalSteps ? 'Générer mon plan' : 'Suivant';
+  }
 
-    if (obj === "prise") {
-        txt += "<b>Objectif : Prise de masse</b><br>";
-        if (niv === "debutant") txt += "→ Programme " + jours + " jours : Full-body avec charges progressives.<br>";
-        if (niv === "intermediaire") txt += "→ Programme " + jours + " jours : Split Haut / Bas.<br>";
-        if (niv === "avance") txt += "→ Programme " + jours + " jours : Split complet (Pecs/Dos/Jambes/Épaules/Bras).<br>";
-        txt += "<br>Nutrition : léger surplus calorique, protéines élevées, bons lipides.";
-    }
+  function showStep(step) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    const el = document.querySelector('.step[data-step="' + step + '"]');
+    if (el) el.classList.add('active');
+    updateProgress();
+  }
 
-    if (obj === "perte") {
-        txt += "<b>Objectif : Perte de gras</b><br>";
-        if (niv === "debutant") txt += "→ Programme " + jours + " jours : Full-body + cardio léger.<br>";
-        if (niv === "intermediaire") txt += "→ Programme " + jours + " jours : Musculation + HIIT.<br>";
-        if (niv === "avance") txt += "→ Programme " + jours + " jours : Split + HIIT + cardio quotidien.<br>";
-        txt += "<br>Nutrition : déficit calorique, beaucoup de protéines, légumes, eau.";
-    }
-
-    document.getElementById("resultat").innerHTML = txt;
-}
-</script>
-
-<footer>Forge & Fit © 2025 — Plan auto-généré, à adapter à ton niveau réel.</footer>
-
-</body>
-</html>
+  function nextStep() {
+    if (currentStep
