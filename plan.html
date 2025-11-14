@@ -4,15 +4,70 @@
   <meta charset="UTF-8">
   <title>Forge & Fit – Plan personnalisé</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Quiz Forge & Fit : réponds aux questions et reçois un plan d'entraînement et de nutrition ultra complet, adapté à ton profil.">
+  <meta name="description" content="Quiz Forge & Fit : réponds aux questions et reçois un plan d'entraînement et de nutrition ultra complet, structuré comme un magazine.">
   <link rel="stylesheet" href="style.css">
+
+  <!-- jsPDF pour le téléchargement PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
     .step { display: none; }
     .active { display: block; }
-    .pill { padding: 10px; margin: 5px; border: 1px solid #444; border-radius: 8px; cursor: pointer; display: inline-block; }
-    .pill.selected { background: red; color: white; border-color: red; }
-    .card { padding: 15px; margin-top: 15px; border: 1px solid #333; border-radius: 8px; }
+
+    .pill {
+      padding: 10px 14px;
+      margin: 5px;
+      border: 1px solid #444;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 14px;
+      background: #101018;
+    }
+    .pill.selected {
+      background: #ff3131;
+      color: white;
+      border-color: #ff3131;
+    }
+
+    .card {
+      padding: 15px;
+      margin-top: 15px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: #101018;
+    }
+
+    .plan-section {
+      background: #101018;
+      border-radius: 12px;
+      border: 1px solid #262636;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .plan-section h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .plan-section h4 {
+      margin-bottom: 6px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    #btn-pdf {
+      margin-top: 12px;
+      display: none;
+    }
+
+    #progress {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 
@@ -29,24 +84,27 @@
 </nav>
 
 <section>
-  <h2>Quiz Forge & Fit</h2>
+  <h2>Quiz Forge & Fit – Plan ultra complet</h2>
 
-  <p id="progress">Étape 1 / 7</p>
+  <div class="card">
+    <p>Réponds aux questions ci-dessous. À la fin, Forge & Fit génère pour toi un <b>plan structuré type magazine :</b> profil, programme 4 semaines, nutrition, cardio, récupération, prêt à être téléchargé en PDF.</p>
+    <p id="progress">Étape 1 / 7</p>
+  </div>
 
   <!-- ÉTAPE 1 -->
   <div class="step active" data-step="1">
-    <h3>Quel est ton objectif ?</h3>
+    <h3>1. Quel est ton objectif principal ?</h3>
     <div id="objectif-pills">
       <span class="pill" data-value="prise">💪 Prise de masse</span>
       <span class="pill" data-value="perte">🔥 Perte de gras</span>
-      <span class="pill" data-value="recomp">⚡ Recomposition</span>
+      <span class="pill" data-value="recomp">⚡ Recomposition (un peu de muscle + perte de gras)</span>
     </div>
     <input type="hidden" id="objectif">
   </div>
 
   <!-- ÉTAPE 2 -->
   <div class="step" data-step="2">
-    <h3>Niveau actuel ?</h3>
+    <h3>2. Ton niveau actuel ?</h3>
     <div id="niveau-pills">
       <span class="pill" data-value="debutant">🟢 Débutant</span>
       <span class="pill" data-value="intermediaire">🟡 Intermédiaire</span>
@@ -57,7 +115,7 @@
 
   <!-- ÉTAPE 3 -->
   <div class="step" data-step="3">
-    <h3>Combien de jours par semaine ?</h3>
+    <h3>3. Combien de jours par semaine peux-tu t'entraîner ?</h3>
     <div id="jours-pills">
       <span class="pill" data-value="3">3 jours</span>
       <span class="pill" data-value="4">4 jours</span>
@@ -69,31 +127,33 @@
 
   <!-- ÉTAPE 4 -->
   <div class="step" data-step="4">
-    <h3>Quel matériel as-tu ?</h3>
+    <h3>4. Quel matériel as-tu ?</h3>
+    <p>(Tu peux choisir plusieurs options)</p>
     <div id="materiel-pills">
-      <span class="pill" data-value="salle">🏋️ Salle</span>
+      <span class="pill" data-value="salle">🏋️ Salle de musculation</span>
       <span class="pill" data-value="halteres">🏋️ Haltères</span>
       <span class="pill" data-value="barre">🦾 Barre + poids</span>
       <span class="pill" data-value="poids-corps">🤸 Poids du corps</span>
+      <span class="pill" data-value="elastiques">🧵 Élastiques</span>
     </div>
   </div>
 
   <!-- ÉTAPE 5 -->
   <div class="step" data-step="5">
-    <h3>Ton âge ?</h3>
-    <input type="number" id="age" placeholder="Ex: 18">
+    <h3>5. Ton âge (ans) ?</h3>
+    <input type="number" id="age" placeholder="Ex: 18" min="13" max="80">
   </div>
 
   <!-- ÉTAPE 6 -->
   <div class="step" data-step="6">
-    <h3>Ton poids (kg) ?</h3>
-    <input type="number" id="poids" placeholder="Ex: 70">
+    <h3>6. Ton poids (kg) ?</h3>
+    <input type="number" id="poids" placeholder="Ex: 70" min="30" max="250">
   </div>
 
   <!-- ÉTAPE 7 -->
   <div class="step" data-step="7">
-    <h3>Ta taille (cm) ?</h3>
-    <input type="number" id="taille" placeholder="Ex: 175">
+    <h3>7. Ta taille (cm) ?</h3>
+    <input type="number" id="taille" placeholder="Ex: 175" min="130" max="220">
   </div>
 
   <!-- BOUTONS -->
@@ -104,40 +164,47 @@
 
   <br><br>
 
-  <div id="resultat" class="card"></div>
+  <div id="resultat"></div>
+  <button id="btn-pdf" onclick="downloadPDF()">📄 Télécharger mon plan en PDF</button>
 
 </section>
 
-<footer>Forge & Fit © 2025</footer>
+<footer>Forge & Fit © 2025 — Plan généré automatiquement, à adapter à ta santé réelle.</footer>
 
 <script>
 let currentStep = 1;
 const totalSteps = 7;
-let answers = {};
 
-// --- REND LES PILLs CLIQUABLES ---
+// rendre les pills cliquables
 document.querySelectorAll('.pill').forEach(pill => {
   pill.addEventListener('click', () => {
     const group = pill.parentElement;
-    group.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
-    pill.classList.add('selected');
 
-    const input = group.nextElementSibling;
-    if (input) input.value = pill.dataset.value;
+    if (group.id === 'materiel-pills') {
+      // multi sélection pour matériel
+      pill.classList.toggle('selected');
+    } else {
+      // simple sélection
+      group.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      const hidden = group.nextElementSibling;
+      if (hidden && hidden.tagName === 'INPUT') {
+        hidden.value = pill.dataset.value;
+      }
+    }
   });
 });
 
-// --- AFFICHER ÉTAPE ---
 function showStep(step) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  document.querySelector('.step[data-step="' + step + '"]').classList.add('active');
+  const el = document.querySelector('.step[data-step="' + step + '"]');
+  if (el) el.classList.add('active');
 
   document.getElementById("progress").textContent = "Étape " + step + " / " + totalSteps;
   document.getElementById("btn-prev").style.display = step === 1 ? "none" : "inline-block";
   document.getElementById("btn-next").textContent = step === totalSteps ? "Générer mon plan" : "Suivant ➡️";
 }
 
-// --- BOUTON SUIVANT ---
 function nextStep() {
   if (currentStep < totalSteps) {
     currentStep++;
@@ -147,7 +214,6 @@ function nextStep() {
   }
 }
 
-// --- BOUTON PRÉCÉDENT ---
 function prevStep() {
   if (currentStep > 1) {
     currentStep--;
@@ -157,9 +223,175 @@ function prevStep() {
 
 showStep(currentStep);
 
-// --- GÉNÈRE LE PLAN ---
+// génération du plan "magazine"
 function genererPlan() {
-  document.getElementById("resultat").innerHTML = "<h3>Ton plan arrive ici 🔥</h3><p>Le système fonctionne !</p>";
+  const objectif = document.getElementById('objectif').value || 'prise';
+  const niveau = document.getElementById('niveau').value || 'debutant';
+  const jours = Number(document.getElementById('jours').value || 3);
+  const age = Number(document.getElementById('age').value || 18);
+  const poids = Number(document.getElementById('poids').value || 70);
+  const taille = Number(document.getElementById('taille').value || 175);
+
+  // matériel sélectionné
+  const materiels = [];
+  document.querySelectorAll('#materiel-pills .pill.selected').forEach(p => materiels.push(p.dataset.value));
+  const matText = materiels.length ? materiels.join(', ') : 'Poids du corps / basique';
+
+  // IMC
+  const tailleM = taille / 100;
+  const imc = (poids / (tailleM * tailleM)).toFixed(1);
+
+  // calories maintenance + objectif
+  let maintenance = poids * 30;
+  let calories;
+  if (objectif === 'prise') calories = maintenance + 300;
+  else if (objectif === 'perte') calories = maintenance - 400;
+  else calories = maintenance;
+
+  const proteines = Math.round(poids * 2); // g
+  const lipides = Math.round(poids * 0.8); // g
+  const resteKcal = calories - (proteines * 4 + lipides * 9);
+  const glucides = Math.max(0, Math.round(resteKcal / 4));
+
+  // textes lisibles
+  const objectifTxt =
+    objectif === 'prise' ? 'Prise de masse' :
+    objectif === 'perte' ? 'Perte de gras' :
+    'Recomposition (muscle + perte de gras)';
+
+  const niveauTxt =
+    niveau === 'debutant' ? 'Débutant' :
+    niveau === 'intermediaire' ? 'Intermédiaire' : 'Avancé';
+
+  // structure de split
+  let splitTxt = '';
+  if (jours <= 3) {
+    splitTxt = "Full-body " + jours + "x / semaine (tout le corps à chaque séance).";
+  } else if (jours === 4) {
+    splitTxt = "Split Haut / Bas : 2 jours haut du corps, 2 jours bas du corps.";
+  } else {
+    splitTxt = "Split complet de " + jours + " jours (Pecs/Dos/Jambes/Épaules/Bras + rappels/cardio).";
+  }
+
+  // exemple de semaine
+  let semaineHtml = '';
+  if (objectif === 'prise') {
+    semaineHtml += "<h4>Semaine type – Prise de masse</h4>";
+    if (jours === 3) {
+      semaineHtml += "Jour 1 : Full-body lourd (pousser / tirer / jambes)<br>";
+      semaineHtml += "Jour 2 : Full-body modéré + focus technique<br>";
+      semaineHtml += "Jour 3 : Full-body intensif + fin de séance bras / épaules<br>";
+    } else if (jours === 4) {
+      semaineHtml += "Jour 1 : Haut du corps (Pecs / Dos / Bras)<br>";
+      semaineHtml += "Jour 2 : Bas du corps (Jambes / Fessiers / Mollets)<br>";
+      semaineHtml += "Jour 3 : Haut du corps (Épaules / Dos / Bras)<br>";
+      semaineHtml += "Jour 4 : Jambes + Abdos + mollets<br>";
+    } else {
+      semaineHtml += "Jour 1 : Pecs / Triceps<br>";
+      semaineHtml += "Jour 2 : Dos / Biceps<br>";
+      semaineHtml += "Jour 3 : Jambes / Abdos<br>";
+      semaineHtml += "Jour 4 : Épaules / Rappels Pecs<br>";
+      if (jours >= 5) semaineHtml += "Jour 5 : Full-body lourd / mouvements de base<br>";
+      if (jours === 6) semaineHtml += "Jour 6 : Cardio + mobilité / travail léger<br>";
+    }
+  } else {
+    semaineHtml += "<h4>Semaine type – Perte de gras / Recomp</h4>";
+    semaineHtml += "Jour 1 : Full-body (mouvements lourds) + 10–15 min cardio<br>";
+    semaineHtml += "Jour 2 : Cardio/HIIT (sprints, corde à sauter, vélo) 15–25 min<br>";
+    semaineHtml += "Jour 3 : Full-body + travail core / abdos<br>";
+    if (jours >= 4) semaineHtml += "Jour 4 : Full-body volume + marche rapide 30–45 min<br>";
+    if (jours >= 5) semaineHtml += "Jour 5 : Séance légère + mobilité<br>";
+    if (jours === 6) semaineHtml += "Jour 6 : Marche longue / faible intensité 45–60 min<br>";
+  }
+
+  // exemple de séance
+  let seanceHtml = '';
+  seanceHtml += "<h4>Exemple de séance type</h4>";
+  if (objectif === 'prise') {
+    seanceHtml += "- 1) Mouvement de base lourd (Squat, Développé couché, Soulevé de terre, Tractions...) : 4 séries de 6–8 reps<br>";
+    seanceHtml += "- 2) Mouvement secondaire : 3–4 séries de 8–12 reps<br>";
+    seanceHtml += "- 3) Isolation (biceps, triceps, épaules, fessiers) : 3 séries de 10–15 reps<br>";
+    seanceHtml += "- 4) Core / abdos : 2–3 séries (gainage, crunch, relevés de jambes)<br>";
+    seanceHtml += "- Repos entre séries lourdes : 90–150 sec / Isolation : 60–90 sec<br>";
+  } else {
+    seanceHtml += "- 1) Circuit de 3–4 exercices (Squat, Pompes, Rowing, Crunch) répété 3–5 fois<br>";
+    seanceHtml += "- 2) Cardio : 10–20 min (vélo, marche rapide, rameur)<br>";
+    seanceHtml += "- 3) Finir par 5–10 min d’étirements / mobilité<br>";
+  }
+
+  // nutrition
+  let nutritionHtml = '';
+  nutritionHtml += "<b>Calories cibles :</b> ~" + Math.round(calories) + " kcal / jour<br>";
+  nutritionHtml += "<b>Macros approximatives :</b><br>";
+  nutritionHtml += "- Protéines : " + proteines + " g / jour<br>";
+  nutritionHtml += "- Glucides : " + glucides + " g / jour<br>";
+  nutritionHtml += "- Lipides : " + lipides + " g / jour<br><br>";
+  nutritionHtml += "<b>Exemple de journée :</b><br>";
+  nutritionHtml += "- Petit-déjeuner : flocons d’avoine + yaourt grec ou œufs + fruit<br>";
+  nutritionHtml += "- Déjeuner : poulet / poisson + riz ou pâtes complètes + légumes<br>";
+  nutritionHtml += "- Collation : fromage blanc ou shake protéiné + fruit + oléagineux<br>";
+  nutritionHtml += "- Dîner : source de protéines (œufs, tofu, poisson...) + légumes + un peu de glucides selon l’horaire d’entraînement<br>";
+
+  // cardio & récupération
+  let cardioHtml = '';
+  cardioHtml += "<b>Cardio recommandé :</b><br>";
+  if (objectif === 'perte' || objectif === 'recomp') {
+    cardioHtml += "- 2 à 4 séances de cardio / semaine : mix HIIT + cardio modéré<br>";
+  } else {
+    cardioHtml += "- 1 à 2 séances de cardio léger pour la santé (marche, vélo)<br>";
+  }
+  cardioHtml += "<br><b>Récupération :</b><br>";
+  cardioHtml += "- Sommeil : viser 7–9 heures par nuit<br>";
+  cardioHtml += "- Hydratation : 2–3L d’eau / jour<br>";
+  cardioHtml += "- Étirements ou mobilité : 2–3 séances / semaine<br>";
+  cardioHtml += "- Écouter les douleurs articulaires, adapter les charges<br>";
+
+  const resultat = `
+    <div class="plan-section">
+      <h3>📌 Profil Forge & Fit</h3>
+      <p><b>Âge :</b> ${age} ans – <b>Poids :</b> ${poids} kg – <b>Taille :</b> ${taille} cm – <b>IMC approx :</b> ${imc}</p>
+      <p><b>Objectif :</b> ${objectifTxt}</p>
+      <p><b>Niveau :</b> ${niveauTxt}</p>
+      <p><b>Jours d'entraînement :</b> ${jours} / semaine</p>
+      <p><b>Matériel :</b> ${matText}</p>
+    </div>
+
+    <div class="plan-section">
+      <h3>🏋️ Programme d'entraînement (4 semaines)</h3>
+      <p><b>Structure générale :</b> ${splitTxt}</p>
+      ${semaineHtml}
+      ${seanceHtml}
+      <p style="font-size:12px;opacity:0.7;margin-top:6px;">➜ Astuce : note tes charges chaque semaine et cherche à progresser petit à petit.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3>🍽️ Nutrition personnalisée</h3>
+      ${nutritionHtml}
+      <p style="font-size:12px;opacity:0.7;margin-top:6px;">➜ Ceci est une base intelligente, pas un plan médical. Ajuste avec ton ressenti, ton énergie et ton miroir.</p>
+    </div>
+
+    <div class="plan-section">
+      <h3>❤️ Cardio & récupération</h3>
+      ${cardioHtml}
+      <p style="font-size:12px;opacity:0.7;margin-top:6px;">➜ Sans récupération, il n’y a pas de progression. Tu ne te construis pas seulement à la salle, mais aussi en dehors.</p>
+    </div>
+  `;
+
+  document.getElementById("resultat").innerHTML = resultat;
+  document.getElementById("btn-pdf").style.display = "inline-block";
+
+  // scroll vers le plan
+  window.scrollTo({ top: document.getElementById("resultat").offsetTop - 20, behavior: "smooth" });
+}
+
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+  const text = document.getElementById("resultat").innerText;
+  const lines = doc.splitTextToSize(text, 180);
+  doc.text(lines, 10, 10);
+  doc.save("Plan_Forge_And_Fit.pdf");
 }
 </script>
 
