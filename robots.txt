@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://forge-fit2-git-main-adelinos-projects-2e4d79dd.vercel.app/sitemap.xml
