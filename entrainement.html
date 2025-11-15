@@ -1,155 +1,75 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Forge & Fit – Séance PRO</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Forge & Fit – Séance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 
-  <style>
-    .ex-container {
-      max-width: 720px;
-      margin: auto;
-      text-align: center;
-    }
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin: 14px 0 8px 0;
-    }
-    .small-btn {
-      padding: 7px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(10,10,25,0.95);
-      font-size: 13px;
-      cursor: pointer;
-    }
-    .small-btn:hover {
-      background: #ff3131;
-      border-color: #ff3131;
-    }
+<style>
+/* ====== LAYOUT ====== */
+.ex-container { max-width: 650px; margin: auto; text-align: center; }
+.ex-image { width: 100%; border-radius: 12px; margin: 15px 0; }
 
-    /* FULLSCREEN OVERLAY PRO */
-    .fs-overlay {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, #2a123f 0, #05030a 45%, #020105 100%);
-      color: #f5f5ff;
-      display: none;
-      z-index: 9999;
-    }
-    .fs-overlay.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .fs-inner {
-      width: 100%;
-      max-width: 480px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .fs-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-      opacity: 0.85;
-    }
-    .fs-title {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .fs-close {
-      font-size: 20px;
-      cursor: pointer;
-      opacity: 0.8;
-    }
+/* BOUTONS */
+.btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 12px 0; }
+.small-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #0e0e17;
+  font-size: 14px;
+  cursor: pointer;
+}
+.small-btn:hover { background: #ff3131; border-color: #ff3131; }
 
-    .fs-timer-wrap {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      margin: 0 auto;
-    }
-    .fs-circle-bg {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: radial-gradient(circle, #1a1025 0, #070410 60%, #030208 100%);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.7);
-    }
-    .fs-circle {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      padding: 12px;
-      background: conic-gradient(#a855f7 0deg, #1b1025 0deg 360deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .fs-circle-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: radial-gradient(circle, #14091f 0, #05030a 70%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-    .fs-timer-text {
-      font-size: 32px;
-      font-weight: 700;
-    }
-    .fs-timer-label {
-      font-size: 12px;
-      opacity: 0.8;
-      margin-top: 4px;
-    }
+/* TIMER FULLSCREEN */
+.fs-overlay {
+  position: fixed; inset: 0;
+  background: radial-gradient(circle at top, #2a123f 0, #05030a 45%, #020105 100%);
+  display: none; color: white; z-index: 999;
+}
+.fs-overlay.active {
+  display: flex; align-items: center; justify-content: center;
+}
+.fs-inner {
+  width: 100%; max-width: 480px;
+  padding: 20px; display: flex; flex-direction: column; gap: 15px;
+}
+.fs-top {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; opacity: 0.85;
+}
+.fs-close { font-size: 22px; cursor: pointer; }
 
-    .fs-img {
-      width: 100%;
-      max-height: 190px;
-      border-radius: 14px;
-      object-fit: cover;
-      margin-top: 4px;
-    }
-    .fs-info h2 {
-      font-size: 20px;
-      margin-bottom: 2px;
-    }
-    .fs-info p {
-      font-size: 14px;
-      opacity: 0.85;
-    }
-    .fs-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 6px;
-    }
-    .fs-hint {
-      font-size: 11px;
-      opacity: 0.7;
-      text-align: center;
-      margin-top: 6px;
-    }
-  </style>
+.fs-timer-wrap { position: relative; width: 240px; height: 240px; margin: 0 auto; }
+.fs-circle-bg {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: #12091a; box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+.fs-circle {
+  position: absolute; inset: 0; padding: 12px;
+  border-radius: 50%;
+  background: conic-gradient(#a855f7 0deg, #1b1025 0deg 360deg);
+  display: flex; align-items: center; justify-content: center;
+}
+.fs-circle-inner {
+  background: #12091a; border-radius: 50%;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+.fs-timer-text { font-size: 38px; font-weight: bold; }
+.fs-timer-label { font-size: 14px; opacity: 0.7; }
+
+.fs-img { width: 100%; border-radius: 15px; margin-top: 8px; }
+</style>
 </head>
 
 <body>
 
-<header>SÉANCE PRO – FORGE & FIT</header>
+<header>SÉANCE EN DIRECT</header>
 
 <nav>
   <a href="index.html">Accueil</a>
@@ -158,8 +78,6 @@
   <a href="exercices.html">Exercices</a>
   <a href="entrainement.html">Séance</a>
   <a href="plan.html">Plan personnalisé</a>
-  <a href="boutique.html">PDF & Programmes</a>
-  <a href="premium.html">Premium</a>
   <a href="compte.html">Mon compte</a>
 </nav>
 
@@ -167,8 +85,7 @@
   <h2>Lance ta séance Forge & Fit</h2>
 
   <div class="card">
-    <p>Choisis un type de séance. Tu passeras ensuite en <b>mode plein écran PRO</b> avec :
-      chrono, cercle violet, images réelles, swipe gauche/droite, XP et historique.</p>
+    <p>Sélectionne une séance ci-dessous :</p>
 
     <div class="btn-row">
       <button class="small-btn" onclick="chargerSeance('fullbody')">🔥 Full-body</button>
@@ -181,146 +98,139 @@
 
   <div id="preview-zone" class="card" style="display:none;margin-top:16px;">
     <p id="preview-text"></p>
-    <button style="margin-top:8px;" onclick="ouvrirFullscreen()">🚀 Passer en mode plein écran</button>
+    <button onclick="ouvrirFullscreen()">🚀 Mode Plein écran</button>
   </div>
 </section>
 
-<!-- FULLSCREEN PRO -->
+<!-- ===== FULLSCREEN MODE ===== -->
 <div id="fs-overlay" class="fs-overlay">
   <div class="fs-inner">
+
     <div class="fs-top">
       <div>
-        <div class="fs-title" id="fs-type"></div>
-        <div id="fs-progress" style="font-size:12px;opacity:.7;"></div>
+        <div id="fs-type" class="fs-title">Séance</div>
+        <div id="fs-progress"></div>
       </div>
       <div class="fs-close" onclick="fermerFullscreen()">✕</div>
     </div>
 
     <div class="fs-timer-wrap">
       <div class="fs-circle-bg"></div>
-      <div class="fs-circle" id="fs-circle">
+      <div id="fs-circle" class="fs-circle">
         <div class="fs-circle-inner">
-          <div class="fs-timer-text" id="fs-timer">00:00</div>
-          <div class="fs-timer-label" id="fs-timer-label">Prêt</div>
+          <div id="fs-timer" class="fs-timer-text">00:00</div>
+          <div id="fs-timer-label" class="fs-timer-label">Prêt</div>
         </div>
       </div>
     </div>
 
-    <div class="fs-info">
-      <img id="fs-exo-img" class="fs-img" src="">
-      <h2 id="fs-exo-nom"></h2>
-      <p id="fs-exo-muscle"></p>
-      <p id="fs-exo-desc"></p>
-    </div>
+    <h2 id="fs-exo-nom">Exercice</h2>
+    <p id="fs-exo-muscle"></p>
+    <img id="fs-exo-img" class="fs-img" src="">
+    <p id="fs-exo-desc"></p>
 
-    <div class="fs-controls">
+    <div class="btn-row">
       <button class="small-btn" onclick="setDuree(30)">30s</button>
       <button class="small-btn" onclick="setDuree(45)">45s</button>
       <button class="small-btn" onclick="setDuree(60)">60s</button>
-      <button class="small-btn" onclick="setDuree(90)">90s</button>
     </div>
 
-    <div class="fs-controls">
+    <div class="btn-row">
       <button class="small-btn" onclick="startTimer()">▶️ Start</button>
       <button class="small-btn" onclick="pauseTimer()">⏸ Pause</button>
       <button class="small-btn" onclick="resetTimer()">🔁 Reset</button>
       <button class="small-btn" onclick="prevExercice()">⬅️ Préc.</button>
       <button class="small-btn" onclick="nextExercice()">Suiv. ➡️</button>
     </div>
-
-    <div class="fs-hint">
-      Glisse 👈 / 👉 pour changer d’exercice • Barre espace = Start/Pause • Flèches gauche/droite = Préc./Suiv.
-    </div>
   </div>
 </div>
 
-<footer>Forge & Fit © 2025 — Séances PRO, XP & historique.</footer>
+<footer>Forge & Fit © 2025</footer>
 
 <script>
-
-  /* --- LISTE DES EXERCICES (images stables Pexels) --- */
+/* ===== PROGRAMMES PRO ===== */
 const programmes = {
   fullbody: [
     {
       nom: "Squat",
       muscle: "Quadriceps / Fessiers",
-      img: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg",
       desc: "4 séries • 8–12 répétitions"
     },
     {
-      nom: "Pompes",
-      muscle: "Pectoraux / Triceps",
-      img: "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress",
-      desc: "4 séries • 12–20 répétitions"
+      nom: "Développé couché",
+      muscle: "Pectoraux",
+      img: "https://images.pexels.com/photos/6456126/pexels-photo-6456126.jpeg",
+      desc: "4 séries • 6–10 répétitions"
     },
     {
-      nom: "Tractions",
+      nom: "Rowing barre",
       muscle: "Dos / Biceps",
-      img: "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress",
-      desc: "3 séries • max répétitions"
+      img: "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",
+      desc: "4 séries • 8–12 répétitions"
     }
   ],
 
   pecs: [
     {
-      nom: "Développé couché",
+      nom: "Développé couché barre",
       muscle: "Pectoraux",
-      img: "https://images.pexels.com/photos/1547248/pexels-photo-1547248.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/6456170/pexels-photo-6456170.jpeg",
       desc: "4 séries • 6–10 répétitions"
     },
     {
       nom: "Développé incliné haltères",
       muscle: "Haut des pectoraux",
-      img: "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/6455836/pexels-photo-6455836.jpeg",
       desc: "3 séries • 8–12 répétitions"
     },
     {
       nom: "Écartés haltères",
       muscle: "Pectoraux",
-      img: "https://images.pexels.com/photos/7676339/pexels-photo-7676339.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/3838385/pexels-photo-3838385.jpeg",
       desc: "3 séries • 12–15 répétitions"
     }
   ],
 
   dos: [
     {
-      nom: "Rowing barre",
+      nom: "Tractions pronation",
+      muscle: "Grand dorsal",
+      img: "https://images.pexels.com/photos/4761355/pexels-photo-4761355.jpeg",
+      desc: "4 séries • max répétitions"
+    },
+    {
+      nom: "Rowing haltère",
       muscle: "Dos épaisseur",
-      img: "https://images.pexels.com/photos/1252112/pexels-photo-1252112.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/6740008/pexels-photo-6740008.jpeg",
       desc: "4 séries • 8–12 répétitions"
     },
     {
-      nom: "Tirage vertical",
-      muscle: "Grand dorsal",
-      img: "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress",
+      nom: "Tirage poulie haute",
+      muscle: "Dorsaux",
+      img: "https://images.pexels.com/photos/7676401/pexels-photo-7676401.jpeg",
       desc: "3 séries • 10–12 répétitions"
-    },
-    {
-      nom: "Tractions pronation",
-      muscle: "Dos large",
-      img: "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress",
-      desc: "3 séries • max répétitions"
     }
   ],
 
   jambes: [
     {
-      nom: "Squat barre",
-      muscle: "Quadriceps / Fessiers",
-      img: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress",
-      desc: "4 séries • 8–10 répétitions"
-    },
-    {
       nom: "Presse à cuisses",
       muscle: "Quadriceps",
-      img: "https://images.pexels.com/photos/2261481/pexels-photo-2261481.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/6551175/pexels-photo-6551175.jpeg",
       desc: "4 séries • 10–15 répétitions"
     },
     {
-      nom: "Soulevé de terre jambes tendues",
-      muscle: "Ischios",
-      img: "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress",
-      desc: "3 séries • 8–12 répétitions"
+      nom: "Fentes marchées",
+      muscle: "Fessiers / Ischios",
+      img: "https://images.pexels.com/photos/6455982/pexels-photo-6455982.jpeg",
+      desc: "3 séries • 12 répétitions par jambe"
+    },
+    {
+      nom: "Soulevé de terre roumain",
+      muscle: "Ischios / Bas du dos",
+      img: "https://images.pexels.com/photos/8411305/pexels-photo-8411305.jpeg",
+      desc: "4 séries • 8–10 répétitions"
     }
   ],
 
@@ -328,80 +238,84 @@ const programmes = {
     {
       nom: "Crunch",
       muscle: "Abdominaux",
-      img: "https://images.pexels.com/photos/8660270/pexels-photo-8660270.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/4498291/pexels-photo-4498291.jpeg",
       desc: "3 séries • 15–20 répétitions"
     },
     {
       nom: "Gainage planche",
       muscle: "Core",
-      img: "https://images.pexels.com/photos/9789579/pexels-photo-9789579.jpeg?auto=compress",
-      desc: "3 × 30–45 secondes"
+      img: "https://images.pexels.com/photos/6456107/pexels-photo-6456107.jpeg",
+      desc: "3 × 45–60 secondes"
     },
     {
       nom: "Relevés de jambes",
       muscle: "Bas des abdos",
-      img: "https://images.pexels.com/photos/3838389/pexels-photo-3838389.jpeg?auto=compress",
+      img: "https://images.pexels.com/photos/4761354/pexels-photo-4761354.jpeg",
       desc: "3 séries • 10–15 répétitions"
     }
   ]
 };
 
+/* ===== VARIABLES ===== */
 let exercices = [];
-let typeSeance = null;
 let indexExo = 0;
+let typeSeance = null;
 
 let timer = null;
 let dureeTotale = 60;
 let restant = 60;
 
-/* --- CHOISIR UNE SÉANCE --- */
-function chargerSeance(type) {
-  typeSeance = type;
-  exercices = programmes[type];
-  indexExo = 0;
+const fsOverlay = document.getElementById("fs-overlay");
+const fsNom = document.getElementById("fs-exo-nom");
+const fsMuscle = document.getElementById("fs-exo-muscle");
+const fsImg = document.getElementById("fs-exo-img");
+const fsDesc = document.getElementById("fs-exo-desc");
+const fsProgress = document.getElementById("fs-progress");
+const timerText = document.getElementById("fs-timer");
+const timerLabel = document.getElementById("fs-timer-label");
+const circle = document.getElementById("fs-circle");
+const previewZone = document.getElementById("preview-zone");
+const previewText = document.getElementById("preview-text");
 
-  document.getElementById("preview-zone").style.display = "block";
-  document.getElementById("preview-text").textContent =
-    `Séance : ${type.toUpperCase()} – ${exercices.length} exercices`;
+/* ====== CHARGER SÉANCE ====== */
+function chargerSeance(type) {
+  exercices = programmes[type];
+  typeSeance = type;
+  indexExo = 0;
+  previewZone.style.display = "block";
+  previewText.textContent = `Séance : ${type.toUpperCase()} – ${exercices.length} exercices.`;
 }
 
-/* --- FULLSCREEN --- */
+/* ====== FULLSCREEN ====== */
 function ouvrirFullscreen() {
-  if (!exercices.length) return alert("Choisis une séance d'abord !");
-  document.getElementById("fs-overlay").classList.add("active");
+  fsOverlay.classList.add("active");
   afficherExercice();
 }
-
 function fermerFullscreen() {
-  document.getElementById("fs-overlay").classList.remove("active");
+  fsOverlay.classList.remove("active");
   pauseTimer();
 }
 
-/* --- AFFICHER UN EXERCICE --- */
+/* ===== EXERCICES ===== */
 function afficherExercice() {
   const ex = exercices[indexExo];
 
-  document.getElementById("fs-type").textContent = typeSeance.toUpperCase();
-  document.getElementById("fs-progress").textContent =
-    `Exercice ${indexExo + 1} / ${exercices.length}`;
-
-  document.getElementById("fs-exo-img").src = ex.img;
-  document.getElementById("fs-exo-nom").textContent = ex.nom;
-  document.getElementById("fs-exo-muscle").textContent = ex.muscle;
-  document.getElementById("fs-exo-desc").textContent = ex.desc;
+  fsProgress.textContent = `Exercice ${indexExo + 1} / ${exercices.length}`;
+  fsNom.textContent = ex.nom;
+  fsMuscle.textContent = ex.muscle;
+  fsImg.src = ex.img;
+  fsDesc.textContent = ex.desc;
 
   resetTimer();
-
-  sauvegarderXP();
 }
 
-/* --- NAVIGATION EXOS --- */
 function nextExercice() {
   if (indexExo < exercices.length - 1) {
     indexExo++;
     afficherExercice();
   } else {
-    terminerSeance();
+    fermerFullscreen();
+    alert("Séance terminée !");
   }
 }
 
@@ -412,7 +326,7 @@ function prevExercice() {
   }
 }
 
-/* --- TIMER --- */
+/* ===== TIMER ===== */
 function setDuree(sec) {
   dureeTotale = sec;
   resetTimer();
@@ -420,83 +334,51 @@ function setDuree(sec) {
 
 function startTimer() {
   if (timer) return;
-  let start = Date.now();
+  timerLabel.textContent = "En cours";
 
+  const start = Date.now() - (dureeTotale - restant) * 1000;
   timer = setInterval(() => {
-    const elapsed = Math.floor((Date.now() - start) / 1000);
-    restant = Math.max(dureeTotale - elapsed, 0);
+    restant = Math.max(dureeTotale - Math.floor((Date.now() - start) / 1000), 0);
+    updateTimer();
 
-    majTimer();
-
-    if (restant <= 0) {
+    if (restant === 0) {
       pauseTimer();
-      document.getElementById("fs-timer-label").textContent = "Terminé";
+      timerLabel.textContent = "Terminé";
     }
-  }, 1000);
-
-  document.getElementById("fs-timer-label").textContent = "En cours";
+  }, 200);
 }
 
 function pauseTimer() {
-  if (timer) {
-    clearInterval(timer);
-    timer = null;
-    document.getElementById("fs-timer-label").textContent = "Pause";
-  }
+  clearInterval(timer);
+  timer = null;
+  timerLabel.textContent = "Pause";
 }
 
 function resetTimer() {
   pauseTimer();
   restant = dureeTotale;
-  majTimer();
-  document.getElementById("fs-timer-label").textContent = "Prêt";
+  updateTimer();
+  timerLabel.textContent = "Prêt";
 }
 
-function majTimer() {
+function updateTimer() {
   const m = String(Math.floor(restant / 60)).padStart(2, "0");
   const s = String(restant % 60).padStart(2, "0");
-  document.getElementById("fs-timer").textContent = `${m}:${s}`;
+  timerText.textContent = `${m}:${s}`;
 
   const progress = 1 - restant / dureeTotale;
-  const deg = progress * 360;
-  document.getElementById("fs-circle").style.background =
+  const deg = 360 * progress;
+
+  circle.style.background =
     `conic-gradient(#a855f7 0deg ${deg}deg, #1b1025 ${deg}deg 360deg)`;
 }
 
-/* --- XP & HISTORIQUE COMPATIBLE AVEC compte.html --- */
-function sauvegarderXP() {
-  // +5 XP à chaque exercice affiché
-  let xp = parseInt(localStorage.getItem("forgefit_points") || "0");
-  xp += 5;
-  localStorage.setItem("forgefit_points", xp);
-
-  // +1 à chaque séance
-  if (indexExo === 0) {
-    let sc = parseInt(localStorage.getItem("forgefit_sessions_count") || "0");
-    sc += 1;
-    localStorage.setItem("forgefit_sessions_count", sc);
-  }
-}
-
-/* --- FIN DE SÉANCE --- */
-function terminerSeance() {
-  alert("🔥 Séance terminée ! XP +5 par exercice.");
-  fermerFullscreen();
-}
-
-/* --- SWIPE GESTURE --- */
-let touchStartX = 0;
-let touchEndX = 0;
-
-document.getElementById("fs-overlay").addEventListener("touchstart", e => {
-  touchStartX = e.touches[0].clientX;
-});
-
-document.getElementById("fs-overlay").addEventListener("touchend", e => {
-  touchEndX = e.changedTouches[0].clientX;
-  const dx = touchEndX - touchStartX;
-
-  if (Math.abs(dx) > 50) {
+/* ===== SWIPE ===== */
+let xStart = 0;
+fsOverlay.addEventListener("touchstart", e => xStart = e.touches[0].clientX);
+fsOverlay.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - xStart;
+  if (Math.abs(dx) > 70) {
     if (dx < 0) nextExercice();
     else prevExercice();
   }
