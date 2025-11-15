@@ -51,6 +51,7 @@
     letter-spacing: .15em;
     background: linear-gradient(90deg,#ff3131,#a855f7);
     color: #fff;
+    margin-top: 6px;
   }
   .badge-level {
     display: inline-block;
@@ -135,7 +136,7 @@
       <option value="">Débutant</option>
       <option>Intermédiaire</option>
       <option>Avancé</option>
-      <option>Elite</option>
+      <option>Élite</option>
     </select>
   </div>
 
@@ -147,6 +148,13 @@
   <div class="card">
     <p><b>Points d'entraînement :</b> <span id="points">0</span></p>
     <p><b>Niveau :</b> <span id="niveau-badge" class="badge-level"></span></p>
+  </div>
+
+  <hr style="margin:26px 0;opacity:.3;">
+
+  <h2>Badges & réussites</h2>
+  <div class="card" id="badges-zone">
+    <p>Aucun badge débloqué pour l’instant. Continue les séances 💪</p>
   </div>
 
   <hr style="margin:26px 0;opacity:.3;">
@@ -167,7 +175,6 @@
 <footer>Forge & Fit © 2025 — Compte utilisateur complet.</footer>
 
 <script>
-
 // --- PHOTO DE PROFIL ---
 function changerPhoto() {
   const url = prompt("Entre l'URL de ta photo de profil :");
@@ -238,13 +245,17 @@ function afficherHistorique() {
   const raw = localStorage.getItem("forgefit_sessions");
   const zone = document.getElementById("historique");
   if (!raw) {
-    zone.innerHTML = "<p>Aucune séance enregistrée.</p>";
+    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
     return;
   }
 
   const list = JSON.parse(raw);
-  zone.innerHTML = "";
+  if (!list.length) {
+    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
+    return;
+  }
 
+  zone.innerHTML = "";
   list.forEach(x => {
     const d = new Date(x.date).toLocaleString("fr-FR");
     zone.innerHTML += `
@@ -257,17 +268,48 @@ function afficherHistorique() {
   });
 }
 
-// --- POINTS + NIVEAU ---
+// --- POINTS + NIVEAU + BADGES ---
 function chargerPoints() {
   let pts = parseInt(localStorage.getItem("forgefit_points") || "0");
   document.getElementById("points").textContent = pts;
 
   let niveau = "Bronze";
-  if (pts > 200) niveau = "Argent";
-  if (pts > 500) niveau = "Or";
-  if (pts > 1000) niveau = "Élite";
+  if (pts >= 200) niveau = "Argent";
+  if (pts >= 500) niveau = "Or";
+  if (pts >= 1000) niveau = "Élite";
 
   document.getElementById("niveau-badge").textContent = niveau;
+
+  calculerBadges(pts);
+}
+
+function calculerBadges(pts) {
+  const zone = document.getElementById("badges-zone");
+  let sessions = parseInt(localStorage.getItem("forgefit_sessions_count") || "0");
+  const badges = [];
+
+  // Badges séances
+  if (sessions >= 1)  badges.push("Première séance 🔓");
+  if (sessions >= 10) badges.push("Endurance – 10 séances 🏅");
+  if (sessions >= 30) badges.push("Guerrier – 30 séances 🔥");
+  if (sessions >= 100) badges.push("Machine – 100 séances 💀");
+
+  // Badges points
+  if (pts >= 200)  badges.push("Argent – 200+ points ⚔️");
+  if (pts >= 500)  badges.push("Or – 500+ points 👑");
+  if (pts >= 1000) badges.push("Élite – 1000+ points 💎");
+
+  // Badge premium
+  const premiumData = JSON.parse(localStorage.getItem("forgefit_premium") || "null");
+  if (premiumData) {
+    badges.push(`Membre ${premiumData.plan === "elite" ? "Forge Elite" : "Forge Basic"} 🟣`);
+  }
+
+  if (!badges.length) {
+    zone.innerHTML = "<p>Aucun badge débloqué pour l’instant. Continue les séances 💪</p>";
+  } else {
+    zone.innerHTML = "<ul>" + badges.map(b => `<li>${b}</li>`).join("") + "</ul>";
+  }
 }
 
 chargerProfil();
