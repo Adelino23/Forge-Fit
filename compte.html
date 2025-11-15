@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Mon compte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .compte-container {
+      max-width: 600px;
+      margin: auto;
+    }
+    .label {
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #101018;
+      border: 1px solid #262636;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<header>MON COMPTE</header>
+
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="prise-masse.html">Prise de masse</a>
+  <a href="perte-gras.html">Perte de gras</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="entrainement.html">Séance</a>
+  <a href="plan.html">Plan personnalisé</a>
+  <a href="compte.html">Mon compte</a>
+</nav>
+
+<section class="compte-container">
+  <h2>Profil utilisateur</h2>
+
+  <!-- NON CONNECTÉ -->
+  <div class="card" id="zone-non-connecte">
+    <p>Crée ton profil Forge & Fit sur CET appareil.</p>
+
+    <label class="label">Nom / Pseudo :</label>
+    <input id="nom" type="text" placeholder="Ex : Lino Game">
+
+    <label class="label">Email :</label>
+    <input id="email" type="email" placeholder="Ex : toi@mail.com">
+
+    <button style="margin-top:10px;" onclick="creerCompte()">Créer / Sauvegarder mon compte</button>
+  </div>
+
+  <!-- CONNECTÉ -->
+  <div class="card" id="zone-connecte" style="display:none;">
+    <h3>Tu es connecté 🔥</h3>
+    <p><b>Nom :</b> <span id="profil-nom"></span></p>
+    <p><b>Email :</b> <span id="profil-email"></span></p>
+
+    <p style="font-size:12px;opacity:0.7;">Les données sont sauvegardées sur cet appareil.</p>
+
+    <button onclick="deconnexion()">Se déconnecter / Effacer le profil</button>
+  </div>
+</section>
+
+<footer>Forge & Fit © 2025</footer>
+
+<script>
+function chargerProfil() {
+  const data = localStorage.getItem("forgefit_profil");
+
+  if (!data) {
+    document.getElementById("zone-non-connecte").style.display = "block";
+    document.getElementById("zone-connecte").style.display = "none";
+    return;
+  }
+
+  const profil = JSON.parse(data);
+  document.getElementById("profil-nom").textContent = profil.nom;
+  document.getElementById("profil-email").textContent = profil.email;
+
+  document.getElementById("zone-non-connecte").style.display = "none";
+  document.getElementById("zone-connecte").style.display = "block";
+}
+
+function creerCompte() {
+  const nom = document.getElementById("nom").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!nom || !email) {
+    alert("Remplis ton nom et ton email.");
+    return;
+  }
+
+  const profil = {
+    nom,
+    email,
+    creeLe: new Date().toISOString()
+  };
+
+  localStorage.setItem("forgefit_profil", JSON.stringify(profil));
+  chargerProfil();
+  alert("Compte créé et sauvegardé sur cet appareil !");
+}
+
+function deconnexion() {
+  localStorage.removeItem("forgefit_profil");
+  chargerProfil();
+}
+
+chargerProfil();
+</script>
+
+</body>
+</html>
