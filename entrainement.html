@@ -154,3 +154,89 @@
     }
   </style>
 </head>
+
+  <body>
+
+<header>SÉANCE EN DIRECT</header>
+
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="prise-masse.html">Prise de masse</a>
+  <a href="perte-gras.html">Perte de gras</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="entrainement.html">Séance</a>
+  <a href="plan.html">Plan personnalisé</a>
+  <a href="compte.html">Mon compte</a>
+</nav>
+
+<section class="ex-container">
+  <h2>Lance ta séance Forge & Fit</h2>
+
+  <div class="card">
+    <p>Sélectionne un type de séance ci-dessous. Tu passeras ensuite en <b>mode plein écran</b> avec timer violet, swipe gauche/droite pour changer d’exercice et enregistrement automatique dans ton historique.</p>
+
+    <div class="btn-row">
+      <button class="small-btn" onclick="chargerSeance('fullbody')">🔥 Full-body</button>
+      <button class="small-btn" onclick="chargerSeance('pecs')">💪 Pecs</button>
+      <button class="small-btn" onclick="chargerSeance('dos')">🔵 Dos</button>
+      <button class="small-btn" onclick="chargerSeance('jambes')">🟡 Jambes</button>
+      <button class="small-btn" onclick="chargerSeance('abdos')">🟠 Abdos / Core</button>
+    </div>
+  </div>
+
+  <div id="preview-zone" class="card" style="display:none;margin-top:16px;">
+    <p id="preview-text" style="font-size:14px;"></p>
+    <button style="margin-top:8px;" onclick="ouvrirFullscreen()">🚀 Passer en mode plein écran</button>
+  </div>
+</section>
+
+<!-- FULLSCREEN OVERLAY -->
+<div id="fs-overlay" class="fs-overlay">
+  <div class="fs-inner" id="fs-inner">
+    <div class="fs-top">
+      <div>
+        <div class="fs-title" id="fs-type">SÉANCE</div>
+        <div id="fs-progress" style="font-size:12px;opacity:.8;"></div>
+      </div>
+      <div class="fs-close" onclick="fermerFullscreen()">✕</div>
+    </div>
+
+    <div class="fs-timer-wrap">
+      <div class="fs-circle-bg"></div>
+      <div class="fs-circle" id="fs-circle">
+        <div class="fs-circle-inner">
+          <div class="fs-timer-text" id="fs-timer">00:00</div>
+          <div class="fs-timer-label" id="fs-timer-label">Prêt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fs-info">
+      <h2 id="fs-exo-nom">Exercice</h2>
+      <p id="fs-exo-muscle"></p>
+      <img id="fs-exo-img" class="fs-img" src="" alt="">
+      <p id="fs-exo-desc" style="margin-top:4px;"></p>
+    </div>
+
+    <div class="fs-controls">
+      <button class="small-btn" onclick="setDuree(30)">30s</button>
+      <button class="small-btn" onclick="setDuree(45)">45s</button>
+      <button class="small-btn" onclick="setDuree(60)">60s</button>
+      <button class="small-btn" onclick="setDuree(90)">90s</button>
+    </div>
+
+    <div class="fs-controls">
+      <button class="small-btn" onclick="startTimer()">▶️ Start</button>
+      <button class="small-btn" onclick="pauseTimer()">⏸ Pause</button>
+      <button class="small-btn" onclick="resetTimer()">🔁 Reset</button>
+      <button class="small-btn" onclick="prevExercice()">⬅️ Préc.</button>
+      <button class="small-btn" onclick="nextExercice()">Suiv. ➡️</button>
+    </div>
+
+    <div class="fs-hint">
+      Glisse 👈 / 👉 pour changer d’exercice • Barre espace = Start/Pause • Flèches gauche/droite = Préc./Suiv.
+    </div>
+  </div>
+</div>
+
+<footer>Forge & Fit © 2025 — Séances fullscreen & historique automatique.</footer>
