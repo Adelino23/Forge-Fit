@@ -1,24 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Forge & Fit – Mon compte</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .compte-container {
-      max-width: 600px;
-      margin: auto;
-    }
-    .label {
-      font-size: 14px;
-      margin-top: 8px;
-    }
-    input {
-      width: 100%;
-      box-sizing: border-box;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Forge & Fit – Mon Compte</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+
+<style>
+  .account-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  .profil-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+  .profil-photo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #111;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #a855f7;
+  }
+  .profil-edit {
+    margin-top: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    opacity: .8;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media(max-width: 600px){
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+  .badge-premium {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    background: linear-gradient(90deg,#ff3131,#a855f7);
+    color: #fff;
+  }
+  .badge-level {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #1a1a2d;
+    color: #fff;
+    font-size: 12px;
+  }
+  .history-item {
+    padding: 10px;
+    background: #0c0c14;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+</style>
+
 </head>
 <body>
 
@@ -36,101 +85,189 @@
   <a href="compte.html">Mon compte</a>
 </nav>
 
-<section class="compte-container">
-  <h2>Profil utilisateur</h2>
+<section class="account-container">
 
-  <!-- ZONE NON CONNECTÉ -->
-  <div class="card" id="zone-non-connecte">
-    <p>Crée ton profil Forge & Fit sur <b>cet appareil</b>.</p>
+  <h2>Informations personnelles</h2>
 
-    <label class="label">Nom / Pseudo :</label>
-    <input id="nom" type="text" placeholder="Ex : Lino Game">
-
-    <label class="label">Email :</label>
-    <input id="email" type="email" placeholder="Ex : toi@mail.com">
-
-    <button style="margin-top:10px;" onclick="creerCompte()">Créer / Sauvegarder mon compte</button>
+  <div class="profil-box">
+    <div id="photo" class="profil-photo"></div>
+    <div>
+      <div><b id="username">Nom utilisateur</b></div>
+      <div id="premium-badge"></div>
+      <div class="profil-edit" onclick="changerPhoto()">Changer la photo</div>
+    </div>
   </div>
 
-  <!-- ZONE CONNECTÉ -->
-  <div class="card" id="zone-connecte" style="display:none;">
-    <h3>Tu es connecté 🔥</h3>
-    <p><b>Nom :</b> <span id="profil-nom"></span></p>
-    <p><b>Email :</b> <span id="profil-email"></span></p>
-    <p style="font-size:12px;opacity:0.7;">Les données sont sauvegardées localement sur cet appareil.</p>
-    <button onclick="deconnexion()">Se déconnecter / Effacer le profil</button>
+  <div class="grid-2">
+    <div class="card">
+      <label>Nom</label>
+      <input id="input-nom" placeholder="Ton nom">
+    </div>
+    <div class="card">
+      <label>Âge</label>
+      <input id="input-age" type="number" placeholder="Ton âge">
+    </div>
+    <div class="card">
+      <label>Poids (kg)</label>
+      <input id="input-poids" type="number" placeholder="Ex: 70">
+    </div>
+    <div class="card">
+      <label>Taille (cm)</label>
+      <input id="input-taille" type="number" placeholder="Ex: 175">
+    </div>
   </div>
 
-  <!-- HISTORIQUE DES SÉANCES -->
-  <div class="card" id="zone-seances">
-    <h3>Mes dernières séances</h3>
-    <div id="liste-seances" style="font-size:14px;"></div>
+  <div class="card" style="margin-top:16px;">
+    <label>Objectif</label>
+    <select id="input-objectif">
+      <option value="">Sélectionne</option>
+      <option>Prise de masse</option>
+      <option>Perte de gras</option>
+      <option>Force</option>
+      <option>Résistance</option>
+      <option>Santé / Reprise</option>
+    </select>
   </div>
+
+  <div class="card">
+    <label>Niveau de forme</label>
+    <select id="input-niveau">
+      <option value="">Débutant</option>
+      <option>Intermédiaire</option>
+      <option>Avancé</option>
+      <option>Elite</option>
+    </select>
+  </div>
+
+  <button style="margin-top:10px;" onclick="sauvegarderProfil()">💾 Sauvegarder</button>
+
+  <hr style="margin:26px 0;opacity:.3;">
+
+  <h2>Progression</h2>
+  <div class="card">
+    <p><b>Points d'entraînement :</b> <span id="points">0</span></p>
+    <p><b>Niveau :</b> <span id="niveau-badge" class="badge-level"></span></p>
+  </div>
+
+  <hr style="margin:26px 0;opacity:.3;">
+
+  <h2>Statut Premium</h2>
+  <div class="card">
+    <p id="premium-status">Chargement...</p>
+    <button onclick="window.location='premium.html'">Gérer mon abonnement</button>
+  </div>
+
+  <hr style="margin:26px 0;opacity:.3;">
+
+  <h2>Historique des séances</h2>
+  <div id="historique"></div>
+
 </section>
 
-<footer>Forge & Fit © 2025 — Espace utilisateur local.</footer>
+<footer>Forge & Fit © 2025 — Compte utilisateur complet.</footer>
 
 <script>
+
+// --- PHOTO DE PROFIL ---
+function changerPhoto() {
+  const url = prompt("Entre l'URL de ta photo de profil :");
+  if (!url) return;
+  localStorage.setItem("forgefit_photo", url);
+  document.getElementById("photo").style.backgroundImage = `url('${url}')`;
+}
+
+// --- CHARGER PROFIL ---
 function chargerProfil() {
-  const data = localStorage.getItem("forgefit_profil");
-  if (!data) {
-    document.getElementById("zone-non-connecte").style.display = "block";
-    document.getElementById("zone-connecte").style.display = "none";
-  } else {
-    const profil = JSON.parse(data);
-    document.getElementById("profil-nom").textContent = profil.nom || "";
-    document.getElementById("profil-email").textContent = profil.email || "";
-    document.getElementById("zone-non-connecte").style.display = "none";
-    document.getElementById("zone-connecte").style.display = "block";
-  }
-  chargerSeances();
+  const nom = localStorage.getItem("forgefit_nom") || "Utilisateur";
+  const age = localStorage.getItem("forgefit_age") || "";
+  const poids = localStorage.getItem("forgefit_poids") || "";
+  const taille = localStorage.getItem("forgefit_taille") || "";
+  const objectif = localStorage.getItem("forgefit_objectif") || "";
+  const niveau = localStorage.getItem("forgefit_niveau") || "";
+
+  document.getElementById("input-nom").value = nom;
+  document.getElementById("input-age").value = age;
+  document.getElementById("input-poids").value = poids;
+  document.getElementById("input-taille").value = taille;
+  document.getElementById("input-objectif").value = objectif;
+  document.getElementById("input-niveau").value = niveau;
+
+  document.getElementById("username").textContent = nom;
+
+  const photo = localStorage.getItem("forgefit_photo");
+  if (photo) document.getElementById("photo").style.backgroundImage = `url('${photo}')`;
+
+  afficherPremium();
+  afficherHistorique();
+  chargerPoints();
 }
 
-function creerCompte() {
-  const nom = document.getElementById("nom").value.trim();
-  const email = document.getElementById("email").value.trim();
-  if (!nom || !email) {
-    alert("Remplis ton nom et ton email.");
-    return;
-  }
-  const profil = { nom, email, creeLe: new Date().toISOString() };
-  localStorage.setItem("forgefit_profil", JSON.stringify(profil));
+// --- SAUVEGARDER PROFIL ---
+function sauvegarderProfil() {
+  localStorage.setItem("forgefit_nom", document.getElementById("input-nom").value);
+  localStorage.setItem("forgefit_age", document.getElementById("input-age").value);
+  localStorage.setItem("forgefit_poids", document.getElementById("input-poids").value);
+  localStorage.setItem("forgefit_taille", document.getElementById("input-taille").value);
+  localStorage.setItem("forgefit_objectif", document.getElementById("input-objectif").value);
+  localStorage.setItem("forgefit_niveau", document.getElementById("input-niveau").value);
+
+  alert("Profil sauvegardé !");
   chargerProfil();
-  alert("Compte sauvegardé sur cet appareil ✅");
 }
 
-function deconnexion() {
-  localStorage.removeItem("forgefit_profil");
-  chargerProfil();
-}
+// --- PREMIUM ---
+function afficherPremium() {
+  const data = JSON.parse(localStorage.getItem("forgefit_premium") || "null");
+  const zone = document.getElementById("premium-status");
+  const badge = document.getElementById("premium-badge");
 
-function chargerSeances() {
-  const zone = document.getElementById("liste-seances");
-  let data = localStorage.getItem("forgefit_sessions");
   if (!data) {
-    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
-    return;
-  }
-  let sessions = [];
-  try {
-    sessions = JSON.parse(data);
-  } catch (e) {
-    console.error(e);
-  }
-  if (!sessions || !sessions.length) {
-    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
+    zone.textContent = "Tu n'es pas encore Premium.";
+    badge.innerHTML = "";
     return;
   }
 
-  let html = "";
-  sessions.slice(0, 10).forEach(s => {
-    const d = new Date(s.date);
-    const mins = Math.max(1, Math.round((s.dureeSec || 0) / 60));
-    const typeLabel = (s.type || "séance").toUpperCase();
-    html += `<p>• ${d.toLocaleDateString("fr-FR")} – ${typeLabel} – ~${mins} min – ${s.nbExos} exercices</p>`;
+  const label = data.plan === "elite" ? "Forge Elite" : "Forge Basic";
+
+  zone.textContent = "Statut : " + label;
+  badge.innerHTML = `<span class='badge-premium'>${label}</span>`;
+}
+
+// --- HISTORIQUE ---
+function afficherHistorique() {
+  const raw = localStorage.getItem("forgefit_sessions");
+  const zone = document.getElementById("historique");
+  if (!raw) {
+    zone.innerHTML = "<p>Aucune séance enregistrée.</p>";
+    return;
+  }
+
+  const list = JSON.parse(raw);
+  zone.innerHTML = "";
+
+  list.forEach(x => {
+    const d = new Date(x.date).toLocaleString("fr-FR");
+    zone.innerHTML += `
+      <div class="history-item">
+        <b>${x.type.toUpperCase()}</b> — ${x.nbExos} exercices<br>
+        Durée : ${x.dureeSec}s<br>
+        <span style="opacity:.6;">${d}</span>
+      </div>
+    `;
   });
+}
 
-  zone.innerHTML = html;
+// --- POINTS + NIVEAU ---
+function chargerPoints() {
+  let pts = parseInt(localStorage.getItem("forgefit_points") || "0");
+  document.getElementById("points").textContent = pts;
+
+  let niveau = "Bronze";
+  if (pts > 200) niveau = "Argent";
+  if (pts > 500) niveau = "Or";
+  if (pts > 1000) niveau = "Élite";
+
+  document.getElementById("niveau-badge").textContent = niveau;
 }
 
 chargerProfil();
