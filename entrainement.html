@@ -35,11 +35,6 @@
       background: #ff3131;
       border-color: #ff3131;
     }
-    .timer {
-      font-size: 28px;
-      margin-top: 10px;
-      font-weight: bold;
-    }
 
     /* FULLSCREEN OVERLAY */
     .fs-overlay {
@@ -155,7 +150,7 @@
   </style>
 </head>
 
-  <body>
+<body>
 
 <header>SÉANCE EN DIRECT</header>
 
@@ -175,7 +170,7 @@
   <h2>Lance ta séance Forge & Fit</h2>
 
   <div class="card">
-    <p>Sélectionne un type de séance ci-dessous. Tu passeras ensuite en <b>mode plein écran</b> avec timer violet, swipe gauche/droite pour changer d’exercice et enregistrement automatique dans ton historique.</p>
+    <p>Sélectionne un type de séance ci-dessous. Tu passeras ensuite en <b>mode plein écran</b> avec timer violet, swipe gauche/droite pour changer d’exercice et enregistrement automatique dans ton historique + tes points d'entraînement.</p>
 
     <div class="btn-row">
       <button class="small-btn" onclick="chargerSeance('fullbody')">🔥 Full-body</button>
@@ -241,12 +236,11 @@
   </div>
 </div>
 
-<footer>Forge & Fit © 2025 — Séances fullscreen & historique automatique.</footer>
+<footer>Forge & Fit © 2025 — Séances fullscreen, XP & historique automatique.</footer>
 
-    <script>
+<script>
 // --- Programmes d'exercices ---
-// NOUVELLES IMAGES (hébergement Cloudflare, 100% fiables)
-
+// Images hébergées sur un CDN pour bien marcher avec Vercel
 const programmes = {
   fullbody: [
     { nom: "Squat", muscle: "Jambes / Fessiers", img: "https://files.catbox.moe/0t1p1u.jpg", desc: "4 séries • 8–12 reps" },
@@ -275,7 +269,7 @@ const programmes = {
   ]
 };
 
-      let typeSeance = null;
+let typeSeance = null;
 let exercices = [];
 let indexExo = 0;
 
@@ -283,7 +277,6 @@ let timer = null;
 let dureeTotale = 60;
 let restant = 60;
 let debutSeance = null;
-let tempsSeanceSec = 0;
 
 const fsOverlay = document.getElementById("fs-overlay");
 const circle = document.getElementById("fs-circle");
@@ -324,7 +317,6 @@ function chargerSeance(type) {
   exercices = programmes[type];
   indexExo = 0;
   debutSeance = null;
-  tempsSeanceSec = 0;
 
   resetTimer(true);
 
@@ -441,11 +433,50 @@ function majAffichageTimer() {
     `conic-gradient(#a855f7 0deg ${deg}deg, #1b1025 ${deg}deg 360deg)`;
 }
 
+// --- Sauvegarde séance + XP + compteur ---
+function sauvegarderSeance(type, nbExos, dureeSec) {
+  try {
+    // historique
+    const key = "forgefit_sessions";
+    let list = [];
+    const raw = localStorage.getItem(key);
+    if (raw) list = JSON.parse(raw);
+    const now = new Date();
+    list.unshift({
+      type,
+      nbExos,
+      dureeSec,
+      date: now.toISOString()
+    });
+    list = list.slice(0, 50);
+    localStorage.setItem(key, JSON.stringify(list));
+
+    // points
+    let pts = parseInt(localStorage.getItem("forgefit_points") || "0");
+    const bonusExos = nbExos * 10;                  // 10 pts par exo
+    const bonusTemps = Math.max(1, Math.round(dureeSec / 60)) * 5; // 5 pts par minute
+    pts += bonusExos + bonusTemps;
+    localStorage.setItem("forgefit_points", String(pts));
+
+    // compteur de séances
+    let sc = parseInt(localStorage.getItem("forgefit_sessions_count") || "0");
+    sc += 1;
+    localStorage.setItem("forgefit_sessions_count", String(sc));
+  } catch (e) {
+    console.error("Erreur sauvegarde séance :", e);
+  }
+}
+
 // --- Fin séance ---
 function terminerSeance() {
   pauseTimer();
+  const dureeSec = Math.max(
+    1,
+    Math.round((Date.now() - (debutSeance || Date.now())) / 1000)
+  );
+  sauvegarderSeance(typeSeance, exercices.length, dureeSec);
   fermerFullscreen();
-  alert("Séance terminée 🔥\nEnregistrée dans ton historique !");
+  alert("Séance terminée 🔥\nEnregistrée dans ton historique + points mis à jour (Mon compte).");
 }
 
 // --- Swipe ---
