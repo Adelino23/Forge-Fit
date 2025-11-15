@@ -1,106 +1,99 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="google-site-verification" content="px0qVAmpsOT43_ghekjJNsCYx30kaVGHfcJ2nLfkm0E" />
-  <title>Forge & Fit – Accueil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Forge & Fit : musculation, perte de gras, programmes personnalisés et séances guidées. Atteins ta meilleure version.">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <title>Forge & Fit - Accueil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f9;
+        }
+
+        .main-wrapper {
+            padding: 20px;
+        }
+
+        .main-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .main-header-title {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .home-card {
+            background: white;
+            margin: 18px 0;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .home-card h2 {
+            margin-top: 0;
+        }
+
+        .card-btn {
+            display: inline-block;
+            background: #4361ee;
+            color: white;
+            padding: 12px 20px;
+            margin-top: 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .card-btn:hover {
+            background: #3049c7;
+        }
+    </style>
 </head>
 <body>
 
-<header>FORGE & FIT</header>
+<div class="main-wrapper">
 
-  <nav>
-  <a href="index.html">Accueil</a>
-  <a href="prise-masse.html">Prise de masse</a>
-  <a href="perte-gras.html">Perte de gras</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan personnalisé</a>
-  <a href="boutique.html">PDF & Programmes</a>
-  <a href="premium.html">Premium</a>
-  <a href="compte.html">Mon compte</a>
-  </nav>
+    <header class="main-header">
+        <div class="main-header-title">FORGE & FIT</div>
+        <div>Ton évolution commence ici</div>
+    </header>
 
-<section>
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-tag">PROGRAMMES • MUSCULATION • DISCIPLINE</div>
-    <h1>Deviens la version <span class="hero-highlight">la plus dangereuse</span> de toi-même.</h1>
-    <p class="hero-sub">
-      Forge & Fit, c’est ta base : prise de masse, perte de gras, plus de 150 exercices,
-      un générateur de plan et des séances guidées avec chrono. Tu n’as plus d’excuse.
-    </p>
-
-    <div class="hero-actions">
-      <a href="plan.html"><button>🎯 Créer mon plan personnalisé</button></a>
-      <a href="entrainement.html"><button class="btn-ghost">🔥 Lancer une séance maintenant</button></a>
-    </div>
-  </div>
-
-  <!-- SECTIONS -->
-  <div class="grid grid-2">
-    <div class="card">
-      <h3>🔥 Objectif prise de masse</h3>
-      <p>
-        Programmes structurés, progressifs, adaptés à ton niveau. Volume intelligent,
-        exercices polyarticulaires, surcharge progressive, nutrition calibrée.
-      </p>
-      <ul>
-        <li>Plans 3 à 6 jours par semaine</li>
-        <li>Exercices essentiels + isolation intelligente</li>
-        <li>Calories & macros pour prendre propre</li>
-      </ul>
-      <a href="prise-masse.html"><button style="margin-top:8px;">Voir les programmes masse</button></a>
+    <div class="home-card">
+        <h2>Programmes</h2>
+        <p>Choisis ton objectif et commence un entraînement adapté.</p>
+        <a class="card-btn" href="entrainement.html">Commencer une séance</a>
     </div>
 
-    <div class="card">
-      <h3>💀 Perte de gras agressive mais intelligente</h3>
-      <p>
-        Déficit maîtrisé, musculation lourde pour garder ton muscle, cardio intelligent
-        et séances explosives façon HIIT.
-      </p>
-      <ul>
-        <li>Stratégies perte de gras sans tomber à plat</li>
-        <li>Cardio adapté à ton niveau</li>
-        <li>Exemples de journées alimentaires complètes</li>
-      </ul>
-      <a href="perte-gras.html"><button style="margin-top:8px;">Commencer ma sèche</button></a>
+    <div class="home-card">
+        <h2>Prise de masse</h2>
+        <p>Plans alimentaires, exercices et conseils dédiés.</p>
+        <a class="card-btn" href="prise-masse.html">Voir</a>
     </div>
 
-    <div class="card">
-      <h3>📚 Bibliothèque d’exercices</h3>
-      <p>
-        Plus de 150 exercices classés par muscle, avec consignes, rep range et variantes.
-        Tu sais toujours quoi faire en salle.
-      </p>
-      <ul>
-        <li>Classés par muscle et niveau</li>
-        <li>Idées de supersets et circuits</li>
-        <li>Idéal pour créer tes propres séances</li>
-      </ul>
-      <a href="exercices.html"><button style="margin-top:8px;">Explorer les exercices</button></a>
+    <div class="home-card">
+        <h2>Perte de gras</h2>
+        <p>Brûle les calories efficacement grâce à nos méthodes.</p>
+        <a class="card-btn" href="perte-gras.html">Voir</a>
     </div>
 
-    <div class="card">
-      <h3>🧠 Plan personnalisé & suivi</h3>
-      <p>
-        Réponds au quiz, Forge & Fit génère un plan complet : entraînement, nutrition,
-        cardio et récupération. Télécharge-le en PDF et garde-le dans ton compte.
-      </p>
-      <ul>
-        <li>Plan sur mesure en quelques questions</li>
-        <li>Téléchargement PDF</li>
-        <li>Accessible depuis “Mon compte” sur cet appareil</li>
-      </ul>
-      <a href="plan.html"><button style="margin-top:8px;">Lancer le quiz maintenant</button></a>
+    <div class="home-card">
+        <h2>Exercices</h2>
+        <p>Catalogue complet des exercices avec explications.</p>
+        <a class="card-btn" href="exercices.html">Explorer</a>
     </div>
-  </div>
-</section>
 
-<footer>Forge & Fit © 2025 — Discipline. Intensité. Résultats.</footer>
+    <div class="home-card">
+        <h2>Mon Compte</h2>
+        <p>Accède à tes paramètres et préférences.</p>
+        <a class="card-btn" href="compte.html">Ouvrir</a>
+    </div>
+
+</div>
 
 </body>
 </html>
