@@ -1,78 +1,52 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Forge & Fit – Séance</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .session-container {
-      max-width: 960px;
-      margin: auto;
-    }
-    .choice-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .choice-btn {
-      border-radius: 999px;
-      border: 1px solid #333;
-      padding: 8px 14px;
-      background: #101018;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .choice-btn.active {
-      background: #ff3131;
-      border-color: #ff3131;
-    }
-    .exercise-card {
-      background: #101018;
-      border-radius: 12px;
-      border: 1px solid #262636;
-      padding: 16px;
-      margin-top: 10px;
-    }
-    .exercise-img {
-      width: 100%;
-      max-height: 260px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      background: #000;
-    }
-    .timer {
-      font-size: 32px;
-      font-weight: bold;
-      text-align: center;
-      margin: 10px 0;
-    }
-    .timer-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .small-btn {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid #333;
-      background: #111018;
-      cursor: pointer;
-      font-size: 13px;
-    }
-    .progress-text {
-      font-size: 13px;
-      opacity: 0.8;
-      margin-bottom: 6px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Forge & Fit – Séance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ex-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        .ex-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+        .timer {
+            font-size: 28px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0 6px 0;
+        }
+        .small-btn {
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(10,10,25,0.95);
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .small-btn:hover {
+            background: #ff3131;
+            border-color: #ff3131;
+        }
+    </style>
 </head>
+
 <body>
 
 <header>SÉANCE EN DIRECT</header>
+
 <nav>
   <a href="index.html">Accueil</a>
   <a href="prise-masse.html">Prise de masse</a>
@@ -83,175 +57,166 @@
   <a href="compte.html">Mon compte</a>
 </nav>
 
-<section class="session-container">
-  <h2>Lance ta séance Forge & Fit</h2>
+<section class="ex-container">
 
-  <div class="card">
-    <p>Sélectionne un type de séance, puis suis les exercices un par un. Utilise le chrono pour tes temps de repos ou tes séries.</p>
-    <div class="choice-row" id="type-seance">
-      <button class="choice-btn" data-type="fullbody">Full-body</button>
-      <button class="choice-btn" data-type="pecs">Pectoraux</button>
-      <button class="choice-btn" data-type="dos">Dos</button>
-      <button class="choice-btn" data-type="jambes">Jambes</button>
-      <button class="choice-btn" data-type="epaules">Épaules</button>
-      <button class="choice-btn" data-type="bras">Bras</button>
-      <button class="choice-btn" data-type="abdos">Abdos / Core</button>
+    <h2 id="titre-exercice">Choisis ta séance</h2>
+
+    <div class="card">
+        <p>Sélectionne un type de séance, puis suis les exercices un par un. À la fin, ta séance sera enregistrée dans <b>Mon compte</b>.</p>
+
+        <div class="btn-row">
+            <button class="small-btn" onclick="chargerSeance('fullbody')">🔥 Full-Body</button>
+            <button class="small-btn" onclick="chargerSeance('pecs')">💪 Pectoraux</button>
+            <button class="small-btn" onclick="chargerSeance('dos')">🔵 Dos</button>
+            <button class="small-btn" onclick="chargerSeance('jambes')">🟡 Jambes</button>
+            <button class="small-btn" onclick="chargerSeance('abdos')">🟠 Abdos</button>
+        </div>
     </div>
-    <button onclick="demarrerSeance()">Démarrer la séance</button>
-  </div>
 
-  <div id="seance-zone" style="margin-top:20px;"></div>
+    <div id="zone-exercice" class="card" style="display:none;">
+        <p id="progression" style="font-size:13px;opacity:0.8;"></p>
+        <img id="img-exercice" class="ex-image" src="">
+        <h3 id="nom-exercice"></h3>
+        <p id="desc-exercice"></p>
+
+        <div class="timer" id="chrono">00:00</div>
+
+        <div class="btn-row">
+            <button class="small-btn" onclick="startTimer()">▶️ Démarrer</button>
+            <button class="small-btn" onclick="stopTimer()">⏸ Pause</button>
+            <button class="small-btn" onclick="resetTimer()">🔁 Reset</button>
+        </div>
+
+        <button style="margin-top:8px;" onclick="nextExercice()">Exercice suivant ⏭️</button>
+    </div>
+
 </section>
 
-<footer>Forge & Fit © 2025 — Séance guidée.</footer>
+<footer>Forge & Fit © 2025 — Séances enregistrées dans ton historique.</footer>
 
 <script>
-// Petites "séances" prédéfinies par type
-const seances = {
-  fullbody: [
-    { nom: "Squat", muscle: "Jambes", image: "https://via.placeholder.com/800x400?text=Squat" },
-    { nom: "Développé couché", muscle: "Pectoraux", image: "https://via.placeholder.com/800x400?text=Développé+couché" },
-    { nom: "Tractions", muscle: "Dos", image: "https://via.placeholder.com/800x400?text=Tractions" },
-    { nom: "Développé militaire", muscle: "Épaules", image: "https://via.placeholder.com/800x400?text=Développé+militaire" }
-  ],
-  pecs: [
-    { nom: "Développé couché barre", muscle: "Pectoraux", image: "https://via.placeholder.com/800x400?text=DC+barre" },
-    { nom: "Développé incliné haltères", muscle: "Pectoraux haut", image: "https://via.placeholder.com/800x400?text=DI+haltères" },
-    { nom: "Écartés haltères", muscle: "Pectoraux", image: "https://via.placeholder.com/800x400?text=Écartés+haltères" }
-  ],
-  dos: [
-    { nom: "Tractions pronation", muscle: "Dos large", image: "https://via.placeholder.com/800x400?text=Tractions" },
-    { nom: "Rowing barre", muscle: "Dos épaisseur", image: "https://via.placeholder.com/800x400?text=Rowing+barre" },
-    { nom: "Tirage vertical", muscle: "Grand dorsal", image: "https://via.placeholder.com/800x400?text=Tirage+vertical" }
-  ],
-  jambes: [
-    { nom: "Squat barre", muscle: "Quadriceps / Fessiers", image: "https://via.placeholder.com/800x400?text=Squat+barre" },
-    { nom: "Presse à cuisses", muscle: "Quadriceps", image: "https://via.placeholder.com/800x400?text=Presse" },
-    { nom: "Soulevé de terre JT", muscle: "Ischios", image: "https://via.placeholder.com/800x400?text=SDT+JT" }
-  ],
-  epaules: [
-    { nom: "Développé militaire", muscle: "Épaules", image: "https://via.placeholder.com/800x400?text=DM" },
-    { nom: "Élévations latérales", muscle: "Épaules", image: "https://via.placeholder.com/800x400?text=Élévations+latérales" },
-    { nom: "Oiseau haltères", muscle: "Épaules arrière", image: "https://via.placeholder.com/800x400?text=Oiseau" }
-  ],
-  bras: [
-    { nom: "Curl barre", muscle: "Biceps", image: "https://via.placeholder.com/800x400?text=Curl+barre" },
-    { nom: "Curl marteau", muscle: "Biceps / Avant-bras", image: "https://via.placeholder.com/800x400?text=Curl+marteau" },
-    { nom: "Barre au front", muscle: "Triceps", image: "https://via.placeholder.com/800x400?text=Barre+au+front" }
-  ],
-  abdos: [
-    { nom: "Crunch", muscle: "Abdos", image: "https://via.placeholder.com/800x400?text=Crunch" },
-    { nom: "Gainage planche", muscle: "Core", image: "https://via.placeholder.com/800x400?text=Gainage" },
-    { nom: "Relevés de jambes", muscle: "Bas des abdos", image: "https://via.placeholder.com/800x400?text=Relevés+de+jambes" }
-  ]
+// Programmes disponibles
+const programmes = {
+    pecs: [
+        {nom: "Développé couché", img: "https://i.imgur.com/omYBj4A.jpeg", desc: "4 séries • 8–10 reps"},
+        {nom: "Écartés haltères", img: "https://i.imgur.com/q7d9A2U.jpeg", desc: "3 séries • 12 reps"},
+        {nom: "Pompes", img: "https://i.imgur.com/3x5H9TZ.jpeg", desc: "3 séries • max reps"}
+    ],
+    fullbody: [
+        {nom: "Squat", img: "https://i.imgur.com/4YbRrjD.jpeg", desc: "4 séries • 10–12 reps"},
+        {nom: "Pompes", img: "https://i.imgur.com/3x5H9TZ.jpeg", desc: "3 séries • 12–15 reps"},
+        {nom: "Rowing", img: "https://i.imgur.com/8jO2JfO.jpeg", desc: "4 séries • 8–10 reps"}
+    ],
+    dos: [
+        {nom: "Tractions", img: "https://i.imgur.com/8jO2JfO.jpeg", desc: "4 séries • 6–10 reps"},
+        {nom: "Rowing barre", img: "https://i.imgur.com/8jO2JfO.jpeg", desc: "4 séries • 8–10 reps"},
+        {nom: "Tirage vertical", img: "https://i.imgur.com/8jO2JfO.jpeg", desc: "3 séries • 10–12 reps"}
+    ],
+    jambes: [
+        {nom: "Squat barre", img: "https://i.imgur.com/4YbRrjD.jpeg", desc: "4 séries • 8–10 reps"},
+        {nom: "Presse à cuisses", img: "https://i.imgur.com/4YbRrjD.jpeg", desc: "4 séries • 12 reps"},
+        {nom: "Soulevé de terre JT", img: "https://i.imgur.com/4YbRrjD.jpeg", desc: "3 séries • 10–12 reps"}
+    ],
+    abdos: [
+        {nom: "Crunch", img: "https://i.imgur.com/3x5H9TZ.jpeg", desc: "3 séries • 15–20 reps"},
+        {nom: "Gainage planche", img: "https://i.imgur.com/3x5H9TZ.jpeg", desc: "3 x 30–45 sec"},
+        {nom: "Relevés de jambes", img: "https://i.imgur.com/3x5H9TZ.jpeg", desc: "3 séries • 10–15 reps"}
+    ]
 };
 
-let typeActuel = null;
-let exerciceIndex = 0;
-let timer = null;
-let tempsRestant = 60;
-let enCours = false;
+let index = 0;
+let timer;
+let secondes = 0;
+let exerciceActuel = [];
+let typeSeance = null;
+let debutSeance = null;
 
-document.querySelectorAll('#type-seance .choice-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#type-seance .choice-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    typeActuel = btn.dataset.type;
-  });
-});
-
-function demarrerSeance() {
-  if (!typeActuel) {
-    alert("Choisis d’abord un type de séance.");
-    return;
-  }
-  exerciceIndex = 0;
-  afficherExercice();
-}
-
-function afficherExercice() {
-  const liste = seances[typeActuel] || [];
-  const zone = document.getElementById("seance-zone");
-  if (exerciceIndex >= liste.length) {
-    zone.innerHTML = '<div class="exercise-card"><h3>Séance terminée ✅</h3><p>Bravo ! Pense à t’hydrater et à bien récupérer.</p></div>';
-    arreterTimer();
-    return;
-  }
-  const exo = liste[exerciceIndex];
-  tempsRestant = 60;
-  enCours = false;
-  arreterTimer();
-
-  zone.innerHTML = `
-    <div class="exercise-card">
-      <div class="progress-text">Exercice ${exerciceIndex + 1} / ${liste.length}</div>
-      <h3>${exo.nom}</h3>
-      <p style="opacity:0.8;font-size:14px;">Muscle ciblé : ${exo.muscle}</p>
-      <img src="${exo.image}" alt="${exo.nom}" class="exercise-img">
-      <div class="timer" id="timer-display">01:00</div>
-      <div class="timer-controls">
-        <button class="small-btn" onclick="setTimer(30)">30s</button>
-        <button class="small-btn" onclick="setTimer(60)">60s</button>
-        <button class="small-btn" onclick="setTimer(90)">90s</button>
-      </div>
-      <div class="timer-controls">
-        <button class="small-btn" onclick="startTimer()">▶️ Start</button>
-        <button class="small-btn" onclick="pauseTimer()">⏸ Pause</button>
-        <button class="small-btn" onclick="resetTimer()">🔁 Reset</button>
-      </div>
-      <button style="margin-top:10px;" onclick="prochainExercice()">Exercice suivant ➡️</button>
-    </div>
-  `;
-  afficherTemps();
-}
-
-function afficherTemps() {
-  const m = String(Math.floor(tempsRestant / 60)).padStart(2, '0');
-  const s = String(tempsRestant % 60).padStart(2, '0');
-  const el = document.getElementById("timer-display");
-  if (el) el.textContent = m + ":" + s;
-}
-
-function setTimer(sec) {
-  tempsRestant = sec;
-  afficherTemps();
-}
-
-function startTimer() {
-  if (enCours) return;
-  enCours = true;
-  timer = setInterval(() => {
-    tempsRestant--;
-    if (tempsRestant <= 0) {
-      tempsRestant = 0;
-      afficherTemps();
-      arreterTimer();
-      alert("Temps terminé !");
-    } else {
-      afficherTemps();
+// Charger une séance
+function chargerSeance(type) {
+    if (!programmes[type]) {
+        alert("Séance non disponible.");
+        return;
     }
-  }, 1000);
+    typeSeance = type;
+    exerciceActuel = programmes[type];
+    index = 0;
+    secondes = 0;
+    debutSeance = Date.now();
+    document.getElementById("chrono").textContent = "00:00";
+    afficherExercice();
 }
 
-function pauseTimer() {
-  arreterTimer();
+// Afficher l'exercice courant
+function afficherExercice() {
+    document.getElementById("zone-exercice").style.display = "block";
+    const ex = exerciceActuel[index];
+    document.getElementById("nom-exercice").textContent = ex.nom;
+    document.getElementById("img-exercice").src = ex.img;
+    document.getElementById("desc-exercice").textContent = ex.desc;
+    document.getElementById("titre-exercice").textContent = "Séance : " + typeSeance.toUpperCase();
+    document.getElementById("progression").textContent =
+        "Exercice " + (index + 1) + " / " + exerciceActuel.length;
+}
+
+// Chronomètre
+function startTimer() {
+    stopTimer();
+    timer = setInterval(() => {
+        secondes++;
+        let m = String(Math.floor(secondes / 60)).padStart(2, '0');
+        let s = String(secondes % 60).padStart(2, '0');
+        document.getElementById("chrono").textContent = `${m}:${s}`;
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timer);
 }
 
 function resetTimer() {
-  arreterTimer();
-  tempsRestant = 60;
-  afficherTemps();
+    stopTimer();
+    secondes = 0;
+    document.getElementById("chrono").textContent = "00:00";
 }
 
-function arreterTimer() {
-  enCours = false;
-  if (timer) clearInterval(timer);
-  timer = null;
+// Séance suivante / fin
+function nextExercice() {
+    index++;
+    if (index >= exerciceActuel.length) {
+        stopTimer();
+        const dureeSec = Math.round((Date.now() - (debutSeance || Date.now())) / 1000);
+        sauvegarderSeance(typeSeance, exerciceActuel.length, dureeSec);
+        alert("Séance terminée 🔥\nElle a été enregistrée dans ton historique (Mon compte).");
+        // reset affichage
+        document.getElementById("zone-exercice").style.display = "none";
+        document.getElementById("titre-exercice").textContent = "Choisis ta séance";
+        secondes = 0;
+        document.getElementById("chrono").textContent = "00:00";
+        return;
+    }
+    afficherExercice();
 }
 
-function prochainExercice() {
-  exerciceIndex++;
-  afficherExercice();
+// Sauvegarder la séance dans localStorage
+function sauvegarderSeance(type, nbExos, dureeSec) {
+    try {
+        const key = "forgefit_sessions";
+        let data = localStorage.getItem(key);
+        let list = [];
+        if (data) list = JSON.parse(data);
+        const now = new Date();
+        list.unshift({
+            type,
+            nbExos,
+            dureeSec,
+            date: now.toISOString()
+        });
+        // on garde les 30 dernières
+        list = list.slice(0, 30);
+        localStorage.setItem(key, JSON.stringify(list));
+    } catch (e) {
+        console.error("Erreur sauvegarde séance :", e);
+    }
 }
 </script>
 
