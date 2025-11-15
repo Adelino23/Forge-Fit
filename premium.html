@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .premium-container {
+      max-width: 900px;
+      margin: auto;
+    }
+    .badge-premium {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      background: linear-gradient(90deg,#ff3131,#a855f7);
+      color: #fff;
+    }
+    .premium-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (min-width: 768px) {
+      .premium-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+    }
+    .price {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 6px 0;
+    }
+    .price span {
+      font-size: 13px;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+    .pill-list li {
+      margin-bottom: 4px;
+    }
+    .small {
+      font-size: 12px;
+      opacity: .75;
+    }
+  </style>
+</head>
+<body>
+
+<header>FORGE & FIT – PREMIUM</header>
+
+<nav>
+  <a href="index.html">Accueil</a>
+  <a href="prise-masse.html">Prise de masse</a>
+  <a href="perte-gras.html">Perte de gras</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="entrainement.html">Séance</a>
+  <a href="plan.html">Plan personnalisé</a>
+  <a href="boutique.html">PDF & Programmes</a>
+  <a href="premium.html">Premium</a>
+  <a href="compte.html">Mon compte</a>
+</nav>
+
+<section class="premium-container">
+  <div class="hero">
+    <span class="badge-premium">FORGE PREMIUM</span>
+    <h1>Forge Basic ou Forge Elite.<br>Deux niveaux, un seul objectif&nbsp;: te transformer.</h1>
+    <p class="hero-sub">
+      L’accès complet aux séances fullscreen, aux plans avancés, aux PDF premium et aux futures fonctionnalités
+      (HIIT, statistiques avancées…) sur <b>Forge & Fit</b>.
+    </p>
+  </div>
+
+  <div class="premium-grid">
+    <!-- Forge Basic -->
+    <div class="card">
+      <h3>Forge Basic</h3>
+      <p class="price">4,99€ <span>/ mois</span></p>
+      <p>Pour ceux qui veulent un accès sérieux à Forge & Fit sans exploser le budget.</p>
+      <ul class="pill-list">
+        <li>✔ Accès à toutes les séances fullscreen</li>
+        <li>✔ Historique des séances illimité</li>
+        <li>✔ Plans personnalisés améliorés</li>
+        <li>✔ Accès aux prochains modules HIIT</li>
+      </ul>
+      <p class="small">Mode test pour l’instant (activation sur cet appareil seulement).</p>
+      <!-- BOUTON STRIPE VRAI PLUS TARD -->
+      <button style="margin-top:8px;" onclick="activerPremium('basic')">Activer Forge Basic sur cet appareil (test)</button>
+    </div>
+
+    <!-- Forge Elite -->
+    <div class="card">
+      <h3>Forge Elite</h3>
+      <p class="price">9,99€ <span>/ mois</span></p>
+      <p>Pour ceux qui veulent aller au bout du game et tout débloquer.</p>
+      <ul class="pill-list">
+        <li>🔥 Tout ce qu’il y a dans Forge Basic</li>
+        <li>🔥 Accès à tous les PDF premium (à venir)</li>
+        <li>🔥 Plans d’entraînement Elite (plus de volume, plus de détails)</li>
+        <li>🔥 Priorité sur les prochaines fonctionnalités</li>
+      </ul>
+      <p class="small">Mode test pour l’instant (activation sur cet appareil seulement).</p>
+      <!-- BOUTON STRIPE VRAI PLUS TARD -->
+      <button style="margin-top:8px;" onclick="activerPremium('elite')">Activer Forge Elite sur cet appareil (test)</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Comment ça marchera avec les vrais paiements ?</h3>
+    <p class="small">
+      Plus tard, les boutons ci-dessus pointeront vers des liens de paiement Stripe (Google Pay, Apple Pay, carte bancaire…).
+      Après paiement, le retour Stripe permettra d’activer automatiquement le statut Premium sur tous les appareils.
+      Pour l’instant, tu peux tester le système avec les boutons "Activer sur cet appareil".
+    </p>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h3>Ton statut actuel</h3>
+    <p id="premium-status">Chargement…</p>
+    <button class="btn-ghost" onclick="desactiverPremium()" style="margin-top:6px;">Désactiver le Premium sur cet appareil</button>
+  </div>
+</section>
+
+<footer>Forge & Fit © 2025 — Forge Basic & Forge Elite.</footer>
+
+<script>
+function lirePremium() {
+  try {
+    const raw = localStorage.getItem("forgefit_premium");
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch(e) {
+    return null;
+  }
+}
+
+function afficherStatut() {
+  const zone = document.getElementById("premium-status");
+  const data = lirePremium();
+  if (!data) {
+    zone.textContent = "Tu n’es pas encore Premium sur cet appareil.";
+    return;
+  }
+  const planLabel = data.plan === "elite" ? "Forge Elite" : "Forge Basic";
+  const depuis = data.depuis ? new Date(data.depuis).toLocaleDateString("fr-FR") : "date inconnue";
+  zone.textContent = `Statut actuel : ${planLabel} (activé sur cet appareil depuis le ${depuis}).`;
+}
+
+function activerPremium(plan) {
+  const obj = {
+    plan,
+    depuis: new Date().toISOString()
+  };
+  localStorage.setItem("forgefit_premium", JSON.stringify(obj));
+  alert(`Statut ${plan === "elite" ? "Forge Elite" : "Forge Basic"} activé sur CET appareil (mode test).`);
+  afficherStatut();
+}
+
+function desactiverPremium() {
+  localStorage.removeItem("forgefit_premium");
+  alert("Premium désactivé sur cet appareil.");
+  afficherStatut();
+}
+
+afficherStatut();
+</script>
+
+</body>
+</html>
