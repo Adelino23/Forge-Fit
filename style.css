@@ -166,3 +166,18 @@ footer {
   color: #777;
   font-size: 13px;
 }
+/* ==== FIX NAVBAR ==== */
+nav {
+  white-space: nowrap;        /* Empêche les retours à la ligne */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: auto;
+}
+
+nav a {
+  display: inline-block;
+  white-space: nowrap;        /* Force les mots sur une seule ligne */
+  padding: 10px 14px;
+  font-size: 15px;
+}
