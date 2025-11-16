@@ -1,163 +1,168 @@
-/* RESET */
+/* =========================
+   FORGE & FIT — STYLE PREMIUM
+   ========================= */
+
+/* ---- RESET ---- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 body {
-  background: #0d0d12;
-  color: #f5f5f5;
-  padding-bottom: 120px;
+  background: #0c0c12;
+  color: #e8e8ff;
+  line-height: 1.6;
+  padding-bottom: 60px;
 }
 
-/* NAV */
+/* ---- NAVBAR ---- */
 nav {
-  background: #15151d;
-  border-bottom: 1px solid #23232d;
-  padding: 12px 0;
   position: sticky;
   top: 0;
-  z-index: 20;
-}
-
-.nav-scroll {
+  z-index: 999;
+  background: #12121c;
   display: flex;
-  justify-content: space-around;
-  font-size: 14px;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 0, 85, 0.25);
+  overflow-x: auto;
 }
 
 nav a {
+  flex-shrink: 0;
+  color: #d0d0ff;
   text-decoration: none;
-  color: #dcdcdc;
-  padding: 6px 10px;
+  font-size: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
   transition: 0.2s;
 }
 
 nav a:hover {
-  color: #ff5f49;
+  background: rgba(255, 0, 85, 0.25);
+  color: white;
 }
 
-/* PAGE */
-.page {
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+/* ---- TITRES ---- */
+h1, h2, h3 {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: 700;
 }
 
-/* HERO */
-.hero-kicker {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: #777;
-}
+h1 { font-size: 28px; color: #ff3166; }
+h2 { font-size: 22px; color: #c8c8ff; }
+h3 { font-size: 18px; }
 
-.hero-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-.hero-sub {
-  font-size: 14px;
-  color: #aaa;
-  margin-top: 5px;
-}
-
-/* CARD */
-.card {
-  background: #16161f;
-  border: 1px solid #262631;
-  padding: 20px;
-  border-radius: 20px;
-  margin-top: 25px;
-}
-
-.card h2 {
-  margin-bottom: 10px;
-}
-
-/* BUTTONS */
-.btn {
-  padding: 10px 16px;
-  border-radius: 16px;
-  cursor: pointer;
+/* ---- BOUTONS ---- */
+button, .btn {
+  background: #ff3166;
   border: none;
-  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
   transition: 0.2s;
 }
 
-/* ORANGE */
-.btn-primary {
-  background: #ff5c36;
-  color: white;
-  box-shadow: 0 5px 18px rgba(255, 92, 54, 0.4);
-}
-.btn-primary:hover {
-  background: #ff7555;
+button:hover, .btn:hover {
+  background: #ff4f7e;
 }
 
-/* GHOST */
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* TIMER */
-.timer-big {
-  font-size: 48px;
-  text-align: center;
-  margin-top: 10px;
-  font-weight: bold;
+/* ---- CARDS ---- */
+.card {
+  background: #15151f;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 18px;
+  border-radius: 14px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 18px rgba(0,0,0,0.3);
 }
 
-.exercise-name {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
+/* ---- TEXTES ---- */
+p {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #dcdcff;
 }
 
-.exercise-muscle {
-  text-align: center;
-  margin-top: 3px;
-  color: #bbb;
-}
-
-.gif-wrap img {
+/* ---- INPUTS ---- */
+input, select {
   width: 100%;
-  max-width: 300px;
-  border-radius: 20px;
-  margin: auto;
-  display: block;
-  margin-top: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #1d1d27;
+  color: white;
+  font-size: 15px;
+  margin-top: 8px;
 }
 
-/* CHIPS */
-.chip-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+/* ---- PAGE EXERCICES ---- */
+.ex-list {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+.ex-item {
+  background: #191924;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.ex-item img {
+  width: 100%;
+  border-radius: 10px;
   margin-top: 10px;
 }
 
-.chip {
-  background: #1f1f29;
-  padding: 8px 13px;
-  border-radius: 20px;
-  font-size: 13px;
-  border: 1px solid #2e2e39;
+/* ---- SÉANCE ---- */
+#seance {
+  display: none;
+  padding: 20px;
 }
 
-/* FOOTER */
+#exo-gif {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  margin: 18px auto;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255,0,85,0.2);
+}
+
+/* ---- TIMER ---- */
+#timer {
+  font-size: 42px;
+  text-align: center;
+  margin: 10px 0;
+  color: #ff3166;
+  font-weight: 700;
+}
+
+/* ---- BOUTONS SÉANCE ---- */
+.seance-btns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.seance-btns button {
+  flex: 1;
+}
+
+/* ---- FOOTER ---- */
 footer {
   text-align: center;
+  padding: 30px 10px;
+  color: #777;
   font-size: 13px;
-  color: #666;
-  margin-top: 30px;
 }
