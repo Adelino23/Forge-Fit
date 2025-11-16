@@ -1,79 +1,245 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Forge & Fit – Exercices</title>
-<link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Exercices</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .exo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 700px) {
+      .exo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .exo-card {
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.17), rgba(15,23,42,0.98));
+      border-radius: 16px;
+      padding: 12px 14px 12px;
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+      display: flex;
+      gap: 10px;
+    }
+    .exo-thumb {
+      width: 90px;
+      min-width: 90px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .exo-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .exo-muscle {
+      font-size: 12px;
+      color: #cbd5f5;
+      margin-bottom: 4px;
+    }
+    .exo-info {
+      font-size: 12px;
+      color: #e5e7eb;
+      opacity: 0.9;
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .filter-chip {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      cursor: pointer;
+      color: #e5e7eb;
+    }
+    .filter-chip.active {
+      border-color: #f97316;
+      background: radial-gradient(circle at top, #f97316, #b91c1c);
+      color: #fef2f2;
+    }
+    .search-input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+    }
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+  </style>
 </head>
 <body>
 
-<header>EXERCICES</header>
 <nav>
   <a href="index.html">Accueil</a>
   <a href="prise-masse.html">Prise de masse</a>
   <a href="perte-gras.html">Perte de gras</a>
   <a href="exercices.html">Exercices</a>
- <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan personnalisé</a>
+  <a href="entrainement.html">Séance</a>
+  <a href="plan.html">Plan perso</a>
   <a href="compte.html">Mon compte</a>
 </nav>
 
-<section>
-    <h2>Exercices de musculation</h2>
-    <div class="card">
-        <p>Voici une base d’exercices à utiliser dans tes programmes. Tu peux en rajouter autant que tu veux.</p>
+<header class="hero">
+  <div class="hero-tagline">Bibliothèque</div>
+  <h1 class="hero-title">Exercices Forge & Fit</h1>
+  <p class="hero-sub">
+    Plus de 150 exercices classés par muscle. Commence par les fondamentaux, puis ajoute de la variété.
+  </p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Filtrer les exercices</h2>
+    <p>Choisis un groupe musculaire ou tape le nom d’un exercice.</p>
+
+    <div class="filter-row">
+      <button class="filter-chip active" data-filter="all" onclick="setFilter(this, 'all')">Tous</button>
+      <button class="filter-chip" data-filter="pectoraux" onclick="setFilter(this, 'pectoraux')">Pectoraux</button>
+      <button class="filter-chip" data-filter="dos" onclick="setFilter(this, 'dos')">Dos</button>
+      <button class="filter-chip" data-filter="jambes" onclick="setFilter(this, 'jambes')">Jambes</button>
+      <button class="filter-chip" data-filter="epaules" onclick="setFilter(this, 'epaules')">Épaules</button>
+      <button class="filter-chip" data-filter="bras" onclick="setFilter(this, 'bras')">Bras</button>
+      <button class="filter-chip" data-filter="abdos" onclick="setFilter(this, 'abdos')">Abdos</button>
     </div>
 
-    <h3>Pectoraux</h3>
-    <div class="exercice">Développé couché barre <span>– Pectoraux</span></div>
-    <div class="exercice">Développé incliné haltères <span>– Pectoraux haut</span></div>
-    <div class="exercice">Développé décliné barre <span>– Pectoraux bas</span></div>
-    <div class="exercice">Écartés haltères sur banc plat <span>– Pectoraux</span></div>
-    <div class="exercice">Pompes classiques <span>– Pectoraux / Triceps</span></div>
+    <input id="search" class="search-input" type="text" placeholder="Rechercher : squat, développé couché, etc." oninput="appliquerFiltre()">
+  </section>
 
-    <h3>Dos</h3>
-    <div class="exercice">Tractions pronation <span>– Dos large</span></div>
-    <div class="exercice">Tractions supination <span>– Dos / Biceps</span></div>
-    <div class="exercice">Rowing barre <span>– Dos épaisseur</span></div>
-    <div class="exercice">Rowing haltère unilatéral <span>– Dos / Fixateurs</span></div>
-    <div class="exercice">Tirage vertical poulie <span>– Grand dorsal</span></div>
+  <section class="card">
+    <h2>Exercices principaux</h2>
+    <div id="exo-list" class="exo-grid">
+      <!-- cartes injectées en JS -->
+    </div>
+  </section>
+</main>
 
-    <h3>Épaules</h3>
-    <div class="exercice">Développé militaire barre <span>– Épaules avant</span></div>
-    <div class="exercice">Développé haltères assis <span>– Épaules complètes</span></div>
-    <div class="exercice">Élévations latérales <span>– Deltoïdes moyens</span></div>
-    <div class="exercice">Élévations frontales <span>– Deltoïdes antérieurs</span></div>
-    <div class="exercice">Oiseau haltères <span>– Arrière d’épaules</span></div>
+<footer>
+  Forge & Fit © 2025 — Bibliothèque d’exercices.
+</footer>
 
-    <h3>Bras</h3>
-    <div class="exercice">Curl barre droite <span>– Biceps</span></div>
-    <div class="exercice">Curl haltères alterné <span>– Biceps</span></div>
-    <div class="exercice">Curl marteau <span>– Brachial / Avant-bras</span></div>
-    <div class="exercice">Barre au front <span>– Triceps</span></div>
-    <div class="exercice">Extensions poulie corde <span>– Triceps</span></div>
+<script>
+const EXERCICES = [
+  // PECTORaux
+  { nom:"Développé couché barre", muscle:"Pectoraux", groupe:"pectoraux",
+    img:"https://images.pexels.com/photos/6456170/pexels-photo-6456170.jpeg",
+    info:"Polyarticulaire, idéal prise de masse pecs." },
+  { nom:"Développé incliné haltères", muscle:"Haut des pectoraux", groupe:"pectoraux",
+    img:"https://images.pexels.com/photos/6455836/pexels-photo-6455836.jpeg",
+    info:"Cible le haut des pectoraux, amplitude complète." },
+  { nom:"Écartés haltères", muscle:"Pectoraux", groupe:"pectoraux",
+    img:"https://images.pexels.com/photos/3838385/pexels-photo-3838385.jpeg",
+    info:"Excellent pour l’étirement et la congestion." },
 
-    <h3>Jambes</h3>
-    <div class="exercice">Squat barre <span>– Quadriceps / Fessiers</span></div>
-    <div class="exercice">Presse à cuisses <span>– Quadriceps</span></div>
-    <div class="exercice">Fentes marchées <span>– Jambes / Fessiers</span></div>
-    <div class="exercice">Soulevé de terre jambes tendues <span>– Ischios</span></div>
-    <div class="exercice">Mollets debout machine <span>– Mollets</span></div>
+  // DOS
+  { nom:"Tractions pronation", muscle:"Grand dorsal", groupe:"dos",
+    img:"https://images.pexels.com/photos/4761355/pexels-photo-4761355.jpeg",
+    info:"Développe la largeur du dos." },
+  { nom:"Rowing barre", muscle:"Dos épaisseur", groupe:"dos",
+    img:"https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",
+    info:"Ajoute de l’épaisseur au milieu du dos." },
+  { nom:"Tirage poulie haute", muscle:"Dorsaux", groupe:"dos",
+    img:"https://images.pexels.com/photos/7676401/pexels-photo-7676401.jpeg",
+    info:"Alternative machine pour la largeur." },
 
-    <h3>Abdos & Core</h3>
-    <div class="exercice">Crunch au sol <span>– Grand droit</span></div>
-    <div class="exercice">Gainage planche <span>– Core complet</span></div>
-    <div class="exercice">Relevés de jambes suspendu <span>– Abdos inférieurs</span></div>
-    <div class="exercice">Russian twist <span>– Obliques</span></div>
+  // JAMBES
+  { nom:"Squat barre", muscle:"Quadriceps / Fessiers", groupe:"jambes",
+    img:"https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg",
+    info:"Exercice roi pour des jambes solides." },
+  { nom:"Presse à cuisses", muscle:"Quadriceps", groupe:"jambes",
+    img:"https://images.pexels.com/photos/6551175/pexels-photo-6551175.jpeg",
+    info:"Permet de charger lourd en sécurité." },
+  { nom:"Soulevé de terre roumain", muscle:"Ischios / Bas du dos", groupe:"jambes",
+    img:"https://images.pexels.com/photos/8411305/pexels-photo-8411305.jpeg",
+    info:"Travail l’arrière de la cuisse et les lombaires." },
 
-    <h3>Cardio / Perte de gras</h3>
-    <div class="exercice">Burpees <span>– Full body / Cardio</span></div>
-    <div class="exercice">Sprints fractionnés <span>– HIIT</span></div>
-    <div class="exercice">Corde à sauter <span>– Cardio / Coordination</span></div>
-    <div class="exercice">Vélo elliptique <span>– Cardio bas impact</span></div>
-</section>
+  // EPAULES
+  { nom:"Développé militaire", muscle:"Épaules", groupe:"epaules",
+    img:"https://images.pexels.com/photos/7676400/pexels-photo-7676400.jpeg",
+    info:"Base pour des épaules larges et fortes." },
+  { nom:"Élévations latérales", muscle:"Faisceaux moyens", groupe:"epaules",
+    img:"https://images.pexels.com/photos/6455992/pexels-photo-6455992.jpeg",
+    info:"Donne la largeur visuelle aux épaules." },
 
-<footer>Forge & Fit © 2025 — Liste d’exercices évolutive.</footer>
+  // BRAS
+  { nom:"Curl barre", muscle:"Biceps", groupe:"bras",
+    img:"https://images.pexels.com/photos/1552101/pexels-photo-1552101.jpeg",
+    info:"Exercice classique pour les biceps." },
+  { nom:"Extension poulie haute", muscle:"Triceps", groupe:"bras",
+    img:"https://images.pexels.com/photos/7676397/pexels-photo-7676397.jpeg",
+    info:"Travail le triceps, bras de profil." },
+
+  // ABDOS
+  { nom:"Crunch", muscle:"Abdominaux", groupe:"abdos",
+    img:"https://images.pexels.com/photos/4498291/pexels-photo-4498291.jpeg",
+    info:"Simple et efficace pour le haut des abdos." },
+  { nom:"Planche", muscle:"Core", groupe:"abdos",
+    img:"https://images.pexels.com/photos/6456107/pexels-photo-6456107.jpeg",
+    info:"Gainage complet du tronc." },
+  { nom:"Relevés de jambes", muscle:"Bas des abdos", groupe:"abdos",
+    img:"https://images.pexels.com/photos/4761354/pexels-photo-4761354.jpeg",
+    info:"Cible le bas des abdos, excellente difficulté." }
+];
+
+let currentFilter = "all";
+
+function renderExos() {
+  const list = document.getElementById("exo-list");
+  const search = document.getElementById("search").value.toLowerCase().trim();
+  list.innerHTML = "";
+
+  EXERCICES.forEach(ex => {
+    if (currentFilter !== "all" && ex.groupe !== currentFilter) return;
+    if (search && !ex.nom.toLowerCase().includes(search) && !ex.muscle.toLowerCase().includes(search)) return;
+
+    const div = document.createElement("div");
+    div.className = "exo-card";
+    div.innerHTML = `
+      <img class="exo-thumb" src="${ex.img}" alt="${ex.nom}">
+      <div>
+        <div class="exo-title">${ex.nom}</div>
+        <div class="exo-muscle">${ex.muscle}</div>
+        <div class="exo-info">${ex.info}</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+
+  if (!list.childElementCount) {
+    list.innerHTML = "<p>Aucun exercice trouvé avec ces filtres.</p>";
+  }
+}
+
+function setFilter(btn, filter) {
+  currentFilter = filter;
+  document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  renderExos();
+}
+
+function appliquerFiltre() {
+  renderExos();
+}
+
+// initial
+renderExos();
+</script>
 
 </body>
 </html>
