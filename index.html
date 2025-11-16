@@ -2,33 +2,97 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Forge & Fit - Accueil</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Forge & Fit – Accueil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- NAVIGATION GLOBALE -->
 <nav>
-  <a href="index.html">Accueil</a>
-  <a href="prise-masse.html">Prise de masse</a>
-  <a href="perte-gras.html">Perte de gras</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="entrainement.html">Séance</a>
+  <div class="nav-scroll">
+    <a href="index.html">Accueil</a>
+    <a href="prise-masse.html">Prise de masse</a>
+    <a href="perte-gras.html">Perte de gras</a>
+    <a href="exercices.html">Exercices</a>
+    <a href="entrainement.html">Séance</a>
+    <a href="plan.html">Plan perso</a>
+    <a href="compte.html">Compte</a>
+  </div>
 </nav>
 
-<h1>🔥 FORGE & FIT</h1>
+<div class="page">
+  <header class="hero">
+    <div class="hero-kicker">Forge & Fit</div>
+    <h1 class="hero-title">Construis ta meilleure version</h1>
+    <p class="hero-sub">
+      Objectifs clairs. Séances guidées. Exercices détaillés. Un seul endroit pour ta progression.
+    </p>
+  </header>
 
-<div class="section-box">
-  <h2>Sombre. Puissant. Discipline.</h2>
-  <p style="text-align:center; margin-top:15px;">
-    Le site pour ceux qui veulent évoluer :  
-    prise de masse, perte de gras, séances guidées et 150+ exercices.
-  </p>
+  <section class="card">
+    <h2>Commencer maintenant</h2>
+    <p>Choisis ton prochain move. Pas de blabla, juste de l’action.</p>
+    <div class="btn-row">
+      <a href="entrainement.html" class="btn btn-primary">🚀 Lancer une séance</a>
+      <a href="plan.html" class="btn btn-ghost">📋 Créer mon plan</a>
+    </div>
+  </section>
 
-  <a href="entrainement.html" class="btn">🚀 Lancer une séance</a>
-  <a href="plan.html" class="btn" style="background:#333; color:#fff;">📋 Créer mon plan</a>
+  <section class="card">
+    <h2>Objectifs principaux</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h2>Prise de masse</h2>
+        <p>Construis du muscle proprement avec une structure claire.</p>
+        <div class="btn-row">
+          <a href="prise-masse.html" class="btn btn-ghost">Voir les conseils</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Perte de gras</h2>
+        <p>Brûle du gras sans perdre ton muscle, avec une approche réaliste.</p>
+        <div class="btn-row">
+          <a href="perte-gras.html" class="btn btn-ghost">Commencer sec</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Outils Forge & Fit</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h2>Séance guidée</h2>
+        <p>Mode entraînement chronométré avec GIF explicatifs.</p>
+        <div class="btn-row">
+          <a href="entrainement.html" class="btn btn-ghost">⏱️ Lancer</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Bibliothèque d’exos</h2>
+        <p>Exercices classés par muscle avec infos clés.</p>
+        <div class="btn-row">
+          <a href="exercices.html" class="btn btn-ghost">📚 Explorer</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Plan personnalisé</h2>
+        <p>Questionnaire simple → plan structuré.</p>
+        <div class="btn-row">
+          <a href="plan.html" class="btn btn-ghost">⚡ Générer</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Mon compte</h2>
+        <p>Espace pour ton profil et ton futur historique.</p>
+        <div class="btn-row">
+          <a href="compte.html" class="btn btn-ghost">👤 Accéder</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Forge & Fit © 2025</footer>
 </div>
 
 </body>
