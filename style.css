@@ -1,242 +1,163 @@
-/* ========== RESET GLOBAL ========== */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: radial-gradient(circle at top, #171628 0, #05040a 60%, #020106 100%);
-  color: #f9fafb;
+  background: #0d0d12;
+  color: #f5f5f5;
+  padding-bottom: 120px;
 }
 
-/* ========== NAVIGATION ========== */
+/* NAV */
 nav {
-  background: #05040a;
-  border-bottom: 1px solid rgba(148,163,184,0.25);
+  background: #15151d;
+  border-bottom: 1px solid #23232d;
+  padding: 12px 0;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
 }
 
 .nav-scroll {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 10px 16px;
-  gap: 16px;
+  justify-content: space-around;
+  font-size: 14px;
 }
 
 nav a {
-  color: #e5e7eb;
   text-decoration: none;
-  font-size: 14px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  white-space: nowrap;
+  color: #dcdcdc;
+  padding: 6px 10px;
+  transition: 0.2s;
 }
 
 nav a:hover {
-  color: #fb923c;
+  color: #ff5f49;
 }
 
-/* ========== LAYOUT ========== */
+/* PAGE */
 .page {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 18px 16px 40px 16px;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-/* ========== TITRES / TEXTE ========== */
+/* HERO */
 .hero-kicker {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  color: #9ca3af;
-  margin-bottom: 6px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #777;
 }
 
 .hero-title {
   font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 8px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .hero-sub {
   font-size: 14px;
-  color: #cbd5f5;
-  max-width: 360px;
+  color: #aaa;
+  margin-top: 5px;
 }
 
-h2 {
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-
-p {
-  font-size: 14px;
-}
-
-/* ========== CARDS ========== */
+/* CARD */
 .card {
-  margin-top: 20px;
-  padding: 16px 18px;
-  border-radius: 18px;
-  background: radial-gradient(circle at top, #111322 0, #05040a 70%);
-  border: 1px solid rgba(148,163,184,0.25);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.8);
+  background: #16161f;
+  border: 1px solid #262631;
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 25px;
 }
 
-/* ========== BOUTONS ========== */
+.card h2 {
+  margin-bottom: 10px;
+}
+
+/* BUTTONS */
 .btn {
-  border: none;
-  outline: none;
+  padding: 10px 16px;
+  border-radius: 16px;
   cursor: pointer;
-  border-radius: 999px;
-  padding: 9px 16px;
+  border: none;
   font-size: 14px;
-  font-weight: 500;
   transition: 0.2s;
 }
 
+/* ORANGE */
 .btn-primary {
-  background: linear-gradient(135deg,#fb923c,#ef4444);
+  background: #ff5c36;
   color: white;
-  box-shadow: 0 10px 30px rgba(248,113,113,0.6);
+  box-shadow: 0 5px 18px rgba(255, 92, 54, 0.4);
 }
-
 .btn-primary:hover {
-  filter: brightness(1.05);
+  background: #ff7555;
 }
 
+/* GHOST */
 .btn-ghost {
-  background: rgba(15,23,42,0.8);
-  border: 1px solid rgba(148,163,184,0.5);
-  color: #e5e7eb;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
-
 .btn-ghost:hover {
-  background: rgba(30,41,59,0.9);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.btn-danger {
-  background: #b91c1c;
-  color: white;
-}
-
-/* ========== GRILLES / LAYOUTS ========== */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1.1fr 1.1fr;
-  gap: 12px;
-}
-
-@media (max-width: 640px) {
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ========== TIMER / SÉANCE ========== */
+/* TIMER */
 .timer-big {
-  font-size: 46px;
-  font-weight: 800;
+  font-size: 48px;
   text-align: center;
-  margin-top: 12px;
-}
-
-.timer-label {
-  text-align: center;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .16em;
-  color: #9ca3af;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .exercise-name {
-  font-size: 22px;
-  text-align: center;
-  font-weight: 700;
   margin-top: 10px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .exercise-muscle {
-  font-size: 13px;
   text-align: center;
-  color: #cbd5f5;
   margin-top: 3px;
-}
-
-.gif-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  color: #bbb;
 }
 
 .gif-wrap img {
   width: 100%;
-  max-width: 320px;
-  border-radius: 18px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.9);
+  max-width: 300px;
+  border-radius: 20px;
+  margin: auto;
+  display: block;
+  margin-top: 12px;
 }
 
-/* contrôles séance */
-.session-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 14px;
-}
-
-/* ========== FORM / SELECTS ========== */
-.form-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.form-row label {
-  font-size: 14px;
-  color: #e5e7eb;
-}
-
-select, input, textarea {
-  background: #020617;
-  color: #e5e7eb;
-  border-radius: 12px;
-  border: 1px solid rgba(148,163,184,0.5);
-  padding: 8px 10px;
-  font-size: 14px;
-}
-
-textarea {
-  width: 100%;
-  min-height: 80px;
-}
-
-/* ========== PETITS ELEMENTS ========== */
+/* CHIPS */
 .chip-row {
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 8px;
   margin-top: 10px;
 }
 
 .chip {
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(148,163,184,0.4);
-  font-size: 12px;
-  background: rgba(15,23,42,0.9);
+  background: #1f1f29;
+  padding: 8px 13px;
+  border-radius: 20px;
+  font-size: 13px;
+  border: 1px solid #2e2e39;
 }
 
+/* FOOTER */
 footer {
-  margin-top: 30px;
   text-align: center;
-  font-size: 12px;
-  color: #9ca3af;
-  }
+  font-size: 13px;
+  color: #666;
+  margin-top: 30px;
+}
