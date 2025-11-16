@@ -1,7 +1,20 @@
-/* =========================== */
-/*       FORGE & FIT THEME     */
-/*     Version Premium 2025    */
-/* =========================== */
+/* ============================= */
+/*   FORGE & FIT — DESIGN 2025   */
+/*      STYLE ARRONDI + APP      */
+/* ============================= */
+
+:root {
+  --bg-dark: #05040a;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(255, 255, 255, 0.08);
+  --accent: #ff3131;
+  --accent-soft: #ff743f;
+  --text-light: #f5f5ff;
+  --text-soft: #c7c7d7;
+  --radius-big: 24px;
+  --radius-mid: 18px;
+  --radius-small: 12px;
+}
 
 * {
   margin: 0;
@@ -11,129 +24,128 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #0d0b17, #040308 55%, #010102 100%);
-  color: #f1f1f9;
-  line-height: 1.5;
-  padding-bottom: 60px;
+  background: radial-gradient(circle at top, #0b0715, #05040a 60%, #020105);
+  color: var(--text-light);
+  padding-bottom: 80px;
 }
 
-/* =========================== */
-/* NAVIGATION */
-/* =========================== */
+/* ============================= */
+/*        NAV ARRONDIE           */
+/* ============================= */
 
 nav {
   display: flex;
+  gap: 14px;
+  padding: 12px 18px;
   justify-content: center;
-  gap: 18px;
-  padding: 15px 10px;
-  background: rgba(20, 20, 35, 0.75);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
+  border-radius: 0 0 var(--radius-big) var(--radius-big);
 }
 
 nav a {
-  color: #d8d8e8;
+  color: var(--text-soft);
   text-decoration: none;
   font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: 0.2s;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: 0.25s;
 }
 
 nav a:hover {
-  background: rgba(255, 50, 50, 0.2);
-  color: #ff3131;
+  background: rgba(255,80,80,0.18);
+  color: var(--accent);
 }
 
-/* =========================== */
-/* HERO HEADERS */
-/* =========================== */
+/* ============================= */
+/*        HEADER ARRONDI         */
+/* ============================= */
 
 .hero {
   text-align: center;
-  padding: 55px 20px 40px;
-}
-
-.hero-tagline {
-  font-size: 13px;
-  opacity: 0.7;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  padding: 60px 20px 45px;
 }
 
 .hero-title {
-  font-size: 35px;
-  margin-top: 8px;
-  background: linear-gradient(90deg, #ff3131, #f97316);
+  font-size: 34px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ff3131, #ff743f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero-sub {
-  max-width: 650px;
-  margin: 12px auto 0;
-  color: #c9c9d6;
+  max-width: 700px;
+  margin: 14px auto 0;
   font-size: 15px;
+  color: var(--text-soft);
 }
 
-/* =========================== */
-/* CARD BASE */
-/* =========================== */
+/* ============================= */
+/*        CARDS ARRONDIES        */
+/* ============================= */
 
 .card {
-  background: rgba(20, 20, 35, 0.55);
-  border: 1px solid rgba(255,255,255,0.09);
-  padding: 18px 20px;
-  border-radius: 16px;
-  max-width: 750px;
-  margin: 18px auto;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  width: 92%;
+  max-width: 780px;
+  margin: 16px auto;
+  padding: 22px;
+  border-radius: var(--radius-big);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 12px 45px rgba(0,0,0,0.3);
+  transition: 0.3s;
 }
 
-/* TITRES DANS LES CARDS */
+.card:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.07);
+}
+
+/* TITRES */
 .card h2 {
   font-size: 22px;
-  margin-bottom: 6px;
-  color: #f4f4fe;
-  border-left: 4px solid #ff3131;
-  padding-left: 8px;
-  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  font-weight: 700;
 }
 
-/* =========================== */
-/* BOUTONS */
-/* =========================== */
+/* ============================= */
+/*         BOUTONS RONDS         */
+/* ============================= */
 
 .btn {
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 999px;
   font-size: 14px;
+  cursor: pointer;
   border: none;
   transition: 0.25s;
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #ff3131, #f97316);
+  background: linear-gradient(90deg, #ff3131, #ff743f);
   color: white;
   font-weight: 600;
+  box-shadow: 0 4px 14px rgba(255,80,80,0.4);
 }
 
 .btn-primary:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .btn-ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  color: #e5e5ef;
+  background: rgba(255,255,255,0.07);
+  color: var(--text-light);
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .btn-ghost:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
 }
 
 .btn-row {
@@ -142,65 +154,50 @@ nav a:hover {
   flex-wrap: wrap;
 }
 
-/* =========================== */
-/* INPUTS / FORMULAIRES */
-/* =========================== */
-
-input, select {
-  background: rgba(20, 20, 35, 0.85);
-  color: #e6e6f0;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 10px;
-  padding: 8px 10px;
-  width: 100%;
-  font-size: 14px;
-}
-
-/* =========================== */
-/* EXERCICES GRID */
-/* =========================== */
+/* ============================= */
+/*   EXERCICES (STYLE APP)       */
+/* ============================= */
 
 .exo-grid {
   display: grid;
-  gap: 14px;
+  gap: 16px;
+  margin-top: 12px;
 }
 
-@media (min-width: 750px) {
+@media (min-width: 720px) {
   .exo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .exo-card {
   display: flex;
-  background: rgba(22, 22, 40, 0.7);
-  border-radius: 14px;
-  padding: 12px;
-  gap: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
+  padding: 14px;
+  background: rgba(255,255,255,0.06);
+  border-radius: var(--radius-mid);
+  gap: 14px;
   transition: 0.25s;
 }
 
 .exo-card:hover {
+  background: rgba(255,255,255,0.1);
   transform: translateY(-3px);
-  background: rgba(28, 28, 55, 0.85);
 }
 
 .exo-thumb {
   width: 90px;
-  height: 70px;
+  height: 80px;
+  border-radius: var(--radius-small);
   object-fit: cover;
-  border-radius: 10px;
 }
 
-/* =========================== */
-/* FOOTER */
-/* =========================== */
+/* ============================= */
+/*          FOOTER               */
+/* ============================= */
 
 footer {
   text-align: center;
+  padding: 20px 0;
   opacity: 0.5;
-  padding: 25px 0;
-  margin-top: 40px;
   font-size: 13px;
 }
