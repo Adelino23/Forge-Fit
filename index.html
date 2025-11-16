@@ -21,78 +21,59 @@
 </nav>
 
 <div class="page">
-  <header class="hero">
-    <div class="hero-kicker">Forge & Fit</div>
-    <h1 class="hero-title">Construis ta meilleure version</h1>
+  <section class="card" style="display:flex;flex-direction:column;gap:10px;">
+    <div class="hero-kicker">Sombre. Puissant. Discipline.</div>
+    <h1 class="hero-title">FORGE & FIT</h1>
     <p class="hero-sub">
-      Objectifs clairs. Séances guidées. Exercices détaillés. Un seul endroit pour ta progression.
+      Le site pour ceux qui veulent vraiment évoluer : prise de masse, perte de gras,
+      séances guidées et plus de 150 exercices.
     </p>
-  </header>
 
-  <section class="card">
-    <h2>Commencer maintenant</h2>
-    <p>Choisis ton prochain move. Pas de blabla, juste de l’action.</p>
-    <div class="btn-row">
-      <a href="entrainement.html" class="btn btn-primary">🚀 Lancer une séance</a>
-      <a href="plan.html" class="btn btn-ghost">📋 Créer mon plan</a>
+    <div class="grid-2" style="margin-top:14px;">
+      <button class="btn btn-primary" onclick="location.href='entrainement.html'">
+        🚀 Lancer une séance
+      </button>
+      <button class="btn btn-ghost" onclick="location.href='plan.html'">
+        📋 Créer mon plan perso
+      </button>
+    </div>
+
+    <div class="chip-row">
+      <span class="chip">Débutant → Avancé</span>
+      <span class="chip">Muscle & Perte de gras</span>
+      <span class="chip">Timer + GIF en direct</span>
     </div>
   </section>
 
   <section class="card">
-    <h2>Objectifs principaux</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h2>Prise de masse</h2>
-        <p>Construis du muscle proprement avec une structure claire.</p>
-        <div class="btn-row">
-          <a href="prise-masse.html" class="btn btn-ghost">Voir les conseils</a>
-        </div>
+    <h2>Objectif principal</h2>
+    <div class="grid-2">
+      <div>
+        <h3>🏗 Prise de masse</h3>
+        <p>Programmes structurés, volume intelligent, surcharge progressive. Idéal si tu veux prendre du muscle sec.</p>
+        <button class="btn btn-ghost" style="margin-top:8px;" onclick="location.href='prise-masse.html'">
+          Voir les programmes masse
+        </button>
       </div>
-      <div class="card">
-        <h2>Perte de gras</h2>
-        <p>Brûle du gras sans perdre ton muscle, avec une approche réaliste.</p>
-        <div class="btn-row">
-          <a href="perte-gras.html" class="btn btn-ghost">Commencer sec</a>
-        </div>
+      <div>
+        <h3>🔥 Perte de gras</h3>
+        <p>Séances dynamiques, HIIT et renfo pour garder le muscle tout en séchant proprement.</p>
+        <button class="btn btn-ghost" style="margin-top:8px;" onclick="location.href='perte-gras.html'">
+          Voir les programmes sèche
+        </button>
       </div>
     </div>
   </section>
 
   <section class="card">
-    <h2>Outils Forge & Fit</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h2>Séance guidée</h2>
-        <p>Mode entraînement chronométré avec GIF explicatifs.</p>
-        <div class="btn-row">
-          <a href="entrainement.html" class="btn btn-ghost">⏱️ Lancer</a>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Bibliothèque d’exos</h2>
-        <p>Exercices classés par muscle avec infos clés.</p>
-        <div class="btn-row">
-          <a href="exercices.html" class="btn btn-ghost">📚 Explorer</a>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Plan personnalisé</h2>
-        <p>Questionnaire simple → plan structuré.</p>
-        <div class="btn-row">
-          <a href="plan.html" class="btn btn-ghost">⚡ Générer</a>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Mon compte</h2>
-        <p>Espace pour ton profil et ton futur historique.</p>
-        <div class="btn-row">
-          <a href="compte.html" class="btn btn-ghost">👤 Accéder</a>
-        </div>
-      </div>
-    </div>
+    <h2>Exercices & technique</h2>
+    <p>Catalogue d’exercices classés par muscle avec explications claires pour exécuter proprement.</p>
+    <button class="btn btn-primary" style="margin-top:10px;" onclick="location.href='exercices.html'">
+      🔎 Explorer les exercices
+    </button>
   </section>
 
-  <footer>Forge & Fit © 2025</footer>
+  <footer>Forge & Fit © 2025 — Créé pour te pousser à ta meilleure version.</footer>
 </div>
 
 </body>
