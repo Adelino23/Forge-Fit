@@ -2,92 +2,36 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Forge & Fit – Mon compte</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon compte – Forge & Fit</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .info-label {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-bottom: 4px;
-    }
-    .info-value {
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .history-list {
-      margin-top: 10px;
-      font-size: 13px;
-    }
-    .history-item {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(148,163,184,0.35);
-    }
-  </style>
 </head>
+
 <body>
 
 <nav>
-  <a href="index.html">Accueil</a>
-  <a href="prise-masse.html">Prise de masse</a>
-  <a href="perte-gras.html">Perte de gras</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan perso</a>
-  <a href="compte.html">Mon compte</a>
+  <div class="nav-scroll">
+    <a href="index.html">Accueil</a>
+    <a href="prise-masse.html">Prise de masse</a>
+    <a href="perte-gras.html">Perte de gras</a>
+    <a href="exercices.html">Exercices</a>
+    <a href="entrainement.html">Séance</a>
+    <a href="plan.html">Plan perso</a>
+    <a href="compte.html">Compte</a>
+  </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-tagline">Espace perso</div>
-  <h1 class="hero-title">Mon compte</h1>
-  <p class="hero-sub">
-    Ici tu pourras, à terme, retrouver ton historique de séances, tes plans, ton accès premium, etc.
-  </p>
-</header>
-
-<main>
-  <section class="card">
-    <h2>Profil basique</h2>
-    <p style="font-size:13px;color:#9ca3af;">(Version actuelle : tout est stocké en local dans ton navigateur.)</p>
-
-    <div style="margin-top:10px;">
-      <div class="info-label">Pseudo</div>
-      <div class="info-value" id="pseudo">Athlète Forge & Fit</div>
-    </div>
-
-    <div style="margin-top:10px;">
-      <div class="info-label">Email</div>
-      <div class="info-value">Bientôt disponible</div>
-    </div>
-
-    <div class="btn-row" style="margin-top:14px;">
-      <button class="btn btn-ghost" onclick="resetLocal()">🔄 Réinitialiser les données locales</button>
-    </div>
-  </section>
+<div class="page">
 
   <section class="card">
-    <h2>Historique des séances</h2>
-    <p style="font-size:13px;color:#9ca3af;">
-      Plus tard, la séance en direct pourra enregistrer automatiquement tes séances ici.
-    </p>
-    <div id="history" class="history-list">
-      Fonctionnalité en cours de préparation.
-    </div>
+    <h1 class="hero-title">Mon compte</h1>
+    <p class="hero-sub">Historique des séances :</p>
+
+    <div id="history" style="margin-top:20px;line-height:1.7;"></div>
   </section>
-</main>
 
-<footer>
-  Forge & Fit © 2025 — Espace compte (bêta).
-</footer>
+  <footer>Forge & Fit © 2025</footer>
 
-<script>
-function resetLocal() {
-  if (confirm("Tu veux vraiment effacer les données locales du site (plans, historique, etc.) ?")) {
-    localStorage.clear();
-    alert("Données locales effacées.");
-  }
-}
-</script>
-
+</div>
 </body>
 </html>
