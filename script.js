@@ -1,13 +1,12 @@
 /* =========================
-   LISTE DES EXERCICES COMPLETS
+   PROGRAMMES D'EXERCICES
    ========================= */
 
 const programmes = {
-
   fullbody: [
     { nom: "Burpees", muscle: "Full body", gif: "https://media.tenor.com/LMqN7n0ht9sAAAAC/burpees.gif" },
     { nom: "Squat", muscle: "Jambes / Fessiers", gif: "https://media.tenor.com/7pGzdh0dX8MAAAAC/squat.gif" },
-    { nom: "Pompes", muscle: "Pectoraux / Bras", gif: "https://media.tenor.com/Z1z2-LUH0QkAAAAC/pushup-training.gif" }
+    { nom: "Pompes", muscle: "Pectoraux / Triceps", gif: "https://media.tenor.com/Z1z2-LUH0QkAAAAC/pushup-training.gif" }
   ],
 
   pecs: [
@@ -66,18 +65,17 @@ const programmes = {
 
   echauffement: [
     { nom: "Rotation bras", muscle: "Échauffement", gif: "https://media.tenor.com/2Oe1SWXSPdYAAAAC/warm-up.gif" },
-    { nom: "Jump light", muscle: "Échauffement", gif: "https://media.tenor.com/u2ZXoqBYw3gAAAAC/jogging-in-place.gif" }
+    { nom: "Jog sur place", muscle: "Échauffement", gif: "https://media.tenor.com/u2ZXoqBYw3gAAAAC/jogging-in-place.gif" }
   ],
 
   stretch: [
     { nom: "Étirement ischios", muscle: "Souplesse", gif: "https://media.tenor.com/5nSIU-9a-XYAAAAC/stretch.gif" },
     { nom: "Étirement dos", muscle: "Relaxation", gif: "https://media.tenor.com/6qO9pYQP7uAAAAAC/stretch.gif" }
   ]
-
 };
 
 /* =========================
-   VARIABLES
+   VARIABLES GLOBAL SÉANCE
    ========================= */
 
 let currentProgramme = [];
@@ -88,47 +86,67 @@ let total = 30;
 let restant = 30;
 
 /* =========================
-   CHARGER UNE SÉANCE
+   SÉLECTION SÉANCE
    ========================= */
 
 function chargerSeance(type) {
+  if (!programmes[type]) {
+    alert("Séance introuvable.");
+    return;
+  }
+
   currentProgramme = programmes[type];
   indexExo = 0;
 
-  document.getElementById("preview").style.display = "block";
-  document.getElementById("preview-title").textContent =
-    "Séance : " + type.toUpperCase() + " (" + currentProgramme.length + " exercices)";
+  const preview = document.getElementById("preview");
+  const title = document.getElementById("preview-title");
+
+  if (preview && title) {
+    preview.style.display = "block";
+    title.textContent = "Séance : " + type.toUpperCase() + " (" + currentProgramme.length + " exercices)";
+  }
 }
 
 /* =========================
-   OUVRIR LA SÉANCE
+   OUVERTURE SÉANCE
    ========================= */
 
 function ouvrirSeance() {
-  document.getElementById("preview").style.display = "none";
-  document.getElementById("seance").style.display = "block";
+  const preview = document.getElementById("preview");
+  const seance = document.getElementById("seance");
+
+  if (preview) preview.style.display = "none";
+  if (seance) seance.style.display = "block";
+
   afficherExo();
 }
 
 /* =========================
-   AFFICHER EXERCICE
+   AFFICHAGE EXERCICE
    ========================= */
 
 function afficherExo() {
+  if (!currentProgramme.length) return;
+
   const ex = currentProgramme[indexExo];
 
-  document.getElementById("exo-nom").textContent = ex.nom;
-  document.getElementById("exo-muscle").textContent = ex.muscle;
-  document.getElementById("exo-gif").src = ex.gif;
+  const nom = document.getElementById("exo-nom");
+  const muscle = document.getElementById("exo-muscle");
+  const gif = document.getElementById("exo-gif");
+
+  if (nom) nom.textContent = ex.nom;
+  if (muscle) muscle.textContent = ex.muscle;
+  if (gif) gif.src = ex.gif;
 
   resetTimer();
 }
 
 /* =========================
-   NAVIGATION ENTRE EXOS
+   NAVIGATION EXOS
    ========================= */
 
 function nextExo() {
+  if (!currentProgramme.length) return;
   if (indexExo < currentProgramme.length - 1) {
     indexExo++;
     afficherExo();
@@ -136,6 +154,7 @@ function nextExo() {
 }
 
 function prevExo() {
+  if (!currentProgramme.length) return;
   if (indexExo > 0) {
     indexExo--;
     afficherExo();
@@ -146,12 +165,22 @@ function prevExo() {
    TIMER
    ========================= */
 
+function updateTimer() {
+  const timerEl = document.getElementById("timer");
+  if (!timerEl) return;
+
+  const m = String(Math.floor(restant / 60)).padStart(2, "0");
+  const s = String(restant % 60).padStart(2, "0");
+  timerEl.textContent = `${m}:${s}`;
+}
+
 function startTimer() {
-  if (timer) return;
+  if (timer || !currentProgramme.length) return;
 
   timer = setInterval(() => {
     restant--;
     if (restant <= 0) {
+      restant = 0;
       clearInterval(timer);
       timer = null;
     }
@@ -160,8 +189,10 @@ function startTimer() {
 }
 
 function pauseTimer() {
-  clearInterval(timer);
-  timer = null;
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
 }
 
 function resetTimer() {
@@ -170,44 +201,51 @@ function resetTimer() {
   updateTimer();
 }
 
-function updateTimer() {
-  let m = String(Math.floor(restant / 60)).padStart(2, "0");
-  let s = String(restant % 60).padStart(2, "0");
-  document.getElementById("timer").textContent = `${m}:${s}`;
-}
-
 /* =========================
    PLAN PERSONNALISÉ
    ========================= */
 
 function genPlan() {
-  const obj = document.getElementById("obj").value;
-  const niv = document.getElementById("niv").value;
+  const objEl = document.getElementById("obj");
+  const nivEl = document.getElementById("niv");
+  const resultEl = document.getElementById("result");
+
+  if (!objEl || !nivEl || !resultEl) return;
+
+  const obj = objEl.value;
+  const niv = nivEl.value;
 
   let txt = "<h3>Ton plan personnalisé :</h3><br>";
 
   if (obj === "Prise de masse") {
-    txt += "• 4 séances par semaine<br>• Split haut/bas recommandé<br>";
+    txt += "• 4 séances / semaine (Split haut/bas)<br>• Série lourdes 6–10 reps<br>";
   } else if (obj === "Perte de gras") {
-    txt += "• 3 HIIT + 2 renfo/semaine<br>• Déficit léger<br>";
+    txt += "• 3 HIIT + 2 renfo / semaine<br>• Déficit calorique léger<br>";
+  } else if (obj === "Endurance") {
+    txt += "• 3–4 séances cardio (30–45 min)<br>";
+  } else {
+    txt += "• 3 séances renfo full-body / semaine<br>";
   }
 
   if (niv === "Débutant") {
-    txt += "• Séances de 25 minutes<br>";
+    txt += "• Séances de 20–30 min<br>";
   } else if (niv === "Intermédiaire") {
-    txt += "• Séances de 40 minutes<br>";
+    txt += "• Séances de 40–50 min<br>";
   } else {
-    txt += "• Séances de 1 heure<br>";
+    txt += "• Séances de 60 min +<br>";
   }
 
-  document.getElementById("result").innerHTML = txt;
+  resultEl.innerHTML = txt;
 }
 
 /* =========================
-   HISTORIQUE (simple)
+   HISTORIQUE (SÉCURISÉ)
    ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  let hist = localStorage.getItem("ff_history") || "";
-  document.getElementById("history").innerHTML = hist;
+  const historyEl = document.getElementById("history");
+  if (historyEl) {
+    const hist = localStorage.getItem("ff_history") || "Aucune séance enregistrée pour l’instant.";
+    historyEl.innerHTML = hist;
+  }
 });
