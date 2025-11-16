@@ -1,274 +1,614 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<title>Forge & Fit – Séance</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <title>Forge & Fit – Séance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 
-<style>
-/* --- GLOBAL --- */
-body {
-  margin: 0;
-  background: #0d0516;
-  color: white;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    /* ---- LAYOUT GENERAL DE LA PAGE SEANCE ---- */
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #1f1233 0, #05030b 45%, #020105 100%);
+      color: #f9fafb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-/* --- NAV --- */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 10px;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  opacity: 0.8;
-}
-nav a:hover {
-  opacity: 1;
-}
+    h2, h3 {
+      margin: 0;
+    }
 
-/* --- CARD --- */
-.card {
-  background: rgba(255,255,255,0.05);
-  padding: 15px;
-  margin: 15px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-}
+    /* Carte de sélection de séance */
+    .workout-select {
+      max-width: 960px;
+      margin: 24px auto 32px;
+      padding: 0 16px;
+    }
 
-/* --- BUTTONS --- */
-button {
-  background: #3c46ff;
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-}
-button:hover {
-  background: #5b63ff;
-}
+    .workout-card {
+      background: radial-gradient(circle at top left, rgba(248,113,113,0.15), rgba(15,23,42,0.98));
+      border-radius: 20px;
+      padding: 18px 18px 20px;
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 24px 55px rgba(0,0,0,0.8);
+    }
 
-.btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+    .workout-card p {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-top: 6px;
+    }
 
-/* --- FULLSCREEN OVERLAY --- */
-.fs-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0d0516;
-  display: none;
-  z-index: 999999;
-  padding: 15px;
-  overflow-y: auto;
-}
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
 
-.fs-overlay.active {
-  display: block;
-}
+    .pill-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: .15s ease;
+    }
 
-.fs-img {
-  width: 100%;
-  border-radius: 12px;
-  margin: 15px 0;
-}
+    .pill-btn span {
+      font-size: 18px;
+    }
 
-.fs-timer {
-  font-size: 48px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-</style>
+    .pill-btn.active,
+    .pill-btn:hover {
+      border-color: #fb923c;
+      background: radial-gradient(circle at top, #f97316, #b91c1c);
+      color: #fef2f2;
+      box-shadow: 0 12px 25px rgba(248,113,113,0.7);
+    }
+
+    .preview-zone {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(148,163,184,0.4);
+      font-size: 14px;
+      display: none;
+    }
+
+    .preview-zone button {
+      margin-top: 10px;
+    }
+
+    /* ---- BOUTONS GENERIQUES ---- */
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: .15s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      color: #fef2f2;
+      box-shadow: 0 14px 32px rgba(248,113,113,0.7);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(248,113,113,0.9);
+    }
+
+    .btn-ghost {
+      background: rgba(15,23,42,0.92);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+    .btn-ghost:hover {
+      background: rgba(30,64,175,0.9);
+    }
+
+    .btn-danger {
+      background: #b91c1c;
+      color: #fee2e2;
+    }
+
+    .btn-small {
+      padding: 7px 14px;
+      font-size: 13px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    /* ---- FULLSCREEN OVERLAY ---- */
+    .workout-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1a1030 0, #05030a 45%, #020105 100%);
+      display: none;
+      z-index: 999999;
+      overflow-y: auto;
+      padding: 14px 14px 24px;
+    }
+
+    .workout-overlay.active {
+      display: block;
+    }
+
+    .wo-inner {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .wo-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+
+    .wo-topline span {
+      opacity: .85;
+    }
+
+    .wo-close {
+      cursor: pointer;
+      font-size: 22px;
+      opacity: 0.9;
+    }
+
+    /* Timer cercle */
+    .timer-wrap {
+      margin-top: 6px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .timer-circle {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #020617 0, #020617 60%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.9);
+    }
+
+    .timer-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(#f97316 0deg, #1f2937 0deg 360deg);
+      opacity: 0.95;
+    }
+
+    .timer-inner {
+      position: relative;
+      width: 88%;
+      height: 88%;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .timer-text {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: .05em;
+    }
+
+    .timer-label {
+      font-size: 12px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .timer-circle.pulse {
+      animation: pulse 0.45s ease-out;
+    }
+
+    @keyframes pulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+
+    /* Infos exercice */
+    .wo-exo {
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .wo-exo h2 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .wo-exo-sub {
+      font-size: 14px;
+      color: #cbd5f5;
+      margin-bottom: 10px;
+    }
+
+    .wo-img {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      max-height: 240px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.95);
+    }
+
+    .wo-desc {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-top: 10px;
+    }
+
+    .wo-meta {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    .wo-meta strong {
+      color: #f97316;
+    }
+
+    .wo-controls {
+      margin-top: 16px;
+    }
+
+    .wo-hint {
+      text-align: center;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .timer-circle {
+        width: 190px;
+        height: 190px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
+<!-- NAV HAUT (identique à index) -->
 <nav>
   <a href="index.html">Accueil</a>
   <a href="prise-masse.html">Prise de masse</a>
   <a href="perte-gras.html">Perte de gras</a>
   <a href="exercices.html">Exercices</a>
   <a href="entrainement.html">Séance</a>
-  <a href="compte.html">Compte</a>
+  <a href="plan.html">Plan perso</a>
+  <a href="compte.html">Mon compte</a>
 </nav>
 
-<h2 style="text-align:center;margin-top:20px;">Séance</h2>
+<section class="workout-select">
+  <div class="workout-card">
+    <h2>Séance guidée</h2>
+    <p>Choisis un groupe musculaire, lance le chrono et enchaîne les exercices comme dans une vraie application de workout.</p>
 
-<div class="card">
-  <p>Choisis une séance :</p>
+    <div class="pill-row">
+      <button class="pill-btn" data-type="fullbody" onclick="selectSeance(this, 'fullbody')"><span>🔥</span> Full body</button>
+      <button class="pill-btn" data-type="pecs" onclick="selectSeance(this, 'pecs')"><span>💪</span> Pectoraux</button>
+      <button class="pill-btn" data-type="dos" onclick="selectSeance(this, 'dos')"><span>🔵</span> Dos</button>
+      <button class="pill-btn" data-type="jambes" onclick="selectSeance(this, 'jambes')"><span>🟡</span> Jambes</button>
+      <button class="pill-btn" data-type="abdos" onclick="selectSeance(this, 'abdos')"><span>🟠</span> Abdos</button>
+    </div>
 
-  <div class="btn-row">
-    <button onclick="chargerSeance('fullbody')">🔥 Full Body</button>
-    <button onclick="chargerSeance('pecs')">💪 Pectoraux</button>
-    <button onclick="chargerSeance('dos')">🔵 Dos</button>
-    <button onclick="chargerSeance('jambes')">🟡 Jambes</button>
-    <button onclick="chargerSeance('abdos')">🟠 Abdos</button>
+    <div id="preview-zone" class="preview-zone">
+      <p id="preview-text"></p>
+      <button class="btn btn-primary" onclick="ouvrirFullscreen()">🚀 Lancer la séance</button>
+    </div>
   </div>
+</section>
 
-  <div id="preview" style="margin-top:15px; display:none;">
-    <p id="previewTxt"></p>
-    <button onclick="ouvrirFullscreen()">🚀 Lancer</button>
+<!-- OVERLAY FULLSCREEN -->
+<div id="overlay" class="workout-overlay">
+  <div class="wo-inner">
+
+    <div class="wo-topline">
+      <span id="wo-top-info">Séance</span>
+      <div class="wo-close" onclick="fermerFullscreen()">✕</div>
+    </div>
+
+    <div class="timer-wrap">
+      <div id="timerCircle" class="timer-circle">
+        <div id="timerRing" class="timer-ring"></div>
+        <div class="timer-inner">
+          <div id="timerText" class="timer-text">00:30</div>
+          <div id="timerLabel" class="timer-label">Prêt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wo-exo">
+      <h2 id="exoNom">Exercice</h2>
+      <div id="exoMuscle" class="wo-exo-sub">Muscle cible</div>
+      <img id="exoImg" class="wo-img" src="" alt="">
+      <p id="exoDesc" class="wo-desc"></p>
+      <p id="exoMeta" class="wo-meta"></p>
+    </div>
+
+    <div class="wo-controls">
+      <div class="btn-row">
+        <button class="btn btn-ghost btn-small" onclick="setDuree(30)">30s</button>
+        <button class="btn btn-ghost btn-small" onclick="setDuree(45)">45s</button>
+        <button class="btn btn-ghost btn-small" onclick="setDuree(60)">60s</button>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="startTimer()">▶️ Start</button>
+        <button class="btn btn-ghost" onclick="pauseTimer()">⏸ Pause</button>
+        <button class="btn btn-ghost" onclick="resetTimer()">🔁 Reset</button>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost btn-small" onclick="prevExercice()">⬅️ Précédent</button>
+        <button class="btn btn-ghost btn-small" onclick="nextExercice()">Suivant ➡️</button>
+      </div>
+    </div>
+
+    <div class="wo-hint">
+      Swipe gauche / droite pour changer d'exercice • Vibrations / son à la fin du timer (si ton téléphone l'autorise).
+    </div>
   </div>
 </div>
 
-<!-- FULLSCREEN -->
-<div id="fs" class="fs-overlay">
-
-  <button onclick="fermerFullscreen()" style="background:red;width:100%;margin-bottom:10px;">
-    Quitter
-  </button>
-
-  <p id="fs-progress"></p>
-  <p class="fs-timer" id="fs-timer">00:00</p>
-
-  <h2 id="fs-nom"></h2>
-  <p id="fs-muscle"></p>
-  <img id="fs-img" class="fs-img" src="">
-  <p id="fs-desc"></p>
-
-  <div class="btn-row">
-    <button onclick="setDuree(30)">30s</button>
-    <button onclick="setDuree(45)">45s</button>
-    <button onclick="setDuree(60)">60s</button>
-  </div>
-
-  <div class="btn-row">
-    <button onclick="startTimer()">Start</button>
-    <button onclick="pauseTimer()">Pause</button>
-    <button onclick="resetTimer()">Reset</button>
-    <button onclick="prevExercice()">◀️</button>
-    <button onclick="nextExercice()">▶️</button>
-  </div>
-</div>
+<footer style="text-align:center;font-size:11px;color:#9ca3af;margin-bottom:8px;">
+  Forge & Fit © 2025 — Mode séance inspiré des meilleures apps de workout.
+</footer>
 
 <script>
-/* ===== PROGRAMMES ===== */
+/* ========= DONNEES SEANCES ========= */
 const programmes = {
   fullbody: [
-    { nom: "Squat", muscle: "Jambes / Fessiers", img: "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg", desc: "4×12" },
-    { nom: "Développé couché", muscle: "Pectoraux", img: "https://images.pexels.com/photos/6456126/pexels-photo-6456126.jpeg", desc: "4×10" },
-    { nom: "Rowing Barre", muscle: "Dos / Biceps", img: "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg", desc: "4×12" }
+    { nom:"Squat", muscle:"Jambes / Fessiers", img:"https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg", desc:"Squat contrôlé, dos droit, pousse lourd mais propre.", meta:"4 séries • 8–12 reps" },
+    { nom:"Développé couché", muscle:"Pectoraux", img:"https://images.pexels.com/photos/6456126/pexels-photo-6456126.jpeg", desc:"Barre sur la poitrine, contrôle sur la descente, explosif en montée.", meta:"4 séries • 6–10 reps" },
+    { nom:"Rowing barre", muscle:"Dos / Biceps", img:"https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg", desc:"Tire vers le nombril, épaules basses, contractions du dos.", meta:"4 séries • 8–12 reps" }
   ],
-
   pecs: [
-    { nom: "Développé couché", muscle: "Pectoraux", img: "https://images.pexels.com/photos/6456170/pexels-photo-6456170.jpeg", desc: "4×8" },
-    { nom: "Ecartés haltères", muscle: "Pectoraux", img: "https://images.pexels.com/photos/3838385/pexels-photo-3838385.jpeg", desc: "4×15" }
+    { nom:"Développé couché barre", muscle:"Pectoraux", img:"https://images.pexels.com/photos/6456170/pexels-photo-6456170.jpeg", desc:"Focus sur la technique, trajectoire stable et contrôle.", meta:"4 séries • 6–10 reps" },
+    { nom:"Développé incliné haltères", muscle:"Haut des pectoraux", img:"https://images.pexels.com/photos/6455836/pexels-photo-6455836.jpeg", desc:"Monte explosif, descente lente, amplitude complète.", meta:"3 séries • 8–12 reps" },
+    { nom:"Écartés haltères", muscle:"Pectoraux", img:"https://images.pexels.com/photos/3838385/pexels-photo-3838385.jpeg", desc:"Ouverture large mais contrôlée, pense à étirer le muscle.", meta:"3 séries • 12–15 reps" }
   ],
-
   dos: [
-    { nom: "Tractions", muscle: "Dos", img: "https://images.pexels.com/photos/4761355/pexels-photo-4761355.jpeg", desc: "4×max" },
-    { nom: "Rowing haltère", muscle: "Dos", img: "https://images.pexels.com/photos/6740008/pexels-photo-6740008.jpeg", desc: "4×12" }
+    { nom:"Tractions pronation", muscle:"Grand dorsal", img:"https://images.pexels.com/photos/4761355/pexels-photo-4761355.jpeg", desc:"Poitrine vers la barre, pense à tirer avec le dos, pas les bras.", meta:"4 séries • max reps" },
+    { nom:"Rowing haltère", muscle:"Dos épaisseur", img:"https://images.pexels.com/photos/6740008/pexels-photo-6740008.jpeg", desc:"Coude près du corps, contraction forte en haut du mouvement.", meta:"4 séries • 8–12 reps" },
+    { nom:"Tirage vertical", muscle:"Dos large", img:"https://images.pexels.com/photos/7676401/pexels-photo-7676401.jpeg", desc:"Tire vers le haut de la poitrine, garde le buste stable.", meta:"3 séries • 10–12 reps" }
   ],
-
   jambes: [
-    { nom: "Presse", muscle: "Quadriceps", img: "https://images.pexels.com/photos/6551175/pexels-photo-6551175.jpeg", desc: "4×15" },
-    { nom: "Fentes", muscle: "Fessiers", img: "https://images.pexels.com/photos/6455982/pexels-photo-6455982.jpeg", desc: "3×20" }
+    { nom:"Presse à cuisses", muscle:"Quadriceps", img:"https://images.pexels.com/photos/6551175/pexels-photo-6551175.jpeg", desc:"Pieds stables, amplitude contrôlée, ne verrouille pas totalement les genoux.", meta:"4 séries • 10–15 reps" },
+    { nom:"Fentes marchées", muscle:"Fessiers / Ischios", img:"https://images.pexels.com/photos/6455982/pexels-photo-6455982.jpeg", desc:"Grand pas, planté stable, contrôle la descente.", meta:"3 séries • 10–12 par jambe" },
+    { nom:"Soulevé de terre roumain", muscle:"Ischios / Bas du dos", img:"https://images.pexels.com/photos/8411305/pexels-photo-8411305.jpeg", desc:"Légère flexion genoux, pousse les hanches en arrière, garde le dos gainé.", meta:"4 séries • 8–10 reps" }
   ],
-
   abdos: [
-    { nom: "Crunch", muscle: "Abdos", img: "https://images.pexels.com/photos/4498291/pexels-photo-4498291.jpeg", desc: "3×20" },
-    { nom: "Planche", muscle: "Core", img: "https://images.pexels.com/photos/6456107/pexels-photo-6456107.jpeg", desc: "3×45sec" }
+    { nom:"Crunch", muscle:"Abdominaux", img:"https://images.pexels.com/photos/4498291/pexels-photo-4498291.jpeg", desc:"Regarde le plafond, monte en enroulant la colonne, ne tire pas sur la nuque.", meta:"3 séries • 15–20 reps" },
+    { nom:"Planche", muscle:"Core", img:"https://images.pexels.com/photos/6456107/pexels-photo-6456107.jpeg", desc:"Corps droit, abdos gainés, ne laisse pas tomber les hanches.", meta:"3 × 30–45 sec" },
+    { nom:"Relevés de jambes", muscle:"Bas des abdos", img:"https://images.pexels.com/photos/4761354/pexels-photo-4761354.jpeg", desc:"Lent vers le bas, contrôle total, pas de balancier.", meta:"3 séries • 10–15 reps" }
   ]
 };
 
 /* ===== VARIABLES ===== */
+let currentType = null;
 let exercices = [];
 let indexExo = 0;
+let dureeTotale = 30; // secondes
+let restant = 30;
 let timer = null;
-let dureeTotale = 60;
-let restant = 60;
 
-/* ===== CHARGEMENT ===== */
-function chargerSeance(type) {
+/* ELEMENTS */
+const previewZone = document.getElementById("preview-zone");
+const previewText = document.getElementById("preview-text");
+const overlay = document.getElementById("overlay");
+const topInfo = document.getElementById("wo-top-info");
+const timerCircle = document.getElementById("timerCircle");
+const timerRing = document.getElementById("timerRing");
+const timerText = document.getElementById("timerText");
+const timerLabel = document.getElementById("timerLabel");
+const exoNom = document.getElementById("exoNom");
+const exoMuscle = document.getElementById("exoMuscle");
+const exoImg = document.getElementById("exoImg");
+const exoDesc = document.getElementById("exoDesc");
+const exoMeta = document.getElementById("exoMeta");
+
+/* ===== UTIL : SON & VIBRATION ===== */
+function beep(freq = 750, duration = 120) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.frequency.value = freq;
+    gain.gain.value = 0.25;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration / 1000);
+  } catch (e) {
+    // pas grave si le son ne marche pas
+  }
+}
+
+function vibrate(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+/* ===== SELECTION SEANCE ===== */
+function selectSeance(btn, type) {
+  currentType = type;
   exercices = programmes[type];
   indexExo = 0;
-  document.getElementById("preview").style.display = "block";
-  document.getElementById("previewTxt").textContent =
-    `Sélectionné : ${type.toUpperCase()} (${exercices.length} exercices)`;
+
+  // style active sur les boutons
+  document.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  previewZone.style.display = "block";
+  previewText.textContent = `Séance ${type.toUpperCase()} sélectionnée • ${exercices.length} exercices.`;
 }
 
 /* ===== FULLSCREEN ===== */
 function ouvrirFullscreen() {
+  if (!currentType || !exercices.length) {
+    alert("Choisis d'abord une séance.");
+    return;
+  }
+
   const elem = document.documentElement;
   if (elem.requestFullscreen) elem.requestFullscreen();
 
-  document.getElementById("fs").classList.add("active");
-  afficher();
+  overlay.classList.add("active");
+  topInfo.textContent = `Séance ${currentType.toUpperCase()} • Exercice ${indexExo+1}/${exercices.length}`;
+  afficherExercice();
+  resetTimer();
 }
 
 function fermerFullscreen() {
   if (document.exitFullscreen) document.exitFullscreen();
-
-  document.getElementById("fs").classList.remove("active");
+  overlay.classList.remove("active");
   pauseTimer();
 }
 
-/* ===== AFFICHAGE ===== */
-function afficher() {
+/* ===== AFFICHAGE EXO ===== */
+function afficherExercice() {
   const ex = exercices[indexExo];
-  document.getElementById("fs-progress").textContent =
-    `Exercice ${indexExo+1} / ${exercices.length}`;
-  document.getElementById("fs-nom").textContent = ex.nom;
-  document.getElementById("fs-muscle").textContent = ex.muscle;
-  document.getElementById("fs-img").src = ex.img;
-  document.getElementById("fs-desc").textContent = ex.desc;
+  exoNom.textContent = ex.nom;
+  exoMuscle.textContent = ex.muscle;
+  exoImg.src = ex.img;
+  exoDesc.textContent = ex.desc;
+  exoMeta.innerHTML = `<strong>${ex.meta}</strong>`;
+  topInfo.textContent = `Séance ${currentType.toUpperCase()} • Exercice ${indexExo+1}/${exercices.length}`;
   resetTimer();
 }
 
 function nextExercice() {
-  if (indexExo < exercices.length-1) {
+  if (indexExo < exercices.length - 1) {
     indexExo++;
-    afficher();
+    beep(650, 120);
+    vibrate([40, 40]);
+    afficherExercice();
+  } else {
+    pauseTimer();
+    vibrate([100, 60, 100]);
+    alert("Séance terminée 🔥");
+    fermerFullscreen();
   }
 }
+
 function prevExercice() {
   if (indexExo > 0) {
     indexExo--;
-    afficher();
+    beep(450, 100);
+    vibrate(40);
+    afficherExercice();
   }
 }
 
 /* ===== TIMER ===== */
-function setDuree(sec){
+function setDuree(sec) {
   dureeTotale = sec;
   resetTimer();
 }
-function startTimer(){
+
+function startTimer() {
   if (timer) return;
-  const start = Date.now() - (dureeTotale-restant)*1000;
+  if (restant <= 0) restant = dureeTotale;
+
+  timerLabel.textContent = "En cours";
+  beep(800, 120);
+  vibrate(40);
+
+  const start = Date.now() - (dureeTotale - restant) * 1000;
 
   timer = setInterval(() => {
-    restant = Math.max(dureeTotale - Math.floor((Date.now()-start)/1000), 0);
-    updateTimer();
+    const diff = Math.floor((Date.now() - start) / 1000);
+    restant = Math.max(dureeTotale - diff, 0);
+    updateTimerDisplay();
 
-    if (restant === 0) pauseTimer();
-  },200);
+    // petite animation pulse
+    timerCircle.classList.add("pulse");
+    setTimeout(() => timerCircle.classList.remove("pulse"), 300);
+
+    if (restant <= 0) {
+      pauseTimer();
+      timerLabel.textContent = "Terminé";
+      beep(350, 200);
+      vibrate([80, 80, 80]);
+    }
+  }, 1000);
 }
-function pauseTimer(){
-  clearInterval(timer);
-  timer = null;
+
+function pauseTimer() {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    timerLabel.textContent = "Pause";
+  }
 }
-function resetTimer(){
+
+function resetTimer() {
   pauseTimer();
   restant = dureeTotale;
-  updateTimer();
+  updateTimerDisplay();
+  timerLabel.textContent = "Prêt";
 }
-function updateTimer(){
-  const m = String(Math.floor(restant/60)).padStart(2,"0");
-  const s = String(restant%60).padStart(2,"0");
-  document.getElementById("fs-timer").textContent = `${m}:${s}`;
+
+function updateTimerDisplay() {
+  const m = String(Math.floor(restant / 60)).padStart(2, "0");
+  const s = String(restant % 60).padStart(2, "0");
+  timerText.textContent = `${m}:${s}`;
+
+  const progress = 1 - restant / dureeTotale;
+  const deg = progress * 360;
+  timerRing.style.background = `conic-gradient(#f97316 0deg ${deg}deg, #111827 ${deg}deg 360deg)`;
 }
+
+/* ===== GESTES SWIPE ===== */
+let touchStartX = 0;
+overlay.addEventListener("touchstart", e => {
+  touchStartX = e.changedTouches[0].clientX;
+});
+
+overlay.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 60) {
+    if (dx < 0) nextExercice();
+    else prevExercice();
+  }
+});
 </script>
 
 </body>
