@@ -1,251 +1,230 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Forge & Fit – Séance guidée</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .session-header {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .session-header h1 {
-      font-size: 24px;
-    }
-    .session-header p {
-      font-size: 13px;
-      color: #cbd5f5;
-      margin-top: 4px;
-    }
-    .session-card {
-      margin-top: 10px;
-    }
-    .gif-wrap {
-      display: flex;
-      justify-content: center;
-      margin: 12px 0;
-    }
-    .gif-wrap img {
-      width: 100%;
-      max-width: 360px;
-      border-radius: 16px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.9);
-    }
-    .timer-label {
-      text-align: center;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      color: #9ca3af;
-    }
-    .timer-big {
-      font-size: 40px;
-      font-weight: 800;
-      text-align: center;
-      margin-top: 4px;
-    }
-    .session-controls {
-      margin-top: 10px;
-      text-align: center;
-    }
-    .session-controls button {
-      margin: 4px;
-    }
-    .session-meta {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 6px;
-      color: #e5e7eb;
-    }
-    .exercise-name {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: 10px;
-    }
-    .exercise-muscle {
-      text-align: center;
-      font-size: 13px;
-      color: #cbd5f5;
-      margin-top: 2px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Séance – Forge & Fit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- NAVIGATION -->
 <nav>
-  <div class="nav-scroll">
-    <a href="index.html">Accueil</a>
-    <a href="prise-masse.html">Prise de masse</a>
-    <a href="perte-gras.html">Perte de gras</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="entrainement.html">Séance</a>
-    <a href="plan.html">Plan perso</a>
-    <a href="compte.html">Compte</a>
-  </div>
+  <a href="index.html">Accueil</a>
+  <a href="prise-masse.html">Prise de masse</a>
+  <a href="perte-gras.html">Perte de gras</a>
+  <a href="exercices.html">Exercices</a>
+  <a href="entrainement.html">Séance</a>
 </nav>
 
-<div class="page">
-  <div class="session-header">
-    <h1>Mode séance</h1>
-    <p>GIF + timer + enchaînement des exercices. Comme une vraie app de workout.</p>
-  </div>
+<h1 style="margin-top:20px;">🔥 Séance guidée</h1>
 
-  <section class="card session-card">
-    <h2>Sélection de la séance</h2>
-    <p>Pour l’instant, on enchaîne une boucle d’exercices full-body.</p>
-    <div class="btn-row" style="margin-top:10px;">
-      <button class="btn btn-ghost" onclick="selectMode('fullbody')">🔥 Full-body</button>
-      <button class="btn btn-ghost" onclick="selectMode('abdos')">🟠 Abdos</button>
-    </div>
-  </section>
+<div class="section-box">
 
-  <section class="card session-card" id="session-area">
-    <div class="timer-label">Temps restant</div>
-    <div class="timer-big" id="timer">00:30</div>
+    <h2 style="text-align:center;">📌 Choisis une catégorie</h2>
 
-    <div class="exercise-name" id="exercise-name">Squat</div>
-    <div class="exercise-muscle" id="exercise-muscle">Jambes / Fessiers</div>
-
-    <div class="gif-wrap">
-      <img id="exercise-gif" src="" alt="Exercice">
+    <div style="display:flex; flex-wrap:wrap; justify-content:center;">
+        <button class="category-btn" onclick="choose('fullbody')">Full Body</button>
+        <button class="category-btn" onclick="choose('pecs')">Pecs</button>
+        <button class="category-btn" onclick="choose('dos')">Dos</button>
+        <button class="category-btn" onclick="choose('jambes')">Jambes</button>
+        <button class="category-btn" onclick="choose('epaules')">Épaules</button>
+        <button class="category-btn" onclick="choose('bras')">Bras</button>
+        <button class="category-btn" onclick="choose('abdos')">Abdos</button>
+        <button class="category-btn" onclick="choose('hiit')">HIIT</button>
+        <button class="category-btn" onclick="choose('cardio')">Cardio</button>
+        <button class="category-btn" onclick="choose('echauff')">Échauffement</button>
+        <button class="category-btn" onclick="choose('stretch')">Stretching</button>
+        <button class="category-btn" onclick="choose('gainage')">Gainage</button>
+        <button class="category-btn" onclick="choose('fessiers')">Fessiers</button>
     </div>
 
-    <div class="session-meta" id="exercise-meta">30 secondes – Contrôle, amplitude totale.</div>
+    <hr style="opacity:0.2; margin:25px 0;">
 
-    <div class="session-controls">
-      <button class="btn btn-primary" onclick="startTimer()">▶ Start</button>
-      <button class="btn btn-ghost" onclick="pauseTimer()">⏸ Pause</button>
-      <button class="btn btn-ghost" onclick="resetTimer()">🔁 Reset</button>
-      <button class="btn btn-ghost" onclick="nextExercise()">➡️ Suivant</button>
+    <!-- Affichage des exercices -->
+    <h2 id="exercise-name" style="text-align:center; display:none;">Exercice</h2>
+    <div id="timer" class="timer" style="display:none;">00:30</div>
+
+    <div style="display:flex; justify-content:center;">
+        <img id="exercise-gif" src="" style="width:95%; max-width:400px; border-radius:15px; display:none;">
     </div>
-  </section>
 
-  <footer>Forge & Fit © 2025 — Mode séance guidée.</footer>
+    <p id="muscle-group" style="text-align:center; font-size:18px; opacity:0.8; display:none;"></p>
+
+    <!-- Boutons -->
+    <div class="timer-controls" id="controls" style="display:none; text-align:center;">
+        <button onclick="startTimer()">▶ Start</button>
+        <button onclick="pauseTimer()">⏸ Pause</button>
+        <button onclick="resetTimer()">🔄 Reset</button>
+        <button onclick="nextExercise()">⏭ Suivant</button>
+        <button onclick="quit()" style="background:#ff3333;">⛔ Quitter</button>
+    </div>
+
 </div>
 
 <script>
-const MODES = {
-  fullbody: [
-    {
-      name: "Squat",
-      muscle: "Jambes / Fessiers",
-      gif: "https://media.tenor.com/nuB_7n1HULIAAAAC/squat.gif",
-      time: 30,
-      meta: "Pieds stables, dos droit, contrôle."
-    },
-    {
-      name: "Pompes",
-      muscle: "Pectoraux / Triceps",
-      gif: "https://media.tenor.com/FZfq0NvKcSMAAAAC/pushups-push-up.gif",
-      time: 30,
-      meta: "Corps gainé, poitrine vers le sol."
-    },
-    {
-      name: "Gainage",
-      muscle: "Abdos / Tronc",
-      gif: "https://media.tenor.com/BOZpY4xXHzYAAAAd/plank.gif",
-      time: 30,
-      meta: "Corps droit, ne laisse pas tomber les hanches."
-    }
-  ],
-  abdos: [
-    {
-      name: "Crunch",
-      muscle: "Abdominaux",
-      gif: "https://media.tenor.com/2vVqRcWnLw4AAAAC/crunch-abs.gif",
-      time: 30,
-      meta: "Monte en enroulant, ne tire pas sur la nuque."
-    },
-    {
-      name: "Relevés de jambes",
-      muscle: "Bas des abdos",
-      gif: "https://media.tenor.com/43QAt2u9O4wAAAAC/leg-raises.gif",
-      time: 30,
-      meta: "Lent vers le bas, contrôle total."
-    },
-    {
-      name: "Planche",
-      muscle: "Core",
-      gif: "https://media.tenor.com/BOZpY4xXHzYAAAAd/plank.gif",
-      time: 30,
-      meta: "Tiens bon, respire, garde le gainage."
-    }
-  ]
+
+/* ------------------------
+   LISTE COMPLÈTE (14 CATÉGORIES)
+-------------------------*/
+const programs = {
+    fullbody: [
+        {name:"Burpees", time:30, group:"Full body", gif:"https://media.tenor.com/riJx-wQjzHAAAAAC/burpees.gif"},
+        {name:"Squat Jump", time:30, group:"Jambes", gif:"https://media.tenor.com/4M5wFZMOmcoAAAAd/squat-jump.gif"},
+        {name:"Mountain climber", time:30, group:"Core", gif:"https://media.tenor.com/4I7nEKeosxwAAAAC/mountain-climber.gif"}
+    ],
+
+    pecs: [
+        {name:"Pompes", time:30, group:"Pectoraux", gif:"https://media.tenor.com/FZfq0NvKcSMAAAAC/pushups-push-up.gif"},
+        {name:"Pompes larges", time:30, group:"Pectoraux extérieur", gif:"https://media.tenor.com/uq5IgR9JvoUAAAAC/push-up.gif"},
+        {name:"Pompes déclinées", time:30, group:"Haut des pectoraux", gif:"https://media.tenor.com/tcL5BkxvYzoAAAAC/decline-push-up.gif"}
+    ],
+
+    dos: [
+        {name:"Superman", time:30, group:"Bas du dos", gif:"https://media.tenor.com/rf4WuHBqzJwAAAAC/superman-exercise.gif"},
+        {name:"Row élastique", time:30, group:"Dos", gif:"https://media.tenor.com/Bp4Pmx6z1f4AAAAC/resistance-band-row.gif"},
+        {name:"Reverse snow angels", time:30, group:"Dos supérieur", gif:"https://media.tenor.com/8N47JQs-WcsAAAAC/snow-angels.gif"}
+    ],
+
+    jambes: [
+        {name:"Squats", time:30, group:"Jambes", gif:"https://media.tenor.com/nuB_7n1HULIAAAAC/squat.gif"},
+        {name:"Fentes", time:30, group:"Quadriceps", gif:"https://media.tenor.com/nDPZxEXzxG4AAAAC/lunges.gif"},
+        {name:"Sauts groupés", time:30, group:"Explosivité", gif:"https://media.tenor.com/nr8bAvFpC98AAAAC/jump-squat.gif"}
+    ],
+
+    epaules: [
+        {name:"Élévations latérales", time:30, group:"Deltoïdes", gif:"https://media.tenor.com/2Yy7G7Ew4E0AAAAd/lateral-raise.gif"},
+        {name:"Pike push-ups", time:30, group:"Épaules", gif:"https://media.tenor.com/s7G8fLZyJx0AAAAC/pike-push-up.gif"},
+        {name:"Rotation bras", time:30, group:"Deltoïdes", gif:"https://media.tenor.com/BPC1ZWvS8sEAAAAC/arm-circles.gif"}
+    ],
+
+    bras: [
+        {name:"Dips chaise", time:30, group:"Triceps", gif:"https://media.tenor.com/1zYHchnHiYMAAAAC/tricep-dips.gif"},
+        {name:"Curl élastique", time:30, group:"Biceps", gif:"https://media.tenor.com/pmjHtkobaNQAAAAC/bicep-curl.gif"},
+        {name:"Pompes triceps", time:30, group:"Triceps", gif:"https://media.tenor.com/O7IhiHBpjzAAAAAC/close-grip-pushups.gif"}
+    ],
+
+    abdos: [
+        {name:"Crunch", time:30, group:"Abdos haut", gif:"https://media.tenor.com/WsMul0R8RPMAAAAC/crunches.gif"},
+        {name:"Relevé de jambes", time:30, group:"Bas des abdos", gif:"https://media.tenor.com/QI0RvrRZtNQAAAAC/leg-raises.gif"},
+        {name:"Russian twist", time:30, group:"Obliques", gif:"https://media.tenor.com/n9IhplC-EO8AAAAC/russian-twist.gif"}
+    ],
+
+    hiit: [
+        {name:"Burpees", time:30, group:"Full Body", gif:"https://media.tenor.com/riJx-wQjzHAAAAAC/burpees.gif"},
+        {name:"High knees", time:30, group:"Cardio", gif:"https://media.tenor.com/jjUZoL4m5UwAAAAd/high-knees.gif"},
+        {name:"Jumping jacks", time:30, group:"Corps entier", gif:"https://media.tenor.com/x8v1oCSJzowAAAAC/jumping.gif"}
+    ],
+
+    cardio: [
+        {name:"High knees", time:30, group:"Cardio", gif:"https://media.tenor.com/jjUZoL4m5UwAAAAd/high-knees.gif"},
+        {name:"Jump rope", time:30, group:"Endurance", gif:"https://media.tenor.com/U-wkn-5HnP4AAAAC/jump-rope.gif"},
+        {name:"Butt kicks", time:30, group:"Cardio", gif:"https://media.tenor.com/pbVyuk3F7xAAAAAC/butt-kicks.gif"}
+    ],
+
+    echauff: [
+        {name:"Rotation poignets", time:30, group:"Échauffement", gif:"https://media.tenor.com/DZtkG3YkRkMAAAAC/warmup.gif"},
+        {name:"Rotation hanches", time:30, group:"Mobilité", gif:"https://media.tenor.com/oZ5EKeosxwAAAAC/hip-circle.gif"},
+        {name:"Petit jogging", time:30, group:"Échauffement cardio", gif:"https://media.tenor.com/0g5cDIeEJDQAAAAC/jogging.gif"}
+    ],
+
+    stretch: [
+        {name:"Stretch quadriceps", time:30, group:"Souplesse", gif:"https://media.tenor.com/8qfes2t86CwAAAAC/quadricep-stretch.gif"},
+        {name:"Stretch ischios", time:30, group:"Jambes", gif:"https://media.tenor.com/axBnDg-mwWIAAAAC/hamstring-stretch.gif"},
+        {name:"Stretch dos", time:30, group:"Dorsaux", gif:"https://media.tenor.com/Zf0dp2PbgGgAAAAC/childs-pose-yoga.gif"}
+    ],
+
+    gainage: [
+        {name:"Planche", time:30, group:"Core", gif:"https://media.tenor.com/BOZpY4xXHzYAAAAd/plank.gif"},
+        {name:"Planche latérale", time:30, group:"Obliques", gif:"https://media.tenor.com/qYz1D-2v1LQAAAAC/plank-side.gif"},
+        {name:"Hollow hold", time:30, group:"Gainage total", gif:"https://media.tenor.com/Ken7KM2SleYAAAAC/hollow.gif"}
+    ],
+
+    fessiers: [
+        {name:"Hip thrust", time:30, group:"Fessiers", gif:"https://media.tenor.com/8NkrkKQ_EZcAAAAC/hip-thrust.gif"},
+        {name:"Donkey kicks", time:30, group:"Fessiers", gif:"https://media.tenor.com/5uRkEXIMGVUAAAAC/donkey-kicks.gif"},
+        {name:"Fire hydrants", time:30, group:"Fessiers", gif:"https://media.tenor.com/6mMu9q4CPYAAAAAC/fire-hydrant.gif"}
+    ]
 };
 
-let currentMode = "fullbody";
-let exercises = MODES[currentMode];
-let index = 0;
-let timeLeft = exercises[0].time;
+let current = [];
+let indexEx = 0;
+let timeLeft = 30;
 let interval = null;
 
-const timerEl = document.getElementById("timer");
-const nameEl = document.getElementById("exercise-name");
-const muscleEl = document.getElementById("exercise-muscle");
-const gifEl = document.getElementById("exercise-gif");
-const metaEl = document.getElementById("exercise-meta");
+/* ------------------------
+   CHOIX CATÉGORIE
+-------------------------*/
+function choose(cat) {
+    current = programs[cat];
+    indexEx = 0;
+    document.getElementById("exercise-name").style.display = "block";
+    document.getElementById("muscle-group").style.display = "block";
+    document.getElementById("exercise-gif").style.display = "block";
+    document.getElementById("timer").style.display = "block";
+    document.getElementById("controls").style.display = "block";
 
-function formatTime(t) {
-  return "00:" + String(t).padStart(2, "0");
+    loadExercise();
 }
 
 function loadExercise() {
-  const ex = exercises[index];
-  timeLeft = ex.time;
-  timerEl.textContent = formatTime(timeLeft);
-  nameEl.textContent = ex.name;
-  muscleEl.textContent = ex.muscle;
-  gifEl.src = ex.gif;
-  metaEl.textContent = ex.meta;
+    const ex = current[indexEx];
+    timeLeft = ex.time;
+
+    document.getElementById("exercise-name").innerText = ex.name;
+    document.getElementById("muscle-group").innerText = ex.group;
+    document.getElementById("exercise-gif").src = ex.gif;
+    document.getElementById("timer").innerText = format(timeLeft);
 }
 
-function selectMode(mode) {
-  currentMode = mode;
-  exercises = MODES[currentMode];
-  index = 0;
-  pauseTimer();
-  loadExercise();
+function format(t) {
+    return "00:" + (t < 10 ? "0" + t : t);
 }
 
+/* ------------------------
+   TIMER
+-------------------------*/
 function startTimer() {
-  if (interval) return;
-  interval = setInterval(() => {
-    timeLeft--;
-    timerEl.textContent = formatTime(timeLeft);
-    if (timeLeft <= 0) {
-      pauseTimer();
-      nextExercise();
-    }
-  }, 1000);
+    if (interval) return;
+    interval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").innerText = format(timeLeft);
+        if (timeLeft <= 0) {
+            nextExercise();
+        }
+    }, 1000);
 }
 
 function pauseTimer() {
-  if (interval) {
     clearInterval(interval);
     interval = null;
-  }
 }
 
 function resetTimer() {
-  pauseTimer();
-  timeLeft = exercises[index].time;
-  timerEl.textContent = formatTime(timeLeft);
+    pauseTimer();
+    timeLeft = current[indexEx].time;
+    document.getElementById("timer").innerText = format(timeLeft);
 }
 
+/* ------------------------
+   NAVIGATION
+-------------------------*/
 function nextExercise() {
-  pauseTimer();
-  index++;
-  if (index >= exercises.length) {
-    alert("Séance terminée 🔥");
-    index = 0;
-  }
-  loadExercise();
+    pauseTimer();
+    indexEx++;
+    if (indexEx >= current.length) {
+        alert("🔥 Séance terminée !");
+        quit();
+        return;
+    }
+    loadExercise();
 }
 
-// init
-loadExercise();
+function quit() {
+    window.location.href = "index.html";
+}
+
 </script>
 
 </body>
