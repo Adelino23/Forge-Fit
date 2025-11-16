@@ -1,78 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Forge & Fit – Mon Compte</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-
-<style>
-  .account-container {
-    max-width: 900px;
-    margin: auto;
-  }
-  .profil-box {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 22px;
-  }
-  .profil-photo {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: #111;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid #a855f7;
-  }
-  .profil-edit {
-    margin-top: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    opacity: .8;
-  }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  @media(max-width: 600px){
-    .grid-2 { grid-template-columns: 1fr; }
-  }
-  .badge-premium {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .15em;
-    background: linear-gradient(90deg,#ff3131,#a855f7);
-    color: #fff;
-    margin-top: 6px;
-  }
-  .badge-level {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 6px;
-    background: #1a1a2d;
-    color: #fff;
-    font-size: 12px;
-  }
-  .history-item {
-    padding: 10px;
-    background: #0c0c14;
-    border-radius: 8px;
-    margin-bottom: 8px;
-  }
-</style>
-
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Mon compte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .info-label {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .info-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .history-list {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .history-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(148,163,184,0.35);
+    }
+  </style>
 </head>
 <body>
-
-<header>MON COMPTE</header>
 
 <nav>
   <a href="index.html">Accueil</a>
@@ -80,237 +33,60 @@
   <a href="perte-gras.html">Perte de gras</a>
   <a href="exercices.html">Exercices</a>
   <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan personnalisé</a>
+  <a href="plan.html">Plan perso</a>
   <a href="compte.html">Mon compte</a>
 </nav>
 
-<section class="account-container">
+<header class="hero">
+  <div class="hero-tagline">Espace perso</div>
+  <h1 class="hero-title">Mon compte</h1>
+  <p class="hero-sub">
+    Ici tu pourras, à terme, retrouver ton historique de séances, tes plans, ton accès premium, etc.
+  </p>
+</header>
 
-  <h2>Informations personnelles</h2>
+<main>
+  <section class="card">
+    <h2>Profil basique</h2>
+    <p style="font-size:13px;color:#9ca3af;">(Version actuelle : tout est stocké en local dans ton navigateur.)</p>
 
-  <div class="profil-box">
-    <div id="photo" class="profil-photo"></div>
-    <div>
-      <div><b id="username">Nom utilisateur</b></div>
-      <div id="premium-badge"></div>
-      <div class="profil-edit" onclick="changerPhoto()">Changer la photo</div>
+    <div style="margin-top:10px;">
+      <div class="info-label">Pseudo</div>
+      <div class="info-value" id="pseudo">Athlète Forge & Fit</div>
     </div>
-  </div>
 
-  <div class="grid-2">
-    <div class="card">
-      <label>Nom</label>
-      <input id="input-nom" placeholder="Ton nom">
+    <div style="margin-top:10px;">
+      <div class="info-label">Email</div>
+      <div class="info-value">Bientôt disponible</div>
     </div>
-    <div class="card">
-      <label>Âge</label>
-      <input id="input-age" type="number" placeholder="Ton âge">
+
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-ghost" onclick="resetLocal()">🔄 Réinitialiser les données locales</button>
     </div>
-    <div class="card">
-      <label>Poids (kg)</label>
-      <input id="input-poids" type="number" placeholder="Ex: 70">
+  </section>
+
+  <section class="card">
+    <h2>Historique des séances</h2>
+    <p style="font-size:13px;color:#9ca3af;">
+      Plus tard, la séance en direct pourra enregistrer automatiquement tes séances ici.
+    </p>
+    <div id="history" class="history-list">
+      Fonctionnalité en cours de préparation.
     </div>
-    <div class="card">
-      <label>Taille (cm)</label>
-      <input id="input-taille" type="number" placeholder="Ex: 175">
-    </div>
-  </div>
+  </section>
+</main>
 
-  <div class="card" style="margin-top:16px;">
-    <label>Objectif</label>
-    <select id="input-objectif">
-      <option value="">Sélectionne</option>
-      <option>Prise de masse</option>
-      <option>Perte de gras</option>
-      <option>Force</option>
-      <option>Résistance</option>
-      <option>Santé / Reprise</option>
-    </select>
-  </div>
-
-  <div class="card">
-    <label>Niveau de forme</label>
-    <select id="input-niveau">
-      <option value="">Débutant</option>
-      <option>Intermédiaire</option>
-      <option>Avancé</option>
-      <option>Élite</option>
-    </select>
-  </div>
-
-  <button style="margin-top:10px;" onclick="sauvegarderProfil()">💾 Sauvegarder</button>
-
-  <hr style="margin:26px 0;opacity:.3;">
-
-  <h2>Progression</h2>
-  <div class="card">
-    <p><b>Points d'entraînement :</b> <span id="points">0</span></p>
-    <p><b>Niveau :</b> <span id="niveau-badge" class="badge-level"></span></p>
-  </div>
-
-  <hr style="margin:26px 0;opacity:.3;">
-
-  <h2>Badges & réussites</h2>
-  <div class="card" id="badges-zone">
-    <p>Aucun badge débloqué pour l’instant. Continue les séances 💪</p>
-  </div>
-
-  <hr style="margin:26px 0;opacity:.3;">
-
-  <h2>Statut Premium</h2>
-  <div class="card">
-    <p id="premium-status">Chargement...</p>
-    <button onclick="window.location='premium.html'">Gérer mon abonnement</button>
-  </div>
-
-  <hr style="margin:26px 0;opacity:.3;">
-
-  <h2>Historique des séances</h2>
-  <div id="historique"></div>
-
-</section>
-
-<footer>Forge & Fit © 2025 — Compte utilisateur complet.</footer>
+<footer>
+  Forge & Fit © 2025 — Espace compte (bêta).
+</footer>
 
 <script>
-// --- PHOTO DE PROFIL ---
-function changerPhoto() {
-  const url = prompt("Entre l'URL de ta photo de profil :");
-  if (!url) return;
-  localStorage.setItem("forgefit_photo", url);
-  document.getElementById("photo").style.backgroundImage = `url('${url}')`;
-}
-
-// --- CHARGER PROFIL ---
-function chargerProfil() {
-  const nom = localStorage.getItem("forgefit_nom") || "Utilisateur";
-  const age = localStorage.getItem("forgefit_age") || "";
-  const poids = localStorage.getItem("forgefit_poids") || "";
-  const taille = localStorage.getItem("forgefit_taille") || "";
-  const objectif = localStorage.getItem("forgefit_objectif") || "";
-  const niveau = localStorage.getItem("forgefit_niveau") || "";
-
-  document.getElementById("input-nom").value = nom;
-  document.getElementById("input-age").value = age;
-  document.getElementById("input-poids").value = poids;
-  document.getElementById("input-taille").value = taille;
-  document.getElementById("input-objectif").value = objectif;
-  document.getElementById("input-niveau").value = niveau;
-
-  document.getElementById("username").textContent = nom;
-
-  const photo = localStorage.getItem("forgefit_photo");
-  if (photo) document.getElementById("photo").style.backgroundImage = `url('${photo}')`;
-
-  afficherPremium();
-  afficherHistorique();
-  chargerPoints();
-}
-
-// --- SAUVEGARDER PROFIL ---
-function sauvegarderProfil() {
-  localStorage.setItem("forgefit_nom", document.getElementById("input-nom").value);
-  localStorage.setItem("forgefit_age", document.getElementById("input-age").value);
-  localStorage.setItem("forgefit_poids", document.getElementById("input-poids").value);
-  localStorage.setItem("forgefit_taille", document.getElementById("input-taille").value);
-  localStorage.setItem("forgefit_objectif", document.getElementById("input-objectif").value);
-  localStorage.setItem("forgefit_niveau", document.getElementById("input-niveau").value);
-
-  alert("Profil sauvegardé !");
-  chargerProfil();
-}
-
-// --- PREMIUM ---
-function afficherPremium() {
-  const data = JSON.parse(localStorage.getItem("forgefit_premium") || "null");
-  const zone = document.getElementById("premium-status");
-  const badge = document.getElementById("premium-badge");
-
-  if (!data) {
-    zone.textContent = "Tu n'es pas encore Premium.";
-    badge.innerHTML = "";
-    return;
-  }
-
-  const label = data.plan === "elite" ? "Forge Elite" : "Forge Basic";
-
-  zone.textContent = "Statut : " + label;
-  badge.innerHTML = `<span class='badge-premium'>${label}</span>`;
-}
-
-// --- HISTORIQUE ---
-function afficherHistorique() {
-  const raw = localStorage.getItem("forgefit_sessions");
-  const zone = document.getElementById("historique");
-  if (!raw) {
-    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
-    return;
-  }
-
-  const list = JSON.parse(raw);
-  if (!list.length) {
-    zone.innerHTML = "<p>Aucune séance enregistrée pour l’instant.</p>";
-    return;
-  }
-
-  zone.innerHTML = "";
-  list.forEach(x => {
-    const d = new Date(x.date).toLocaleString("fr-FR");
-    zone.innerHTML += `
-      <div class="history-item">
-        <b>${x.type.toUpperCase()}</b> — ${x.nbExos} exercices<br>
-        Durée : ${x.dureeSec}s<br>
-        <span style="opacity:.6;">${d}</span>
-      </div>
-    `;
-  });
-}
-
-// --- POINTS + NIVEAU + BADGES ---
-function chargerPoints() {
-  let pts = parseInt(localStorage.getItem("forgefit_points") || "0");
-  document.getElementById("points").textContent = pts;
-
-  let niveau = "Bronze";
-  if (pts >= 200) niveau = "Argent";
-  if (pts >= 500) niveau = "Or";
-  if (pts >= 1000) niveau = "Élite";
-
-  document.getElementById("niveau-badge").textContent = niveau;
-
-  calculerBadges(pts);
-}
-
-function calculerBadges(pts) {
-  const zone = document.getElementById("badges-zone");
-  let sessions = parseInt(localStorage.getItem("forgefit_sessions_count") || "0");
-  const badges = [];
-
-  // Badges séances
-  if (sessions >= 1)  badges.push("Première séance 🔓");
-  if (sessions >= 10) badges.push("Endurance – 10 séances 🏅");
-  if (sessions >= 30) badges.push("Guerrier – 30 séances 🔥");
-  if (sessions >= 100) badges.push("Machine – 100 séances 💀");
-
-  // Badges points
-  if (pts >= 200)  badges.push("Argent – 200+ points ⚔️");
-  if (pts >= 500)  badges.push("Or – 500+ points 👑");
-  if (pts >= 1000) badges.push("Élite – 1000+ points 💎");
-
-  // Badge premium
-  const premiumData = JSON.parse(localStorage.getItem("forgefit_premium") || "null");
-  if (premiumData) {
-    badges.push(`Membre ${premiumData.plan === "elite" ? "Forge Elite" : "Forge Basic"} 🟣`);
-  }
-
-  if (!badges.length) {
-    zone.innerHTML = "<p>Aucun badge débloqué pour l’instant. Continue les séances 💪</p>";
-  } else {
-    zone.innerHTML = "<ul>" + badges.map(b => `<li>${b}</li>`).join("") + "</ul>";
+function resetLocal() {
+  if (confirm("Tu veux vraiment effacer les données locales du site (plans, historique, etc.) ?")) {
+    localStorage.clear();
+    alert("Données locales effacées.");
   }
 }
-
-chargerProfil();
 </script>
 
 </body>
