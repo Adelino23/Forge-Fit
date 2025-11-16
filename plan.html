@@ -2,193 +2,60 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Forge & Fit – Plan personnalisé</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan personnalisé – Forge & Fit</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .form-row {
-      margin-top: 12px;
-    }
-    .form-row label {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .form-row input,
-    .form-row select {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.9);
-      color: #e5e7eb;
-      font-size: 14px;
-    }
-    .plan-output {
-      white-space: pre-line;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-  </style>
 </head>
+
 <body>
 
 <nav>
-  <a href="index.html">Accueil</a>
-  <a href="prise-masse.html">Prise de masse</a>
-  <a href="perte-gras.html">Perte de gras</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan perso</a>
-  <a href="compte.html">Mon compte</a>
+  <div class="nav-scroll">
+    <a href="index.html">Accueil</a>
+    <a href="prise-masse.html">Prise de masse</a>
+    <a href="perte-gras.html">Perte de gras</a>
+    <a href="exercices.html">Exercices</a>
+    <a href="entrainement.html">Séance</a>
+    <a href="plan.html">Plan perso</a>
+    <a href="compte.html">Compte</a>
+  </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-tagline">Plan perso</div>
-  <h1 class="hero-title">Ton plan Forge & Fit</h1>
-  <p class="hero-sub">
-    Réponds à quelques questions rapides. On te propose un plan structuré (séances / semaine, reps, consignes).
-  </p>
-</header>
+<div class="page">
 
-<main>
   <section class="card">
-    <h2>Questionnaire rapide</h2>
-
-    <div class="form-row">
-      <label>Ton objectif principal</label>
-      <select id="objectif">
-        <option value="masse">Prise de masse</option>
-        <option value="perte">Perte de gras</option>
-        <option value="force">Force / performance</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Niveau actuel</label>
-      <select id="niveau">
-        <option value="debutant">Débutant</option>
-        <option value="intermediaire">Intermédiaire</option>
-        <option value="avance">Avancé</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Nombre de séances / semaine</label>
-      <select id="frequence">
-        <option value="3">3 séances</option>
-        <option value="4">4 séances</option>
-        <option value="5">5 séances</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Matériel à disposition</label>
-      <select id="materiel">
-        <option value="salle">Salle de sport complète</option>
-        <option value="home">Quelques haltères / élastiques</option>
-        <option value="pdc">Poids du corps uniquement</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <label>Zone prioritaire (si tu veux insister)</label>
-      <select id="priorite">
-        <option value="aucune">Aucune / équilibré</option>
-        <option value="haut">Haut du corps</option>
-        <option value="bas">Bas du corps</option>
-        <option value="abdos">Abdos / Core</option>
-      </select>
-    </div>
-
-    <div class="btn-row" style="margin-top:16px;">
-      <button class="btn btn-primary" onclick="genererPlan()">⚡ Générer mon plan</button>
-    </div>
+    <div class="hero-kicker">PERSONNALISATION</div>
+    <h1 class="hero-title">Créer ton plan</h1>
+    <p class="hero-sub">Réponds et reçois ton programme optimisé.</p>
   </section>
 
   <section class="card">
-    <h2>Plan généré</h2>
-    <p style="font-size:13px; color:#9ca3af;">Ce plan est une base. Tu peux l’adapter selon ton ressenti et ton emploi du temps.</p>
-    <div id="plan-result" class="plan-output">
-      Remplis le questionnaire et clique sur "Générer mon plan".
-    </div>
+    <h2>Questionnaire</h2>
+
+    <label style="display:block;margin-top:12px;">Ton objectif :</label>
+    <select id="obj">
+      <option>Prise de masse</option>
+      <option>Perte de gras</option>
+      <option>Endurance</option>
+      <option>Renfo général</option>
+    </select>
+
+    <label style="display:block;margin-top:12px;">Niveau :</label>
+    <select id="niv">
+      <option>Débutant</option>
+      <option>Intermédiaire</option>
+      <option>Avancé</option>
+    </select>
+
+    <button class="btn btn-primary" style="margin-top:18px;" onclick="genPlan()">
+      Générer mon plan
+    </button>
+
+    <div id="result" style="margin-top:20px;line-height:1.8;"></div>
   </section>
-</main>
 
-<footer>
-  Forge & Fit © 2025 — Plan personnalisé Forge & Fit.
-</footer>
-
-<script>
-function genererPlan() {
-  const objectif = document.getElementById("objectif").value;
-  const niveau = document.getElementById("niveau").value;
-  const freq = document.getElementById("frequence").value;
-  const mat = document.getElementById("materiel").value;
-  const prio = document.getElementById("priorite").value;
-
-  let titre = "";
-  let split = "";
-  let details = "";
-
-  if (objectif === "masse") {
-    titre = "Plan prise de masse";
-    if (freq === "3") split = "Full body 3x / semaine (lundi / mercredi / vendredi).";
-    if (freq === "4") split = "Haut / Bas 4x / semaine (ex : Lundi / Mardi / Jeudi / Vendredi).";
-    if (freq === "5") split = "Split poussé / tirage / jambes + rappels.";
-  } else if (objectif === "perte") {
-    titre = "Plan perte de gras";
-    split = `${freq} séances de musculation + 2 séances cardio modéré (marche rapide, vélo).`;
-  } else {
-    titre = "Plan force / performance";
-    split = `${freq} séances orientées charges lourdes (3–5 reps) sur les gros mouvements (squat, DC, soulevé de terre).`;
-  }
-
-  if (niveau === "debutant") {
-    details += "- Commence léger, concentre-toi sur la technique.\n";
-    details += "- Reste dans une zone 8–12 reps avec 1–2 reps en réserve.\n";
-  } else if (niveau === "intermediaire") {
-    details += "- Progression linéaire : essaie d’augmenter les charges ou les reps chaque semaine.\n";
-    details += "- Garde 1 rep en réserve sur les gros exos.\n";
-  } else {
-    details += "- Cycle de progression : 3 semaines en montée, 1 semaine plus légère.\n";
-    details += "- Travaille proche de l’échec sur les séries clés.\n";
-  }
-
-  if (mat === "pdc") {
-    details += "\nMatériel : poids du corps.\nExemples : pompes, tractions (ou row inversé), fentes, squat sauté, gainage, dips entre chaises.";
-  } else if (mat === "home") {
-    details += "\nMatériel : haltères / élastiques.\nExemples : développé haltères, row haltère, soulevé de terre roumain haltères, curls, extensions triceps, fentes, hip thrust sur canapé.";
-  } else {
-    details += "\nMatériel : salle complète.\nUtilise les barres libres + machines pour varier, mais garde les polyarticulaires en base.";
-  }
-
-  if (prio === "haut") {
-    details += "\n\nPriorité : haut du corps.\n→ Ajoute 1 séance rappel (ou quelques séries en plus) sur pecs / dos / épaules.";
-  } else if (prio === "bas") {
-    details += "\n\nPriorité : bas du corps.\n→ Ajoute 1 séance orientée jambes / fessiers, ou quelques séries de squat / presse en plus.";
-  } else if (prio === "abdos") {
-    details += "\n\nPriorité : abdos / core.\n→ Terminer 3 séances / semaine par 10–15 minutes d’abdos (crunch, gainage, relevés de jambes).";
-  }
-
-  const texte = 
-`${titre}
-
-Fréquence :
-- ${split}
-
-Recommandations :
-${details}
-
-Rappels Forge & Fit :
-- Dors suffisamment (7–9h).
-- Mange en cohérence avec ton objectif (léger surplus pour la masse, déficit pour la perte de gras).
-- Note tes séances pour suivre ta progression.
-`;
-
-  document.getElementById("plan-result").textContent = texte;
-}
-</script>
+  <footer>Forge & Fit © 2025</footer>
+</div>
 
 </body>
 </html>
