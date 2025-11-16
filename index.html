@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forge & Fit – Accueil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <nav>
@@ -21,59 +22,46 @@
 </nav>
 
 <div class="page">
-  <section class="card" style="display:flex;flex-direction:column;gap:10px;">
-    <div class="hero-kicker">Sombre. Puissant. Discipline.</div>
-    <h1 class="hero-title">FORGE & FIT</h1>
+
+  <section class="card">
+    <div class="hero-kicker">TRAIN LIKE A BEAST</div>
+    <h1 class="hero-title">Forge & Fit</h1>
     <p class="hero-sub">
-      Le site pour ceux qui veulent vraiment évoluer : prise de masse, perte de gras,
-      séances guidées et plus de 150 exercices.
+      Transforme ton physique avec des séances personnalisées, un mode
+      entraînement en direct, un catalogue complet d’exercices et un plan
+      entièrement adapté à toi.
     </p>
 
-    <div class="grid-2" style="margin-top:14px;">
-      <button class="btn btn-primary" onclick="location.href='entrainement.html'">
-        🚀 Lancer une séance
-      </button>
-      <button class="btn btn-ghost" onclick="location.href='plan.html'">
-        📋 Créer mon plan perso
-      </button>
-    </div>
-
-    <div class="chip-row">
-      <span class="chip">Débutant → Avancé</span>
-      <span class="chip">Muscle & Perte de gras</span>
-      <span class="chip">Timer + GIF en direct</span>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Objectif principal</h2>
-    <div class="grid-2">
-      <div>
-        <h3>🏗 Prise de masse</h3>
-        <p>Programmes structurés, volume intelligent, surcharge progressive. Idéal si tu veux prendre du muscle sec.</p>
-        <button class="btn btn-ghost" style="margin-top:8px;" onclick="location.href='prise-masse.html'">
-          Voir les programmes masse
-        </button>
-      </div>
-      <div>
-        <h3>🔥 Perte de gras</h3>
-        <p>Séances dynamiques, HIIT et renfo pour garder le muscle tout en séchant proprement.</p>
-        <button class="btn btn-ghost" style="margin-top:8px;" onclick="location.href='perte-gras.html'">
-          Voir les programmes sèche
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Exercices & technique</h2>
-    <p>Catalogue d’exercices classés par muscle avec explications claires pour exécuter proprement.</p>
-    <button class="btn btn-primary" style="margin-top:10px;" onclick="location.href='exercices.html'">
-      🔎 Explorer les exercices
+    <button class="btn btn-primary" style="margin-top:18px;" onclick="location.href='entrainement.html'">
+      🚀 Lancer une séance
     </button>
   </section>
 
-  <footer>Forge & Fit © 2025 — Créé pour te pousser à ta meilleure version.</footer>
+  <section class="card">
+    <h2>Accès rapide</h2>
+
+    <div class="chip-row">
+      <div class="chip" onclick="location.href='prise-masse.html'">Prise de masse</div>
+      <div class="chip" onclick="location.href='perte-gras.html'">Perte de gras</div>
+      <div class="chip" onclick="location.href='exercices.html'">Exercices</div>
+      <div class="chip" onclick="location.href='plan.html'">Plan perso</div>
+      <div class="chip" onclick="location.href='compte.html'">Mon compte</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Pourquoi Forge & Fit ?</h2>
+    <p style="margin-top:10px;line-height:1.7;">
+      ✔ Séances ultra fluides en mode plein écran<br>
+      ✔ Timer animé & swipe pour changer d’exercice<br>
+      ✔ +150 exercices illustrés<br>
+      ✔ Plan 100% personnalisé<br>
+      ✔ Historique de tes entraînements<br>
+      ✔ Interface premium, simple, efficace
+    </p>
+  </section>
+
+  <footer>Forge & Fit © 2025</footer>
 </div>
 
 </body>
