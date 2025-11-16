@@ -1,203 +1,98 @@
-/* ============================= */
-/*   FORGE & FIT — DESIGN 2025   */
-/*      STYLE ARRONDI + APP      */
-/* ============================= */
-
-:root {
-  --bg-dark: #05040a;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --bg-glass: rgba(255, 255, 255, 0.08);
-  --accent: #ff3131;
-  --accent-soft: #ff743f;
-  --text-light: #f5f5ff;
-  --text-soft: #c7c7d7;
-  --radius-big: 24px;
-  --radius-mid: 18px;
-  --radius-small: 12px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
+/* ===================== */
+/*     STYLE SIMPLE      */
+/* ===================== */
 
 body {
-  background: radial-gradient(circle at top, #0b0715, #05040a 60%, #020105);
-  color: var(--text-light);
-  padding-bottom: 80px;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f15;
+    color: white;
 }
 
-/* ============================= */
-/*        NAV ARRONDIE           */
-/* ============================= */
-
+/* NAVIGATION SIMPLE */
 nav {
-  display: flex;
-  gap: 14px;
-  padding: 12px 18px;
-  justify-content: center;
-  background: rgba(10, 10, 20, 0.55);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-radius: 0 0 var(--radius-big) var(--radius-big);
+    background: #15151d;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #222;
 }
 
 nav a {
-  color: var(--text-soft);
-  text-decoration: none;
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  transition: 0.25s;
+    color: #d4d4d4;
+    text-decoration: none;
+    padding: 6px 10px;
+    font-size: 15px;
 }
 
 nav a:hover {
-  background: rgba(255,80,80,0.18);
-  color: var(--accent);
-}
-
-/* ============================= */
-/*        HEADER ARRONDI         */
-/* ============================= */
-
-.hero {
-  text-align: center;
-  padding: 60px 20px 45px;
-}
-
-.hero-title {
-  font-size: 34px;
-  font-weight: 700;
-  background: linear-gradient(90deg, #ff3131, #ff743f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-sub {
-  max-width: 700px;
-  margin: 14px auto 0;
-  font-size: 15px;
-  color: var(--text-soft);
-}
-
-/* ============================= */
-/*        CARDS ARRONDIES        */
-/* ============================= */
-
-.card {
-  width: 92%;
-  max-width: 780px;
-  margin: 16px auto;
-  padding: 22px;
-  border-radius: var(--radius-big);
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 12px 45px rgba(0,0,0,0.3);
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.07);
+    color: #ff3b3b;
 }
 
 /* TITRES */
-.card h2 {
-  font-size: 22px;
-  margin-bottom: 8px;
-  font-weight: 700;
+h1, h2, h3 {
+    font-weight: 600;
 }
 
-/* ============================= */
-/*         BOUTONS RONDS         */
-/* ============================= */
-
-.btn {
-  padding: 12px 20px;
-  border-radius: 999px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  transition: 0.25s;
+/* SECTIONS */
+section {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
 }
 
-.btn-primary {
-  background: linear-gradient(90deg, #ff3131, #ff743f);
-  color: white;
-  font-weight: 600;
-  box-shadow: 0 4px 14px rgba(255,80,80,0.4);
+/* CARD SIMPLE */
+.card {
+    background: #1a1a24;
+    padding: 16px;
+    margin: 16px 0;
+    border-radius: 10px;
+    border: 1px solid #23232e;
 }
 
-.btn-primary:hover {
-  opacity: 0.85;
+/* BOUTONS SIMPLES */
+button {
+    background: #ff3b3b;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
 }
 
-.btn-ghost {
-  background: rgba(255,255,255,0.07);
-  color: var(--text-light);
-  border: 1px solid rgba(255,255,255,0.15);
+button:hover {
+    opacity: 0.9;
 }
 
-.btn-ghost:hover {
-  background: rgba(255,255,255,0.12);
+/* GRILLE EXERCICES SIMPLE */
+.ex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
 }
 
-.btn-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.ex-item {
+    background: #1c1c26;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #2a2a36;
 }
 
-/* ============================= */
-/*   EXERCICES (STYLE APP)       */
-/* ============================= */
-
-.exo-grid {
-  display: grid;
-  gap: 16px;
-  margin-top: 12px;
+.ex-item img {
+    width: 100%;
+    border-radius: 10px;
 }
 
-@media (min-width: 720px) {
-  .exo-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.exo-card {
-  display: flex;
-  padding: 14px;
-  background: rgba(255,255,255,0.06);
-  border-radius: var(--radius-mid);
-  gap: 14px;
-  transition: 0.25s;
-}
-
-.exo-card:hover {
-  background: rgba(255,255,255,0.1);
-  transform: translateY(-3px);
-}
-
-.exo-thumb {
-  width: 90px;
-  height: 80px;
-  border-radius: var(--radius-small);
-  object-fit: cover;
-}
-
-/* ============================= */
-/*          FOOTER               */
-/* ============================= */
-
+/* PIED DE PAGE */
 footer {
-  text-align: center;
-  padding: 20px 0;
-  opacity: 0.5;
-  font-size: 13px;
+    opacity: 0.6;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
 }
