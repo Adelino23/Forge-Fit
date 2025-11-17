@@ -1,68 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Forge & Fit – Accueil</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<nav>
-  <div class="nav-scroll">
-    <a href="index.html">Accueil</a>
-    <a href="prise-masse.html">Prise de masse</a>
-    <a href="perte-gras.html">Perte de gras</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="entrainement.html">Séance</a>
-    <a href="plan.html">Plan perso</a>
-    <a href="compte.html">Compte</a>
-  </div>
+<nav class="topnav">
+  <a href="index.html">🏠<span>Accueil</span></a>
+  <a href="prise_masse.html">💪<span>Masse</span></a>
+  <a href="perte_gras.html">🔥<span>Perte</span></a>
+  <a href="exercices.html">📋<span>Exos</span></a>
+  <a href="seance.html">🎧<span>Séance</span></a>
+  <a href="plan.html">🧬<span>Plan</span></a>
 </nav>
 
-<div class="page">
-
-  <section class="card">
-    <div class="hero-kicker">TRAIN LIKE A BEAST</div>
-    <h1 class="hero-title">Forge & Fit</h1>
-    <p class="hero-sub">
-      Transforme ton physique avec des séances personnalisées, un mode
-      entraînement en direct, un catalogue complet d’exercices et un plan
-      entièrement adapté à toi.
+<main class="page">
+  <section class="hero">
+    <div class="hero-sub">Sombre. Puissant. Discipline.</div>
+    <div class="hero-title">FORGE &amp; FIT</div>
+    <p>
+      Le site pour ceux qui veulent vraiment évoluer : prise de masse, perte de gras,
+      séances guidées avec timer + GIF, et plus de 150 exercices.
     </p>
-
-    <button class="btn btn-primary" style="margin-top:18px;" onclick="location.href='entrainement.html'">
-      🚀 Lancer une séance
-    </button>
-  </section>
-
-  <section class="card">
-    <h2>Accès rapide</h2>
-
-    <div class="chip-row">
-      <div class="chip" onclick="location.href='prise-masse.html'">Prise de masse</div>
-      <div class="chip" onclick="location.href='perte-gras.html'">Perte de gras</div>
-      <div class="chip" onclick="location.href='exercices.html'">Exercices</div>
-      <div class="chip" onclick="location.href='plan.html'">Plan perso</div>
-      <div class="chip" onclick="location.href='compte.html'">Mon compte</div>
+    <div class="btn-row">
+      <a href="seance.html"><button class="btn-main">🚀 Lancer une séance</button></a>
+      <a href="plan.html"><button class="btn-ghost">📝 Créer mon plan perso</button></a>
     </div>
   </section>
 
   <section class="card">
-    <h2>Pourquoi Forge & Fit ?</h2>
-    <p style="margin-top:10px;line-height:1.7;">
-      ✔ Séances ultra fluides en mode plein écran<br>
-      ✔ Timer animé & swipe pour changer d’exercice<br>
-      ✔ +150 exercices illustrés<br>
-      ✔ Plan 100% personnalisé<br>
-      ✔ Historique de tes entraînements<br>
-      ✔ Interface premium, simple, efficace
-    </p>
+    <h2>Choisis ton prochain move</h2>
+    <p>Pas de blabla, juste ce qu’il faut pour passer au niveau supérieur.</p>
+    <div class="btn-row">
+      <span class="chip">Débutant → Avancé</span>
+      <span class="chip">Prise de masse</span>
+      <span class="chip">Perte de gras</span>
+      <span class="chip">Timer + GIF en direct</span>
+    </div>
   </section>
 
-  <footer>Forge & Fit © 2025</footer>
-</div>
+  <section class="card">
+    <h2>Objectif principal</h2>
+    <p>Tu peux attaquer directement avec :</p>
+    <ul>
+      <li>💪 Programme prise de masse structuré</li>
+      <li>🔥 Programme perte de gras sans bullshit</li>
+      <li>🎧 Séances guidées full-body, jambes, dos, pecs, abdos…</li>
+      <li>🧬 Générateur de plan personnalisé selon ton niveau</li>
+    </ul>
+  </section>
 
+  <footer>Forge &amp; Fit © 2025 — Lino Game</footer>
+</main>
 </body>
 </html>
