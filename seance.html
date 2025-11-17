@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Forge & Fit – Séance guidée</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html">🏠<span>Accueil</span></a>
+  <a href="prise_masse.html">💪<span>Masse</span></a>
+  <a href="perte_gras.html">🔥<span>Perte</span></a>
+  <a href="exercices.html">📋<span>Exos</span></a>
+  <a href="seance.html">🎧<span>Séance</span></a>
+  <a href="plan.html">🧬<span>Plan</span></a>
+</nav>
+
+<main class="page">
+  <section class="card">
+    <h1>Séance en direct</h1>
+    <p>Choisis une catégorie, puis laisse-toi guider : nom de l’exercice, GIF, timer et boutons Start / Pause / Suivant.</p>
+    <div class="cats-row">
+      <button class="cat-btn" data-cat="fullbody">Full body</button>
+      <button class="cat-btn" data-cat="pecs">Pecs</button>
+      <button class="cat-btn" data-cat="dos">Dos</button>
+      <button class="cat-btn" data-cat="jambes">Jambes</button>
+      <button class="cat-btn" data-cat="abdos">Abdos</button>
+      <button class="cat-btn" data-cat="hiit">HIIT</button>
+    </div>
+  </section>
+
+  <section class="card seance-main">
+    <h2 id="exo-name">Choisis une catégorie</h2>
+    <p id="exo-muscle"></p>
+    <img id="exo-gif" src="" alt="" style="display:none;">
+    <p id="exo-desc"></p>
+
+    <div id="timer">00:30</div>
+
+    <div class="seance-controls">
+      <button onclick="setDuration(30)">30s</button>
+      <button onclick="setDuration(45)">45s</button>
+      <button onclick="setDuration(60)">60s</button>
+    </div>
+
+    <div class="seance-controls">
+      <button class="main" onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
+      <button onclick="prevExercise()">Préc.</button>
+      <button onclick="nextExercise()">Suiv.</button>
+    </div>
+
+    <p style="margin-top:10px;font-size:13px;opacity:0.8;">
+      Astuce : enchaîne les exercices avec le bouton <b>Suiv.</b> pour une séance type HIIT 👊
+    </p>
+  </section>
+
+  <footer>Forge &amp; Fit — Séances guidées</footer>
+</main>
+
+<script>
+const programmes = {
+  fullbody: [
+    {
+      nom: "Burpees",
+      muscle: "Full body • Cardio",
+      gif: "https://images.pexels.com/photos/6456084/pexels-photo-6456084.jpeg",
+      desc: "30s d’effort, 30s de repos. Garde un rythme régulier."
+    },
+    {
+      nom: "Squat sautés",
+      muscle: "Jambes / Cardio",
+      gif: "https://images.pexels.com/photos/6551178/pexels-photo-6551178.jpeg",
+      desc: "Fléchis bien les genoux, amortis la réception."
+    },
+    {
+      nom: "Pompes",
+      muscle: "Pecs / Triceps",
+      gif: "https://images.pexels.com/photos/6456003/pexels-photo-6456003.jpeg",
+      desc: "Corps gainé, descends contrôlé, remonte explosif."
+    }
+  ],
+  pecs: [
+    {
+      nom: "Pompes classiques",
+      muscle: "Pectoraux / Triceps",
+      gif: "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg",
+      desc: "Mains sous les épaules, poitrine proche du sol."
+    },
+    {
+      nom: "Pompes inclinées",
+      muscle: "Haut des pecs",
+      gif: "https://images.pexels.com/photos/3838389/pexels-photo-3838389.jpeg",
+      desc: "Pieds surélevés pour cibler le haut du buste."
+    }
+  ],
+  dos: [
+    {
+      nom: "Rowing haltères",
+      muscle: "Dos / Biceps",
+      gif: "https://images.pexels.com/photos/6550852/pexels-photo-6550852.jpeg",
+      desc: "Dos droit, tire les coudes vers l’arrière."
+    },
+    {
+      nom: "Superman au sol",
+      muscle: "Bas du dos",
+      gif: "https://images.pexels.com/photos/6455950/pexels-photo-6455950.jpeg",
+      desc: "Contracte fessiers et lombaires, monte les bras et les jambes."
+    }
+  ],
+  jambes: [
+    {
+      nom: "Squat",
+      muscle: "Quadriceps / Fessiers",
+      gif: "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg",
+      desc: "Pieds écartés largeur épaules, pousse dans les talons."
+    },
+    {
+      nom: "Fentes marchées",
+      muscle: "Fessiers / Ischios",
+      gif: "https://images.pexels.com/photos/6455993/pexels-photo-6455993.jpeg",
+      desc: "Grand pas vers l’avant, genou arrière proche du sol."
+    }
+  ],
+  abdos: [
+    {
+      nom: "Crunch",
+      muscle: "Abdominaux",
+      gif: "https://images.pexels.com/photos/4498291/pexels-photo-4498291.jpeg",
+      desc: "Monte le buste en enroulant la colonne, ne tire pas sur la nuque."
+    },
+    {
+      nom: "Planche",
+      muscle: "Core",
+      gif: "https://images.pexels.com/photos/6456107/pexels-photo-6456107.jpeg",
+      desc: "Corps droit, abdos serrés, ne creuse pas le bas du dos."
+    }
+  ],
+  hiit: [
+    {
+      nom: "Mountain climbers",
+      muscle: "Cardio / Core",
+      gif: "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg",
+      desc: "Ramène les genoux vite vers la poitrine, garde les épaules au-dessus des mains."
+    },
+    {
+      nom: "Jumping jacks",
+      muscle: "Cardio",
+      gif: "https://images.pexels.com/photos/7676401/pexels-photo-7676401.jpeg",
+      desc: "Reste léger sur les appuis, respire régulièrement."
+    }
+  ]
+};
+
+let currentCat = null;
+let currentList = [];
+let indexExo = 0;
+
+let duration = 30;
+let remaining = 30;
+let timerId = null;
+
+const exoName = document.getElementById("exo-name");
+const exoMuscle = document.getElementById("exo-muscle");
+const exoDesc = document.getElementById("exo-desc");
+const exoGif = document.getElementById("exo-gif");
+const timerEl = document.getElementById("timer");
+
+document.querySelectorAll(".cat-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const cat = btn.getAttribute("data-cat");
+    selectCategory(cat);
+    document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
+function selectCategory(cat) {
+  currentCat = cat;
+  currentList = programmes[cat] || [];
+  indexExo = 0;
+  if (currentList.length === 0) {
+    exoName.textContent = "Aucun exercice";
+    exoMuscle.textContent = "";
+    exoDesc.textContent = "";
+    exoGif.style.display = "none";
+  } else {
+    showExercise();
+  }
+}
+
+function showExercise() {
+  const ex = currentList[indexExo];
+  exoName.textContent = ex.nom;
+  exoMuscle.textContent = ex.muscle;
+  exoDesc.textContent = ex.desc;
+  exoGif.src = ex.gif;
+  exoGif.style.display = "block";
+  resetTimer();
+}
+
+function setDuration(sec) {
+  duration = sec;
+  resetTimer();
+}
+
+function formatTime(s) {
+  const m = String(Math.floor(s / 60)).padStart(2,"0");
+  const r = String(s % 60).padStart(2,"0");
+  return `${m}:${r}`;
+}
+
+function updateTimerDisplay() {
+  timerEl.textContent = formatTime(remaining);
+}
+
+function startTimer() {
+  if (timerId || !currentList.length) return;
+  timerId = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) {
+      remaining = 0;
+      updateTimerDisplay();
+      pauseTimer();
+    } else {
+      updateTimerDisplay();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  }
+}
+
+function resetTimer() {
+  pauseTimer();
+  remaining = duration;
+  updateTimerDisplay();
+}
+
+function nextExercise() {
+  if (!currentList.length) return;
+  indexExo = (indexExo + 1) % currentList.length;
+  showExercise();
+}
+
+function prevExercise() {
+  if (!currentList.length) return;
+  indexExo = (indexExo - 1 + currentList.length) % currentList.length;
+  showExercise();
+}
+
+resetTimer();
+</script>
+</body>
+</html>
