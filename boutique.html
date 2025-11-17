@@ -2,131 +2,34 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Forge & Fit – PDF & Programmes</title>
+  <title>Forge & Fit – Boutique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .shop-container {
-      max-width: 1000px;
-      margin: auto;
-    }
-    .pdf-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 18px;
-    }
-    @media (min-width: 768px) {
-      .pdf-grid {
-        grid-template-columns: repeat(3,minmax(0,1fr));
-      }
-    }
-    .pdf-tag {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      opacity: .8;
-    }
-    .price-pdf {
-      font-size: 20px;
-      font-weight: 700;
-      margin-top: 6px;
-    }
-    .price-pdf span {
-      font-size: 12px;
-      opacity: .7;
-      font-weight: 400;
-    }
-  </style>
 </head>
 <body>
 
-<header>FORGE & FIT – PDF & PROGRAMMES</header>
-
-<nav>
-  <a href="index.html">Accueil</a>
-  <a href="prise-masse.html">Prise de masse</a>
-  <a href="perte-gras.html">Perte de gras</a>
-  <a href="exercices.html">Exercices</a>
-  <a href="entrainement.html">Séance</a>
-  <a href="plan.html">Plan personnalisé</a>
-  <a href="boutique.html">PDF & Programmes</a>
-  <a href="premium.html">Premium</a>
-  <a href="compte.html">Mon compte</a>
+<nav class="topnav">
+  <a href="index.html">🏠<span>Accueil</span></a>
+  <a href="prise_masse.html">💪<span>Masse</span></a>
+  <a href="perte_gras.html">🔥<span>Perte</span></a>
+  <a href="exercices.html">📋<span>Exos</span></a>
+  <a href="seance.html">🎧<span>Séance</span></a>
+  <a href="plan.html">🧬<span>Plan</span></a>
 </nav>
 
-<section class="shop-container">
-  <div class="hero">
-    <div class="hero-tag">PROGRAMMES PDF • TÉLÉCHARGEABLES</div>
-    <h1>Prends un PDF, applique-le, progresse.</h1>
-    <p class="hero-sub">
-      Programmes complets Forge & Fit au format PDF. Entraînements structurés, semaines détaillées, exercices expliqués.
-      Parfait pour ceux qui veulent un plan clair sans réfléchir.
+<main class="page">
+  <section class="card">
+    <h1>Boutique Forge &amp; Fit</h1>
+    <p>
+      Ici tu pourras plus tard proposer tes programmes PDF, e-books, ou abonnements
+      premium. Pour l’instant, la boutique est en construction.
     </p>
-  </div>
-
-  <div class="pdf-grid">
-    <!-- PDF 1 -->
-    <div class="card">
-      <div class="pdf-tag">Prise de masse</div>
-      <h3>Programme Forge Basic – Masse 30 jours</h3>
-      <p class="price-pdf">19€ <span>• PDF téléchargeable</span></p>
-      <p>Programme complet de prise de masse sur 4 semaines, 4 à 5 séances par semaine, avec répartition des muscles, rep ranges et conseils nutrition.</p>
-      <ul>
-        <li>• 4 semaines structurées</li>
-        <li>• Planning clair jour par jour</li>
-        <li>• Recommandations nutrition</li>
-      </ul>
-      <!-- Ici tu mettras ton lien Stripe plus tard -->
-      <button style="margin-top:8px;" onclick="alertAchat()">Acheter (bientôt)</button>
-    </div>
-
-    <!-- PDF 2 -->
-    <div class="card">
-      <div class="pdf-tag">Perte de gras</div>
-      <h3>Programme Forge Shred – Sèche 21 jours</h3>
-      <p class="price-pdf">17€ <span>• PDF téléchargeable</span></p>
-      <p>Un plan agressif mais intelligent pour sécher 3 semaines, sans cramer ta masse musculaire. Muscu, cardio, HIIT léger.</p>
-      <ul>
-        <li>• Focus déficit raisonnable</li>
-        <li>• Combinaison muscu + cardio</li>
-        <li>• Conseils de repas type</li>
-      </ul>
-      <button style="margin-top:8px;" onclick="alertAchat()">Acheter (bientôt)</button>
-    </div>
-
-    <!-- PDF 3 -->
-    <div class="card">
-      <div class="pdf-tag">Transformation</div>
-      <h3>Forge Elite – Transformation 12 semaines</h3>
-      <p class="price-pdf">29€ <span>• PDF avancé</span></p>
-      <p>Le pack le plus complet : 12 semaines structurées, progression, phases, intensification. Idéal pour un gros avant / après.</p>
-      <ul>
-        <li>• Périodisation sur 3 mois</li>
-        <li>• Volume progressif</li>
-        <li>• Recommandations cardio et récupération</li>
-      </ul>
-      <button style="margin-top:8px;" onclick="alertAchat()">Acheter (bientôt)</button>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:18px;">
-    <h3>Comment ça va marcher ensuite ?</h3>
-    <p class="small">
-      Lorsqu’on branchera Stripe, chaque bouton "Acheter" ici enverra vers une page de paiement sécurisée.
-      Une fois le paiement validé, tu pourras afficher un lien de téléchargement du PDF
-      (hébergé sur Vercel ou un autre stockage).
+    <p style="margin-top:6px;font-size:13px;opacity:0.8;">
+      Idées : pack Prise de masse, pack Perte de gras, coaching personnalisé, etc.
     </p>
-  </div>
-</section>
+  </section>
 
-<footer>Forge & Fit © 2025 — Boutique PDF.</footer>
-
-<script>
-function alertAchat() {
-  alert("La boutique en ligne arrive bientôt. Pour l’instant, cette section est en mode vitrine.");
-}
-</script>
-
+  <footer>Forge &amp; Fit — Boutique (bientôt)</footer>
+</main>
 </body>
 </html>
