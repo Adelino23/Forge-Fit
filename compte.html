@@ -2,36 +2,92 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <title>Forge & Fit – Mon compte</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon compte – Forge & Fit</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<nav>
-  <div class="nav-scroll">
-    <a href="index.html">Accueil</a>
-    <a href="prise-masse.html">Prise de masse</a>
-    <a href="perte-gras.html">Perte de gras</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="entrainement.html">Séance</a>
-    <a href="plan.html">Plan perso</a>
-    <a href="compte.html">Compte</a>
-  </div>
+<nav class="topnav">
+  <a href="index.html">🏠<span>Accueil</span></a>
+  <a href="prise_masse.html">💪<span>Masse</span></a>
+  <a href="perte_gras.html">🔥<span>Perte</span></a>
+  <a href="exercices.html">📋<span>Exos</span></a>
+  <a href="seance.html">🎧<span>Séance</span></a>
+  <a href="plan.html">🧬<span>Plan</span></a>
 </nav>
 
-<div class="page">
-
+<main class="page">
   <section class="card">
-    <h1 class="hero-title">Mon compte</h1>
-    <p class="hero-sub">Historique des séances :</p>
+    <h1>Mon compte</h1>
+    <p>Simple espace perso en local sur ton téléphone (rien n’est envoyé sur un serveur).</p>
 
-    <div id="history" style="margin-top:20px;line-height:1.7;"></div>
+    <form id="profil-form">
+      <label>Pseudo :</label>
+      <input id="pseudo" type="text" placeholder="ForgeLino">
+
+      <label>Poids (kg) :</label>
+      <input id="poids" type="number" step="0.1">
+
+      <label>Taille (cm) :</label>
+      <input id="taille" type="number">
+
+      <label>Objectif actuel :</label>
+      <select id="objectif-profil">
+        <option value="masse">Prise de masse</option>
+        <option value="perte">Perte de gras</option>
+        <option value="perf">Performance</option>
+      </select>
+
+      <button type="submit" class="btn-main" style="margin-top:14px;">💾 Sauvegarder</button>
+    </form>
   </section>
 
-  <footer>Forge & Fit © 2025</footer>
+  <section class="card" id="profil-view" style="display:none;">
+    <h2>Résumé</h2>
+    <div class="info-row">Pseudo : <span id="v-pseudo"></span></div>
+    <div class="info-row">Poids : <span id="v-poids"></span> kg</div>
+    <div class="info-row">Taille : <span id="v-taille"></span> cm</div>
+    <div class="info-row">Objectif : <span id="v-objectif"></span></div>
+  </section>
 
-</div>
+  <footer>Forge &amp; Fit — Mon compte (stocké en local)</footer>
+</main>
+
+<script>
+const keyProfil = "forgefit_profil";
+const formProfil = document.getElementById("profil-form");
+const viewProfil = document.getElementById("profil-view");
+
+function loadProfil() {
+  const data = localStorage.getItem(keyProfil);
+  if (!data) return;
+  const p = JSON.parse(data);
+  document.getElementById("pseudo").value = p.pseudo || "";
+  document.getElementById("poids").value = p.poids || "";
+  document.getElementById("taille").value = p.taille || "";
+  document.getElementById("objectif-profil").value = p.objectif || "masse";
+  document.getElementById("v-pseudo").textContent = p.pseudo || "-";
+  document.getElementById("v-poids").textContent = p.poids || "-";
+  document.getElementById("v-taille").textContent = p.taille || "-";
+  document.getElementById("v-objectif").textContent = p.objectif || "-";
+  viewProfil.style.display = "block";
+}
+
+formProfil.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const profil = {
+    pseudo: document.getElementById("pseudo").value,
+    poids: document.getElementById("poids").value,
+    taille: document.getElementById("taille").value,
+    objectif: document.getElementById("objectif-profil").value
+  };
+  localStorage.setItem(keyProfil, JSON.stringify(profil));
+  loadProfil();
+  alert("Profil sauvegardé ✅");
+});
+
+loadProfil();
+</script>
 </body>
 </html>
