@@ -2,60 +2,101 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <title>Forge & Fit – Plan perso</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plan personnalisé – Forge & Fit</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<nav>
-  <div class="nav-scroll">
-    <a href="index.html">Accueil</a>
-    <a href="prise-masse.html">Prise de masse</a>
-    <a href="perte-gras.html">Perte de gras</a>
-    <a href="exercices.html">Exercices</a>
-    <a href="entrainement.html">Séance</a>
-    <a href="plan.html">Plan perso</a>
-    <a href="compte.html">Compte</a>
-  </div>
+<nav class="topnav">
+  <a href="index.html">🏠<span>Accueil</span></a>
+  <a href="prise_masse.html">💪<span>Masse</span></a>
+  <a href="perte_gras.html">🔥<span>Perte</span></a>
+  <a href="exercices.html">📋<span>Exos</span></a>
+  <a href="seance.html">🎧<span>Séance</span></a>
+  <a href="plan.html">🧬<span>Plan</span></a>
 </nav>
 
-<div class="page">
-
+<main class="page">
   <section class="card">
-    <div class="hero-kicker">PERSONNALISATION</div>
-    <h1 class="hero-title">Créer ton plan</h1>
-    <p class="hero-sub">Réponds et reçois ton programme optimisé.</p>
+    <h1>Crée ton plan personnalisé</h1>
+    <p>Réponds à quelques questions, et on te propose une structure simple que tu peux suivre dès demain.</p>
+
+    <form id="plan-form">
+      <label>Niveau actuel :</label>
+      <select id="niveau">
+        <option value="debutant">Débutant</option>
+        <option value="intermediaire">Intermédiaire</option>
+        <option value="avance">Avancé</option>
+      </select>
+
+      <label>Objectif principal :</label>
+      <select id="objectif">
+        <option value="masse">Prise de masse</option>
+        <option value="perte">Perte de gras</option>
+        <option value="perf">Performance / force</option>
+      </select>
+
+      <label>Nombre de séances par semaine :</label>
+      <select id="frequence">
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5+</option>
+      </select>
+
+      <button type="submit" class="btn-main" style="margin-top:16px;">Générer mon plan</button>
+    </form>
   </section>
 
-  <section class="card">
-    <h2>Questionnaire</h2>
-
-    <label style="display:block;margin-top:12px;">Ton objectif :</label>
-    <select id="obj">
-      <option>Prise de masse</option>
-      <option>Perte de gras</option>
-      <option>Endurance</option>
-      <option>Renfo général</option>
-    </select>
-
-    <label style="display:block;margin-top:12px;">Niveau :</label>
-    <select id="niv">
-      <option>Débutant</option>
-      <option>Intermédiaire</option>
-      <option>Avancé</option>
-    </select>
-
-    <button class="btn btn-primary" style="margin-top:18px;" onclick="genPlan()">
-      Générer mon plan
-    </button>
-
-    <div id="result" style="margin-top:20px;line-height:1.8;"></div>
+  <section class="card" id="plan-result" style="display:none;">
+    <h2>Ton plan Forge &amp; Fit</h2>
+    <p id="plan-text"></p>
   </section>
 
-  <footer>Forge & Fit © 2025</footer>
-</div>
+  <footer>Forge &amp; Fit — Plan personnalisé</footer>
+</main>
 
+<script>
+const form = document.getElementById("plan-form");
+const result = document.getElementById("plan-result");
+const planText = document.getElementById("plan-text");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const niveau = document.getElementById("niveau").value;
+  const obj = document.getElementById("objectif").value;
+  const freq = document.getElementById("frequence").value;
+
+  let texte = "Voici une base de travail : ";
+
+  if (obj === "masse") {
+    texte += "focalise-toi sur la surcharge progressive en gardant les mouvements de base (squat, développé couché, traction, terre). ";
+  } else if (obj === "perte") {
+    texte += "priorise le déficit calorique modéré et garde 3–4 séances de muscu pour préserver le muscle. ";
+  } else {
+    texte += "mets l’accent sur les charges lourdes et la technique parfaite sur les mouvements de base. ";
+  }
+
+  if (freq === "3") {
+    texte += "Avec 3 séances/semaine, pars sur un full-body trois fois, avec des variantes. ";
+  } else if (freq === "4") {
+    texte += "Avec 4 séances, un half-body est idéal (haut / bas, 2× chacun). ";
+  } else {
+    texte += "Avec 5 séances ou plus, utilise un split (ex : push / pull / legs + rappel). ";
+  }
+
+  if (niveau === "debutant") {
+    texte += "Garde les choses simples, concentre-toi sur la technique, et augmente doucement les charges.";
+  } else if (niveau === "intermediaire") {
+    texte += "Tu peux commencer à jouer sur le volume, les tempos, et les cycles de progression.";
+  } else {
+    texte += "Optimise les détails : gestion de la fatigue, deloads, variations intelligentes de mouvements.";
+  }
+
+  planText.textContent = texte;
+  result.style.display = "block";
+  result.scrollIntoView({ behavior: "smooth" });
+});
+</script>
 </body>
 </html>
